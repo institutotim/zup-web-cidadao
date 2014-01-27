@@ -14,6 +14,10 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale; }
 
+* {
+  outline: none;
+}
+
 body.statistics { background-color: #f3f3f3; }
 
 h1, h2, h3, h4, h5, h6 {
@@ -104,7 +108,8 @@ a.btn-login { padding: 16px 0; }
     text-transform: none;
     font-weight: 400;
     font-size: 18px;
-    line-height: 1; }
+    line-height: 1;
+}
 
 .btn-forgot {
     &:hover {
@@ -534,8 +539,18 @@ input.knob:after { content: "%" !important; }
 
 .small-width { width: 500px; }
 
+.extra-small-width { width: 300px; }
+
 .modal_login .modal-dialog {
   @extend .large-width;
+}
+
+.modal_signup .modal-dialog {
+  @extend .medium-width;
+}
+
+.modal_alert .modal-dialog {
+  @extend .small-width;
 }
 
 .modal-content {
@@ -691,19 +706,54 @@ input.knob:after { content: "%" !important; }
             &:hover, &:focus {
                 border-color: #2ab4dc;
                 box-shadow: none; }
+
+            &.has-error {
+              border-color: #b94a48;
+              box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+              color: #b94a48;
+            }
         }
 
         label {
             margin-bottom: 10px;
             color: #999;
             font-weight: 400;
-            font-size: 14px; }
+            font-size: 14px;
 
-        input#password, input#password2, .telefone, .cpf, .complemento, .cep {
+            &.has-error {
+              color: #b94a48;
+            }
+        }
+
+        .input_password, .input_password_confirmation, .telefone, .cpf, .complemento, .cep {
             display: inline-block;
             width: 190px; }
 
-        input#password, .telefone, .complemento { margin-right: 16px; }
+        .input_password, .telefone, .complemento { margin-right: 16px; }
+    }
+
+    .simple_alert {
+      float: left;
+      padding-bottom: 55px;
+      width: 500px;
+      background-color: #fff;
+      line-height: 1;
+
+        h1 {
+            padding: 25px 30px 7px 30px;
+            color: $blueNavigation;
+            text-align: left;
+            font-weight: 300;
+            font-size: 30px; }
+
+        div.middle {
+            padding: 0 30px 0 30px;
+            font-size: 14px;
+        }
+
+        .btn {
+            margin: 20px 0 0 0;
+            width: 120px; }
     }
 
     /* Esqueci a minha senha */

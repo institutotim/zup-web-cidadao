@@ -85,18 +85,23 @@ angular.module('zupWebAngularApp', [
     $modal.open({
       templateUrl: 'views/modal_login.html',
       windowClass: 'modal_login',
-      controller: ['$scope', '$modalInstance', 'User', function($scope, $modalInstance, User) {
+      controller: ['$scope', '$rootScope', '$modalInstance', 'User', function($scope, $rootScope, $modalInstance, User) {
 
-        $scope.input = {};
+        $scope.inputs = {};
 
-        $scope.close = function () {
+        $scope.close = function() {
           $modalInstance.close();
+        };
+
+        $scope.signup = function() {
+          $modalInstance.close();
+          $rootScope.signup();
         };
 
         $scope.login = function() {
           $scope.loginError = false;
 
-          var user = new User($scope.input.email, $scope.input.password);
+          var user = new User($scope.inputs.email, $scope.inputs.password);
 
           user.auth().then(function() {
             $rootScope.logged = true;
@@ -107,6 +112,38 @@ angular.module('zupWebAngularApp', [
               $scope.loginError = true;
             }
           });
+        };
+      }]
+    });
+  };
+
+  $rootScope.signup = function() {
+    $modal.open({
+      templateUrl: 'views/modal_signup.html',
+      windowClass: 'modal_signup',
+      controller: ['$scope', '$modalInstance', 'Users', 'Alert', function($scope, $modalInstance, Users, Alert) {
+
+        $scope.inputs = {};
+
+        $scope.close = function () {
+          $modalInstance.close();
+        };
+
+        $scope.register = function() {
+
+          $scope.inputErrors = {};
+          $scope.processingForm = true;
+
+          var newUser = new Users($scope.inputs);
+
+          newUser.$save(function() {
+            $modalInstance.close();
+            Alert.show('Parabéns!', 'Sua conta foi criada com sucesso. Agora você pode efetuar solicitações de limpeza de boca de lobo e para coletas de entulho.');
+          }, function(response) {
+            $scope.processingForm = false;
+            $scope.inputErrors = response.data.error;
+          });
+
         };
       }]
     });
