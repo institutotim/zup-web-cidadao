@@ -1,36 +1,77 @@
-<div class="header">
-  <ul class="nav nav-pills pull-right">
-    <li class="active"><a ng-href="#">Home</a></li>
-    <li><a ng-href="#">About</a></li>
-    <li><a ng-href="#">Contact</a></li>
-  </ul>
-  <h3 class="text-muted">zup web angular</h3>
-</div>
+<header>
+    <div class="container">
+        <div class="logo">
+            <img src="images/topo_logo_zup.png" alt="ZUP">
+        </div><!--/.logo -->
+        <div class="navigation centered-pills">
+            <ul class="nav nav-pills">
+                <li class="active"><a href="index.html">Explore</a></li>
+                <li><a href="statistics.html">Estatísticas</a></li>
+            </ul>
+        </div><!--/.navigation -->
+        <div class="account">
+            <a href="#" class="btn btn-azul" data-toggle="modal" data-target="#new"><img src="images/solicitacao.png"> Faça uma solicitação</a>
+            <a href="#" class="btn btn-auth" data-toggle="modal" data-target="#auth">Entrar ou criar conta</a>
+        </div><!--/.account -->
+    </div><!--/.container -->
+</header>
 
-<div class="jumbotron">
-  <h1>'Allo, 'Allo!</h1>
-  <p class="lead">
-    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
-    Always a pleasure scaffolding your apps.
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#">Splendid!</a></p>
-</div>
+<div class="clearfix"></div>
 
-<div class="row marketing">
-  <h4>HTML5 Boilerplate</h4>
-  <p>
-    HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.
-  </p>
-
-  <h4>Angular</h4>
-  <p>
-    AngularJS is a toolset for building the framework most suited to your application development.
-  </p>
-
-  <h4>Karma</h4>
-  <p>Spectacular Test Runner for JavaScript.</p>
-</div>
-
-<div class="footer">
-  <p>♥ from the Yeoman team</p>
-</div>
+<section id="content">
+    <div class="container">
+        <div class="col-xs-4 aside">
+            <h6>Exibir solicitações de</h6>
+            <a href="#" class="filtro-boca-lobo active">Limpeza de boca de lobo</a>
+            <a href="#" class="filtro-entulho active">Coleta de entulho</a>
+            <hr />
+            <div id="slider"></div>
+            <div class="slider-dots">
+                <div class="slider-1">Últimos<br />6 meses</div>
+                <div class="slider-2">Últimos<br />3 meses</div>
+                <div class="slider-3">Último<br />mês</div>
+                <div class="slider-4">Última<br />semana</div>
+            </div><!--/.slider-dots -->
+            <div class="clearfix"></div>
+            <ul class="nav nav-pills nav-stacked">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        Todos os status <img src="images/filtros_chevron_normal.png">
+                    </a>
+                    <ul class="dropdown-menu right">
+                        <li><a href="#" class="selected">Todos os status</a></li>
+                        <li><a href="#">Resolvidos</a></li>
+                        <li><a href="#">Em andamento</a></li>
+                        <li><a href="#">Em aberto</a></li>
+                        <li><a href="#">Não resolvidos</a></li>
+                    </ul>
+                <li><a href="#">Todos os bairros</a></li>
+            </ul>
+            <h6>Exibir pontos de</h6>
+            <a href="#" class="exibir-floresta-urbana">Floresta urbana</a>
+            <a href="#" class="exibir-pracas-wifi">Praças com Wi-Fi</a>
+            <a href="#" class="exibir-bocas-lobo">Bocas de<br />lobo</a>
+        </div><!--/.col-xs-4 -->
+        <div class="col-xs-8 map">
+            <!--<div class="padding">
+                <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#item">
+                    Item do inventário
+                </button>
+                <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#signup">
+                    Criar nova conta
+                </button>
+                <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#forgot">
+                    Esqueci minha senha
+                </button>
+                <a href="account.html" class="btn btn-primary btn-lg">
+                    Minha conta
+                </a>
+            </div>-->
+            <div id="map-canvas" class="mapa"></div>
+            <form role="form">
+                <input type="name" id="search" placeholder="Pesquisar">
+                <input type="reset" id="reset" value="x">
+            </form>
+        </div><!--/.col-xs-8 -->
+    </div><!--/.container -->
+</section>
