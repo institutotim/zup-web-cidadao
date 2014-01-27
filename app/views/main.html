@@ -2,40 +2,59 @@
     <div class="container">
         <div class="logo">
             <img src="images/topo_logo_zup.png" alt="ZUP">
-        </div><!--/.logo -->
+        </div>
+
         <div class="navigation centered-pills">
             <ul class="nav nav-pills">
                 <li class="active"><a href="index.html">Explore</a></li>
                 <li><a href="statistics.html">Estatísticas</a></li>
             </ul>
-        </div><!--/.navigation -->
+        </div>
+
         <div class="account">
             <a href="#" class="btn btn-azul" data-toggle="modal" data-target="#new"><img src="images/solicitacao.png"> Faça uma solicitação</a>
-            <a href="#" class="btn btn-auth" data-toggle="modal" data-target="#auth">Entrar ou criar conta</a>
-        </div><!--/.account -->
-    </div><!--/.container -->
+            <a href="" class="btn btn-auth" ng-click="login()" ng-hide="logged">Entrar ou criar conta</a>
+
+            <div class="dropdown" ng-show="logged">
+                <a data-toggle="dropdown" href="" class="btn-logged-in">Pedro Felipe<span class="arrow"></span>&nbsp;</a>
+
+                <ul class="dropdown-menu">
+                    <li><a href="">Minhas solicitações</a></li>
+                    <li><a href="">Alterar cadastro</a></li>
+                    <li><a href="" ng-click="logout()">Sair</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </header>
 
 <div class="clearfix"></div>
 
 <section id="content">
+
     <div class="container">
         <div class="col-xs-4 aside">
             <h6>Exibir solicitações de</h6>
-            <a href="#" class="filtro-boca-lobo active">Limpeza de boca de lobo</a>
-            <a href="#" class="filtro-entulho active">Coleta de entulho</a>
+
+            <a href="" class="filtro-boca-lobo active">Limpeza de boca de lobo</a>
+            <a href="" class="filtro-entulho active">Coleta de entulho</a>
+
             <hr />
+
             <div id="slider"></div>
+
             <div class="slider-dots">
                 <div class="slider-1">Últimos<br />6 meses</div>
                 <div class="slider-2">Últimos<br />3 meses</div>
                 <div class="slider-3">Último<br />mês</div>
                 <div class="slider-4">Última<br />semana</div>
-            </div><!--/.slider-dots -->
+            </div>
+
             <div class="clearfix"></div>
+
             <ul class="nav nav-pills nav-stacked">
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <a class="dropdown-toggle" href="">
                         Todos os status <img src="images/filtros_chevron_normal.png">
                     </a>
                     <ul class="dropdown-menu right">
@@ -47,31 +66,20 @@
                     </ul>
                 <li><a href="#">Todos os bairros</a></li>
             </ul>
+
             <h6>Exibir pontos de</h6>
-            <a href="#" class="exibir-floresta-urbana">Floresta urbana</a>
-            <a href="#" class="exibir-pracas-wifi">Praças com Wi-Fi</a>
-            <a href="#" class="exibir-bocas-lobo">Bocas de<br />lobo</a>
-        </div><!--/.col-xs-4 -->
+            <a href="" class="exibir-floresta-urbana">Floresta urbana</a>
+            <a href="" class="exibir-pracas-wifi">Praças com Wi-Fi</a>
+            <a href="" class="exibir-bocas-lobo">Bocas de<br />lobo</a>
+        </div>
+
         <div class="col-xs-8 map">
-            <!--<div class="padding">
-                <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#item">
-                    Item do inventário
-                </button>
-                <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#signup">
-                    Criar nova conta
-                </button>
-                <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#forgot">
-                    Esqueci minha senha
-                </button>
-                <a href="account.html" class="btn btn-primary btn-lg">
-                    Minha conta
-                </a>
-            </div>-->
             <div id="map-canvas" class="mapa"></div>
             <form role="form">
                 <input type="name" id="search" placeholder="Pesquisar">
                 <input type="reset" id="reset" value="x">
             </form>
-        </div><!--/.col-xs-8 -->
-    </div><!--/.container -->
+        </div>
+    </div>
+
 </section>
