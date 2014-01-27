@@ -7,6 +7,8 @@ angular.module('zupWebAngularApp')
     restrict: 'A',
     link: function(scope, element) {
 
+      element.css({'width': $(window).width() - 300, 'height': $(window).height() });
+
       /* Google Maps */
       var styles = [{}, {
           'featureType': 'poi.business',
@@ -334,6 +336,10 @@ angular.module('zupWebAngularApp')
             infowindow.open(map, this);
           });
       };
+
+      $(window).resize(function() {
+        element.css({'width': $(window).width() - 300, 'height': $(window).height() });
+      });
     }
   };
 });
