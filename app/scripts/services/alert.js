@@ -20,7 +20,7 @@ angular.module('zupWebAngularApp')
           $scope.title = text.title;
           $scope.message = text.message;
 
-          $scope.ok = function () {
+          $scope.close = function () {
             $modalInstance.close();
           };
         }]
