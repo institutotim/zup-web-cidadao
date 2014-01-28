@@ -60,7 +60,7 @@ angular.module('zupWebAngularApp', [
   delete $httpProvider.defaults.headers.common['X-Requested-With'];
 })
 
-.run(['$rootScope', '$location', 'Auth', '$modal', function($rootScope, $location, Auth, $modal) {
+.run(['$rootScope', '$location', 'Auth', '$modal', 'Reports', function($rootScope, $location, Auth, $modal, Reports) {
 
   $rootScope.$on('$routeChangeStart', function(e, curr, prev) {
     if (typeof prev === 'undefined')
@@ -79,6 +79,10 @@ angular.module('zupWebAngularApp', [
       $rootScope.isLoading = false;
       $rootScope.false = true;
     });
+  });
+
+  Reports.get(function(data) {
+    $rootScope.categories = data.categories;
   });
 
   $rootScope.login = function() {
@@ -145,6 +149,55 @@ angular.module('zupWebAngularApp', [
           });
 
         };
+      }]
+    });
+  };
+
+  $rootScope.newReport = function() {
+    $modal.open({
+      templateUrl: 'views/modal_new_report.html',
+      windowClass: 'modal_new_report',
+      controller: ['$scope', '$modalInstance', 'Reports', 'Alert', function($scope, $modalInstance, Reports, Alert) {
+
+        $scope.inputs = {
+          description: null
+        };
+
+        $scope.categoryData = null;
+        $scope.lat = null;
+        $scope.lng = null;
+        $scope.formattedAddress = null;
+        $scope.policy = false;
+
+        $scope.close = function () {
+          $modalInstance.close();
+        };
+
+        $scope.selectCategory = function(categoryData) {
+          $scope.categoryData = categoryData;
+        };
+
+        $scope.send = function() {
+          $scope.inputErrors = {};
+          $scope.processingForm = true;
+
+          var newReport = new Reports({
+            categoryId: $scope.categoryData.id,
+            latitude: $scope.lat,
+            longitude: $scope.lng,
+            description: $scope.inputs.description,
+            address: $scope.formattedAddress
+          });
+
+          newReport.$save(function() {
+            $modalInstance.close();
+            Alert.show('Relato criado com sucesso', 'Agora você pode checar o status do seu relato no menu superior.');
+          }, function(response) {
+            $scope.processingForm = false;
+            $scope.inputErrors = response.data.error;
+          });
+        };
+
       }]
     });
   };

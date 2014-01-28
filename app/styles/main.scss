@@ -553,6 +553,10 @@ input.knob:after { content: "%" !important; }
   @extend .small-width;
 }
 
+.modal_new_report .modal-dialog {
+  @extend .medium-width;
+}
+
 .modal-content {
     border: 0;
     border-radius: 0;
@@ -872,13 +876,16 @@ input.knob:after { content: "%" !important; }
             margin: 0 40px;
             border-color: #b2b2b2; }
 
-        a.filtro-boca-lobo, a.filtro-entulho {
+        a.filtro {
             display: inline-block;
             margin: 25px 80px 45px -25px;
             width: 220px;
             height: 70px;
             color: #999;
             text-decoration: none;
+            background-position: center top;
+            background-repeat: no-repeat;
+            opacity: 0.5;
             -webkit-transition: all 0.15s ease;
             -moz-transition:    all 0.15s ease;
             -ms-transition:     all 0.15s ease;
@@ -886,42 +893,17 @@ input.knob:after { content: "%" !important; }
             transition:         all 0.15s ease;
 
             &:hover {
+                opacity: 1;
                 color: #808080; }
 
             &.active {
+                opacity: 1;
                 color: #fff; }
 
             .text {
                 position: relative;
                 top: 25px;
                 left: 115px;
-                color: #000; }
-        }
-
-        a.filtro-entulho {
-            margin-left: -30px;
-            .text { left: 100px; }
-        }
-
-        .filtro-boca-lobo {
-            background: url('../images/nova-solicitacao_icon_boca-lobo_disabled.png') no-repeat center top;
-
-           &:hover {
-                background: url('../images/nova-solicitacao_icon_boca-lobo_hover.png') no-repeat center top; }
-
-            &.active {
-                background: url('../images/nova-solicitacao_icon_boca-lobo_active.png') no-repeat center top;
-                color: #000; }
-        }
-
-        .filtro-entulho {
-            background: url('../images/nova-solicitacao_entulho_disabled.png') no-repeat center top;
-
-           &:hover {
-                background: url('../images/nova-solicitacao_entulho_hover.png') no-repeat center top; }
-
-            &.active {
-                background: url('../images/nova-solicitacao_entulho_active.png') no-repeat center top;
                 color: #000; }
         }
 
@@ -1219,6 +1201,13 @@ input.knob:after { content: "%" !important; }
     padding: 0;
     width: 100%;
     height: 400px; }
+
+.formattedAddress {
+  display: block;
+  margin: 20px 0 0 0;
+  font-size: 11px;
+  color: #666;
+}
 
 #search {
     position: absolute;

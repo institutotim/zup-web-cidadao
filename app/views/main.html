@@ -12,7 +12,8 @@
         </div>
 
         <div class="account">
-            <a href="#" class="btn btn-azul" data-toggle="modal" data-target="#new"><img src="images/solicitacao.png"> Faça uma solicitação</a>
+            <a href="" class="btn btn-azul" ng-click="newReport()" ng-show="logged"><img src="images/solicitacao.png"> Faça uma solicitação</a>
+            <a href="" class="btn btn-azul" ng-click="login()" ng-hide="logged"><img src="images/solicitacao.png"> Faça uma solicitação</a>
             <a href="" class="btn btn-auth" ng-click="login()" ng-hide="logged">Entrar ou criar conta</a>
 
             <div class="dropdown" ng-show="logged">
