@@ -3,7 +3,7 @@
     <div class="padding">
         <h1>Protocolo {{ report.protocol }}</h1>
         <hr />
-        <span class="resolvido">Resolvido</span>
+        <span class="resolvido" ng-style="{'background-color': status.color }">{{ status.title }}</span>
         <h2>{{ category.title }}</h2>
         <p class="muted">{{ report.address }}</p>
         <b>Enviada há {{ report.created_at | date: 'dd/MM/yy HH:mm'}}</b>

@@ -236,6 +236,15 @@ angular.module('zupWebAngularApp', [
           $modalInstance.close();
         };
 
+        for (var i = category.statuses.length - 1; i >= 0; i--) {
+          if (category.statuses[i].id === report.status_id)
+          {
+            $scope.status = category.statuses[i];
+          }
+        }
+
+        console.log($scope.status);
+
       }]
     });
   };
