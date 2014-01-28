@@ -81,9 +81,22 @@ angular.module('zupWebAngularApp', [
     });
   });
 
+  $rootScope.categories = {};
+
   Reports.get(function(data) {
     $rootScope.categories = data.categories;
   });
+
+  $rootScope.getReportCategory = function(id) {
+    for (var i = $rootScope.categories.length - 1; i >= 0; i--) {
+      if ($rootScope.categories[i].id === id)
+      {
+        return $rootScope.categories[i];
+      }
+    }
+
+    return null;
+  };
 
   $rootScope.login = function() {
     $modal.open({
@@ -196,6 +209,31 @@ angular.module('zupWebAngularApp', [
             $scope.processingForm = false;
             $scope.inputErrors = response.data.error;
           });
+        };
+
+      }]
+    });
+  };
+
+  $rootScope.viewReport = function(report, category) {
+    $modal.open({
+      templateUrl: 'views/modal_view_report.html',
+      windowClass: 'modal_view_report',
+      resolve: {
+        report: function() {
+          return report;
+        },
+
+        category: function() {
+          return category;
+        }
+      },
+      controller: ['$scope', '$modalInstance', 'report', 'category', function($scope, $modalInstance, report, category) {
+        $scope.report = report;
+        $scope.category = category;
+
+        $scope.close = function () {
+          $modalInstance.close();
         };
 
       }]

@@ -557,6 +557,10 @@ input.knob:after { content: "%" !important; }
   @extend .medium-width;
 }
 
+.modal_view_report .modal-dialog {
+  width: 420px;
+}
+
 .modal-content {
     border: 0;
     border-radius: 0;

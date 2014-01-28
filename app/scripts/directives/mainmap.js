@@ -1,8 +1,9 @@
 /* global $, google */
+/* jshint camelcase: false, -W083 */
 'use strict';
 
 angular.module('zupWebAngularApp')
-  .directive('mainMap', function (Reports) {
+  .directive('mainMap', function (Reports, $rootScope, $compile) {
     return {
       restrict: 'A',
       link: function postLink(scope, element) {
@@ -17,7 +18,7 @@ angular.module('zupWebAngularApp')
 
         var mapOptions = {
           center: homeLatlng,
-          zoom: 17,
+          zoom: 15,
           disableDefaultUI: true,
           mapTypeControlOptions: {
             mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'zup']
@@ -34,15 +35,51 @@ angular.module('zupWebAngularApp')
           element.css({'width': $(window).width() - 300, 'height': $(window).height() });
         });
 
+        google.maps.event.addListener(map, 'center_changed', function() {
+          //console.log(map.getCenter());
+        });
+
         var params = {
           'position[latitude]': -23.549671,
           'position[longitude]': -46.6321713,
-          'position[distance]': 10000,
+          'position[distance]': 100000,
           'max_items': 40
         };
 
+        // FIXME Only use
         Reports.getItems(params, function(data) {
-          console.log(data);
+          for (var i = data.reports.length - 1; i >= 0; i--) {
+            var LatLng = new google.maps.LatLng(data.reports[i].position.latitude, data.reports[i].position.longitude);
+
+            var infowindow = new google.maps.InfoWindow(),
+                category = $rootScope.getReportCategory(data.reports[i].category_id);
+
+            var pin = new google.maps.Marker({
+                position: LatLng,
+                map: map,
+                animation: google.maps.Animation.DROP,
+                icon: category.marker.url,
+                category: category,
+                report: data.reports[i]
+              });
+
+            google.maps.event.addListener(pin, 'click', function() {
+              var html = '<div class="pinTooltip"><h1>{{category.title}}</h1><p>Enviada {{ report.created_at | date: \'dd/MM/yy HH:mm\'}}</p><a href="" ng-click="viewReport(report, category)">Ver detalhes</a></div>';
+
+              var new_scope = scope.$new(true);
+
+              new_scope.category = this.category;
+              new_scope.report = this.report;
+              new_scope.viewReport = $rootScope.viewReport;
+
+              var compiled = $compile(html)(new_scope);
+
+              new_scope.$apply();
+
+              infowindow.setContent(compiled[0]);
+              infowindow.open(map, this);
+            });
+          }
         });
       }
     };
