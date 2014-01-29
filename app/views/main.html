@@ -37,8 +37,7 @@
         <div class="col-xs-4 aside">
             <h6>Exibir solicitações de</h6>
 
-            <a href="" class="filtro-boca-lobo active">Limpeza de boca de lobo</a>
-            <a href="" class="filtro-entulho active">Coleta de entulho</a>
+            <a href="" class="sidebar_filter active" ng-repeat="category in categories" ng-style="{'background-image':'url(' + category.icon.url + ')'}" ng-click="selectCategory(category)" report-category-icon>{{ category.title }}</a>
 
             <hr />
 
