@@ -1667,11 +1667,11 @@ input.knob:after { content: "%" !important; }
           font-weight: 400;
           font-size: 14px; }
 
-      input#password, input#password2, .telefone, .cpf, .complemento, .cep {
-          display: inline-block;
-          width: 190px; }
+        .input_password, .input_password_confirmation, .telefone, .cpf, .complemento, .cep {
+            display: inline-block;
+            width: 190px; }
 
-      input#password, .telefone, .complemento { margin-right: 16px; }
+        .input_password, .telefone, .complemento { margin-right: 16px; }
 
   }
 }

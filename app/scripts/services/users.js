@@ -6,7 +6,7 @@ angular.module('zupWebAngularApp')
   return $resource('{base_url}/users/:id.json', { id:'@id' },
     {
       'save': { method: 'POST', expectedErrors: [400] },
-      'update': { method: 'PUT' },
+      'update': { method: 'PUT', expectedErrors: [400] },
       'getAll': { method: 'GET' },
     });
 });
