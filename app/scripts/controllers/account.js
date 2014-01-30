@@ -12,7 +12,7 @@ angular.module('zupWebAngularApp')
 
     Users.update($scope.me, function() {
       $scope.processingForm = false;
-      Alert.show('Parabéns!', 'Sua conta foi criada com sucesso. Agora você pode efetuar solicitações de limpeza de boca de lobo e para coletas de entulho.');
+      Alert.show('Parabéns!', 'Dados atualizados com sucesso.');
     }, function(response) {
       $scope.processingForm = false;
       $scope.inputErrors = response.data.error;
