@@ -60,7 +60,7 @@ angular.module('zupWebAngularApp', [
   delete $httpProvider.defaults.headers.common['X-Requested-With'];
 })
 
-.run(['$rootScope', '$location', 'Auth', '$modal', 'Reports', function($rootScope, $location, Auth, $modal, Reports) {
+.run(['$rootScope', '$q', '$location', 'Auth', '$modal', 'Reports', function($rootScope, $q, $location, Auth, $modal, Reports) {
 
   $rootScope.$on('$routeChangeStart', function(e, curr, prev) {
     if (typeof prev === 'undefined')
@@ -71,22 +71,38 @@ angular.module('zupWebAngularApp', [
     // Check if user has a cookie with token
     var check = Auth.check();
 
-    check.then(function() {
-      // onSuccess
+    // Save references of our markers in $rootScope
+    $rootScope.markers = {
+      reports: {},
+      items: {}
+    };
+
+    // Get categories
+    $rootScope.categories = {};
+
+    var reportsCategories = Reports.get(function(data) {
+      $rootScope.categories = data.categories;
+    });
+
+    // Wait for all categories to load
+    $q.all([reportsCategories.$promise, check.$promise]).then(function() {
+      // Create objects in the markers array for each report category
+      for (var i = $rootScope.categories.length - 1; i >= 0; i--) {
+        $rootScope.markers.reports[$rootScope.categories[i].id] = [];
+      }
+
       $rootScope.isLoading = false;
+    });
+
+    // Mark user as logged
+    check.then(function() {
       $rootScope.logged = true;
     }, function() {
-      $rootScope.isLoading = false;
-      $rootScope.false = true;
+      $rootScope.logged = false;
     });
   });
 
-  $rootScope.categories = {};
-
-  Reports.get(function(data) {
-    $rootScope.categories = data.categories;
-  });
-
+  // Helper
   $rootScope.getReportCategory = function(id) {
     for (var i = $rootScope.categories.length - 1; i >= 0; i--) {
       if ($rootScope.categories[i].id === id)
@@ -96,6 +112,25 @@ angular.module('zupWebAngularApp', [
     }
 
     return null;
+  };
+
+  $rootScope.filterByReportCategory = function(category) {
+    for (var categoryId in $rootScope.markers.reports)
+    {
+      if (categoryId == category.id)
+      {
+        for (var i = $rootScope.markers.reports[categoryId].length - 1; i >= 0; i--) {
+          if ($rootScope.markers.reports[categoryId][i].getVisible() === true)
+          {
+            $rootScope.markers.reports[categoryId][i].setVisible(false);
+          }
+          else
+          {
+            $rootScope.markers.reports[categoryId][i].setVisible(true);
+          }
+        };
+      }
+    }
   };
 
   $rootScope.login = function() {
@@ -242,9 +277,6 @@ angular.module('zupWebAngularApp', [
             $scope.status = category.statuses[i];
           }
         }
-
-        console.log($scope.status);
-
       }]
     });
   };

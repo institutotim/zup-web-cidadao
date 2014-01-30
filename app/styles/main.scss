@@ -327,15 +327,20 @@ header {
         -ms-transition:     all 0.15s ease;
         -o-transition:      all 0.15s ease;
         transition:         all 0.15s ease;
+        opacity: 0.3;
 
         background-repeat: no-repeat;
         background-position: center top;
 
         &:hover {
-            color: #808080; }
+          color: #808080;
+          opacity: 1;
+        }
 
         &.active {
-            color: #fff; }
+          color: #fff;
+          opacity: 1;
+        }
     }
 
     .filtro-boca-lobo, .exibir-bocas-lobo {
@@ -1364,4 +1369,22 @@ input.knob:after { content: "%" !important; }
         padding-right: 0;
         padding-left: 0;
         width: 100% !important; }
+}
+
+#main_loading {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 10000;
+  display: table;
+
+  span {
+    display: table-cell;
+    vertical-align: middle;
+    color: #FFF;
+    font-size: 27px;
+    text-align: center;
+    font-weight: bold;
+  }
 }

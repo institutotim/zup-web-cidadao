@@ -39,45 +39,55 @@ angular.module('zupWebAngularApp')
           //console.log(map.getCenter());
         });
 
-        var params = {
-          'position[latitude]': -23.549671,
-          'position[longitude]': -46.6321713,
-          'position[distance]': 100000,
-          'max_items': 40
-        };
+        scope.$watch('isLoading', function() {
+          if (scope.isLoading === false)
+          {
+            // After we get everything that is needed to render the map...
+            var params = {
+              'position[latitude]': -23.549671,
+              'position[longitude]': -46.6321713,
+              'position[distance]': 100000,
+              'max_items': 40
+            };
 
-        // FIXME Only use
-        Reports.getItems(params, function(data) {
-          for (var i = data.reports.length - 1; i >= 0; i--) {
-            var LatLng = new google.maps.LatLng(data.reports[i].position.latitude, data.reports[i].position.longitude);
+            // FIXME Only use
+            Reports.getItems(params, function(data) {
+              for (var i = data.reports.length - 1; i >= 0; i--) {
+                var LatLng = new google.maps.LatLng(data.reports[i].position.latitude, data.reports[i].position.longitude);
 
-            var infowindow = new google.maps.InfoWindow(),
-                category = $rootScope.getReportCategory(data.reports[i].category_id);
+                var infowindow = new google.maps.InfoWindow(),
+                    category = $rootScope.getReportCategory(data.reports[i].category_id);
 
-            var pin = new google.maps.Marker({
-                position: LatLng,
-                map: map,
-                animation: google.maps.Animation.DROP,
-                icon: category.marker.url,
-                category: category,
-                report: data.reports[i]
-              });
+                var pin = new google.maps.Marker({
+                    position: LatLng,
+                    map: map,
+                    animation: google.maps.Animation.DROP,
+                    icon: category.marker.url,
+                    category: category,
+                    report: data.reports[i]
+                  });
 
-            google.maps.event.addListener(pin, 'click', function() {
-              var html = '<div class="pinTooltip"><h1>{{category.title}}</h1><p>Enviada {{ report.created_at | date: \'dd/MM/yy HH:mm\'}}</p><a href="" ng-click="viewReport(report, category)">Ver detalhes</a></div>';
+                $rootScope.markers.reports[category.id].push(pin);
 
-              var new_scope = scope.$new(true);
+                google.maps.event.addListener(pin, 'click', function() {
+                  var html = '<div class="pinTooltip"><h1>{{category.title}}</h1><p>Enviada {{ report.created_at | date: \'dd/MM/yy HH:mm\'}}</p><a href="" ng-click="viewReport(report, category)">Ver detalhes</a></div>';
 
-              new_scope.category = this.category;
-              new_scope.report = this.report;
-              new_scope.viewReport = $rootScope.viewReport;
+                  var new_scope = scope.$new(true);
 
-              var compiled = $compile(html)(new_scope);
+                  new_scope.category = this.category;
+                  new_scope.report = this.report;
+                  new_scope.viewReport = $rootScope.viewReport;
 
-              new_scope.$apply();
+                  var compiled = $compile(html)(new_scope);
 
-              infowindow.setContent(compiled[0]);
-              infowindow.open(map, this);
+                  new_scope.$apply();
+
+                  infowindow.setContent(compiled[0]);
+                  infowindow.open(map, this);
+                });
+              }
+
+              console.log($rootScope.markers);
             });
           }
         });
