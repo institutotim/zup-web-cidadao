@@ -16,11 +16,13 @@ angular.module('zupWebAngularApp', [
     })
     .when('/reports', {
       templateUrl: 'views/reports.html',
-      controller: 'ReportsCtrl'
+      controller: 'ReportsCtrl',
+      access: { logged: true }
     })
     .when('/account', {
       templateUrl: 'views/account.html',
-      controller: 'AccountCtrl'
+      controller: 'AccountCtrl',
+      access: { logged: true }
     })
     .otherwise({
       redirectTo: '/'
@@ -120,6 +122,11 @@ angular.module('zupWebAngularApp', [
       $rootScope.logged = true;
     }, function() {
       $rootScope.logged = false;
+
+      if (typeof curr.access !== 'undefined' && curr.access.logged === true)
+      {
+        $location.path('/');
+      }
     });
   });
 
@@ -306,6 +313,7 @@ angular.module('zupWebAngularApp', [
     Auth.clearToken();
     Auth.saveUser(null);
     $rootScope.logged = false;
+    $location.path('/');
   };
 
 }]);
