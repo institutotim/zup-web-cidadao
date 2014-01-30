@@ -18,6 +18,10 @@ angular.module('zupWebAngularApp', [
       templateUrl: 'views/reports.html',
       controller: 'ReportsCtrl'
     })
+    .when('/account', {
+      templateUrl: 'views/account.html',
+      controller: 'AccountCtrl'
+    })
     .otherwise({
       redirectTo: '/'
     });
@@ -70,6 +74,15 @@ angular.module('zupWebAngularApp', [
     if (typeof prev === 'undefined')
     {
       $rootScope.isLoading = true;
+    }
+
+    if (curr.controller === 'MainCtrl')
+    {
+      $rootScope.page = 'main';
+    }
+    else if (curr.controller === 'ReportsCtrl')
+    {
+      $rootScope.page = 'account';
     }
 
     // Check if user has a cookie with token
@@ -132,7 +145,7 @@ angular.module('zupWebAngularApp', [
           {
             $rootScope.markers.reports[categoryId][i].setVisible(true);
           }
-        };
+        }
       }
     }
   };
