@@ -6,7 +6,7 @@ angular.module('zupWebAngularApp')
       restrict: 'A',
       link: function postLink(scope, element) {
         scope.$watch('page', function() {
-          if (scope.page === 'account')
+          if (scope.page === 'reports' || scope.page === 'account')
           {
             element.addClass('account');
           }

@@ -1630,4 +1630,48 @@ input.knob:after { content: "%" !important; }
           font-weight: 700;
           font-size: 12px; }
   }
+
+  /* Dados */
+  .dados {
+      padding-top: 70px;
+      padding-bottom: 70px;
+      width: 730px;
+      height: 820px;
+      background-color: #fff;
+
+      form {
+          margin: 0 auto;
+          width: 400px; }
+
+      .form-control {
+          height: 50px;
+          border-color: #dcdcdc;
+          -webkit-border-radius: 5px;
+          -moz-border-radius: 5px;
+          border-radius: 5px;
+          -webkit-background-clip: padding-box;
+          -moz-background-clip: padding;
+          background-clip: padding-box;
+          box-shadow: none;
+          color: #000;
+          font-size: 16px;
+
+          &:hover, &:focus {
+              border-color: #2ab4dc;
+              box-shadow: none; }
+      }
+
+      label {
+          margin-bottom: 10px;
+          color: #999;
+          font-weight: 400;
+          font-size: 14px; }
+
+      input#password, input#password2, .telefone, .cpf, .complemento, .cep {
+          display: inline-block;
+          width: 190px; }
+
+      input#password, .telefone, .complemento { margin-right: 16px; }
+
+  }
 }

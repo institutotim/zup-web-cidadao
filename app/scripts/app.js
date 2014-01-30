@@ -82,6 +82,10 @@ angular.module('zupWebAngularApp', [
     }
     else if (curr.controller === 'ReportsCtrl')
     {
+      $rootScope.page = 'reports';
+    }
+    else if (curr.controller === 'AccountCtrl')
+    {
       $rootScope.page = 'account';
     }
 
