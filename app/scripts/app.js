@@ -73,9 +73,48 @@ angular.module('zupWebAngularApp', [
 .run(['$rootScope', '$q', '$location', 'Auth', '$modal', 'Reports', function($rootScope, $q, $location, Auth, $modal, Reports) {
 
   $rootScope.$on('$routeChangeStart', function(e, curr, prev) {
+
+    // Save references of our markers in $rootScope
+    $rootScope.markers = {
+      reports: {},
+      items: {}
+    };
+
+    $rootScope.categories = {};
+
     if (typeof prev === 'undefined')
     {
       $rootScope.isLoading = true;
+
+      // Check if user has a cookie with token
+      var check = Auth.check();
+
+      // Mark user as logged
+      check.then(function() {
+        $rootScope.logged = true;
+      }, function() {
+        $rootScope.logged = false;
+
+        if (typeof curr.access !== 'undefined' && curr.access.logged === true)
+        {
+          $location.path('/');
+        }
+      });
+
+      // Get categories
+      var reportsCategories = Reports.get(function(data) {
+        $rootScope.categories = data.categories;
+      });
+
+      // Wait for all categories to load
+      $q.all([reportsCategories.$promise, check.$promise]).then(function() {
+        // Create objects in the markers array for each report category
+        for (var i = $rootScope.categories.length - 1; i >= 0; i--) {
+          $rootScope.markers.reports[$rootScope.categories[i].id] = [];
+        }
+
+        $rootScope.isLoading = false;
+      });
     }
 
     if (curr.controller === 'MainCtrl')
@@ -90,44 +129,6 @@ angular.module('zupWebAngularApp', [
     {
       $rootScope.page = 'account';
     }
-
-    // Check if user has a cookie with token
-    var check = Auth.check();
-
-    // Save references of our markers in $rootScope
-    $rootScope.markers = {
-      reports: {},
-      items: {}
-    };
-
-    // Get categories
-    $rootScope.categories = {};
-
-    var reportsCategories = Reports.get(function(data) {
-      $rootScope.categories = data.categories;
-    });
-
-    // Wait for all categories to load
-    $q.all([reportsCategories.$promise, check.$promise]).then(function() {
-      // Create objects in the markers array for each report category
-      for (var i = $rootScope.categories.length - 1; i >= 0; i--) {
-        $rootScope.markers.reports[$rootScope.categories[i].id] = [];
-      }
-
-      $rootScope.isLoading = false;
-    });
-
-    // Mark user as logged
-    check.then(function() {
-      $rootScope.logged = true;
-    }, function() {
-      $rootScope.logged = false;
-
-      if (typeof curr.access !== 'undefined' && curr.access.logged === true)
-      {
-        $location.path('/');
-      }
-    });
   });
 
   // Helper
