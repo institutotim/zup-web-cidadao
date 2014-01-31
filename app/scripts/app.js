@@ -74,16 +74,16 @@ angular.module('zupWebAngularApp', [
 
   $rootScope.$on('$routeChangeStart', function(e, curr, prev) {
 
-    // Save references of our markers in $rootScope
-    $rootScope.markers = {
-      reports: {},
-      items: {}
-    };
-
-    $rootScope.categories = {};
-
     if (typeof prev === 'undefined')
     {
+     // Save references of our markers in $rootScope
+      $rootScope.markers = {
+        reports: {},
+        items: {}
+      };
+
+      $rootScope.categories = {};
+
       $rootScope.isLoading = true;
 
       // Check if user has a cookie with token

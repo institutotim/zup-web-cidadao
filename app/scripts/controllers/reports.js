@@ -1,10 +1,18 @@
 'use strict';
 
 angular.module('zupWebAngularApp')
-  .controller('ReportsCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+.controller('ReportsCtrl', function ($scope, Reports) {
+  $scope.loadingReports = true;
+
+  Reports.getMyItems(function(data) {
+    $scope.reports = data.reports;
+
+    $scope.current_report = data.reports[0];
+
+    $scope.loadingReports = false;
   });
+
+  $scope.viewReport = function(report) {
+    $scope.current_report = report;
+  };
+});

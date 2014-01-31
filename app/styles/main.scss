@@ -1474,6 +1474,25 @@ input.knob:after { content: "%" !important; }
       }
   }
 
+  .loadingReports {
+    padding-right: 0;
+    padding-left: 0;
+    width: 730px;
+    height: 820px;
+    border-right: 1px solid #ccc;
+    background-color: #fff;
+    display: table;
+
+    span {
+      display: table-cell;
+      vertical-align: middle;
+      color: #999;
+      font-size: 27px;
+      text-align: center;
+      font-weight: bold;
+    }
+  }
+
   .solicitacoes {
       overflow-y: scroll;
       padding-right: 0;
@@ -1510,7 +1529,7 @@ input.knob:after { content: "%" !important; }
           .time { color: #fff; }
       }
 
-      .aberto, .andamento, .resolvido, .nao-resolvido {
+      .ball_status {
           position: relative;
           top: 1px;
           display: inline-block;
@@ -1518,14 +1537,6 @@ input.knob:after { content: "%" !important; }
           width: 12px;
           height: 12px;
           border-radius: 50px; }
-
-      .aberto { background-color: #ff5f4d; }
-
-      .andamento { background-color: #ffac2c; }
-
-      .resolvido { background-color: #76cc4f; }
-
-      .nao-resolvido { background-color: #979797; }
 
       .time {
           float: right;
@@ -1600,7 +1611,10 @@ input.knob:after { content: "%" !important; }
           color: #fff;
           text-transform: uppercase;
           font-weight: 700;
-          line-height: 1; }
+          line-height: 1;
+          min-width: 70px;
+          text-align: center;
+      }
 
       .aberto { background-color: #ff5f4d; }
 

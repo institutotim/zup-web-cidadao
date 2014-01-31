@@ -45,51 +45,35 @@
               </ul>
           </div><!--/.side -->
 
-          <div class="col-xs-4 solicitacoes">
+          <div class="col-xs-9 loadingReports" ng-show="loadingReports">
+            <span>Carregando...</span>
+          </div>
+
+          <div class="col-xs-4 solicitacoes" ng-hide="loadingReports">
               <ul class="nav nav-pills nav-stacked">
-                  <li class="active"><a href="#"><span class="aberto"></span> Limpeza de boca de lobo <span class="time">Hoje</span></a></li>
-                  <li><a href="#"><span class="andamento"></span> Coleta de entulho<span class="time">Ontem</span></a></li>
-                  <li><a href="#"><span class="resolvido"></span> Limpeza de boca de lobo<span class="time">há 2 dias</span></a></li>
-                  <li><a href="#"><span class="nao-resolvido"></span> Coleta de entulho<span class="time">há 1 semana</span></a></li>
-                  <li><a href="#"><span class="aberto"></span> Limpeza de boca de lobo<span class="time">há 3 semanas</span></a></li>
-                  <li><a href="#"><span class="andamento"></span> Coleta de entulho<span class="time">há 1 mês</span></a></li>
-                  <li><a href="#"><span class="resolvido"></span> Limpeza de boca de lobo<span class="time">há 4 meses</span></a></li>
-                  <li><a href="#"><span class="nao-resolvido"></span> Coleta de entulho<span class="time">há 10 meses</span></a></li>
-                  <li><a href="#"><span class="aberto"></span> Limpeza de boca de lobo<span class="time">há 1 ano</span></a></li>
+                  <li ng-repeat="report in reports" ng-class="{ active: report == current_report }"><a href="" ng-click="viewReport(report)"><span class="ball_status" ng-style="{'background-color': report.status.color }"></span> {{ report.category.title }} <span class="time">{{ report.created_at | date: 'dd/MM/yy HH:mm'}}</span></a></li>
               </ul>
           </div><!--/.solicitacoes -->
 
-          <div class="col-xs-5 solicitacao">
+          <div class="col-xs-5 solicitacao" ng-hide="loadingReports">
               <div class="padding">
-                  <h1>Protocolo 74658R7R8R9T</h1>
+                  <h1>Protocolo {{ current_report.protocol }}</h1>
                   <hr />
-                  <span class="aberto">Em aberto</span>
-                  <h2>Limpeza de boca de lobo</h2>
-                  <p class="muted">Rua Conselheiro Ramalho, 745, Bela Vista - São Paulo</p>
-                  <b>Enviada hoje</b>
+                  <span class="aberto" ng-style="{'background-color': current_report.status.color }">{{ current_report.status.title }}</span>
+                  <h2>{{ current_report.category.title }}</h2>
+                  <p class="muted">{{ current_report.address }}</p>
+                  <b>Enviada {{ current_report.created_at | date: 'dd/MM/yy HH:mm'}}</b>
               </div><!--/.padding -->
-              <div id="carousel" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner">
-                      <div class="item active">
-                          <img src="images/infos/bocalobo2.jpg">
-                      </div>
-                      <div class="item">
-                          <img src="images/infos/bocalobo4.jpg">
-                      </div>
-                      <div class="item">
-                          <img src="images/infos/entulho1.jpg">
-                      </div>
-                  </div><!--/.carousel-inner -->
-                  <a class="left carousel-control" href="#carousel" data-slide="prev">
-                      <i class="fa fa-chevron-left"></i>
-                  </a>
-                  <a class="right carousel-control" href="#carousel" data-slide="next">
-                      <i class="fa fa-chevron-right"></i>
-                  </a>
-              </div><!--/.carousel -->
+
+              <carousel id="carousel" class="carousel slide">
+                <slide class="item" ng-repeat="image in current_report.images">
+                    <img ng-src="{{ image.url }}">
+                </slide>
+              </carousel><!--/.carousel -->
+
               <div class="padding">
-                  <p class="desc">Hoje choveu e com a boca de lobo entupida, a água não pode escoar, causando alagamento e transtornos para pedestres como eu.</p>
-                  <a href="#" class="desc">Ver detalhes da boca de lobo 28728472</a>
+                  <p class="desc">{{ current_report.description }}</p>
+                  <!--<a href="#" class="desc">Ver detalhes da boca de lobo 28728472</a>-->
               </div><!--/.padding -->
           </div><!--/.solicitacao -->
 
