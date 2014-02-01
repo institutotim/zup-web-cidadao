@@ -7,12 +7,12 @@ angular.module('zupWebAngularApp')
   Reports.getMyItems(function(data) {
     $scope.reports = data.reports;
 
-    $scope.current_report = data.reports[0];
+    $scope.currentReport = data.reports[0];
 
     $scope.loadingReports = false;
   });
 
   $scope.viewReport = function(report) {
-    $scope.current_report = report;
+    $scope.currentReport = report;
   };
 });
