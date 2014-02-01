@@ -1,3 +1,4 @@
+/* jshint camelcase: false */
 'use strict';
 
 angular.module('zupWebAngularApp', [
@@ -146,7 +147,7 @@ angular.module('zupWebAngularApp', [
   $rootScope.filterByReportCategory = function(category) {
     for (var categoryId in $rootScope.markers.reports)
     {
-      if (categoryId == category.id)
+      if (parseInt(categoryId) === category.id)
       {
         for (var i = $rootScope.markers.reports[categoryId].length - 1; i >= 0; i--) {
           if ($rootScope.markers.reports[categoryId][i].getVisible() === true)
