@@ -18,7 +18,7 @@
             <a href="" class="btn btn-auth" ng-click="login()" ng-hide="logged">Entrar ou criar conta</a>
 
             <div class="dropdown" ng-show="logged">
-                <a data-toggle="dropdown" href="" class="btn-logged-in">{{ me.email }} <span class="arrow"></span>&nbsp;</a>
+                <a data-toggle="dropdown" href="" class="btn-logged-in">{{ me.name }} <span class="arrow"></span>&nbsp;</a>
 
                 <ul class="dropdown-menu">
                     <li><a href="#/reports">Minhas solicitações</a></li>
@@ -36,7 +36,7 @@
       <div class="container">
           <div class="col-xs-3 aside">
               <div class="padding">
-                  <h3>{{ me.email }}</h3>
+                  <h3>{{ me.name }}</h3>
                   <b>15 solicitações</b>
               </div><!--/.padding -->
               <ul class="nav nav-pills nav-stacked">
