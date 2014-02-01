@@ -19,9 +19,22 @@ angular.module('zupWebAngularApp')
         var mapOptions = {
           center: homeLatlng,
           zoom: 15,
-          disableDefaultUI: true,
-          mapTypeControlOptions: {
-            mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'zup']
+          mapTypeControl: false,
+          panControl: true,
+          panControlOptions: {
+              position: google.maps.ControlPosition.TOP_RIGHT
+          },
+          zoomControl: true,
+          zoomControlOptions: {
+            position: google.maps.ControlPosition.TOP_RIGHT
+          },
+          scaleControl: true,
+          scaleControlOptions: {
+            position: google.maps.ControlPosition.TOP_RIGHT
+          },
+          streetViewControl: true,
+          streetViewControlOptions: {
+            position: google.maps.ControlPosition.TOP_RIGHT
           }
         };
 
