@@ -102,6 +102,8 @@ angular.module('zupWebAngularApp')
             });
           }
         });
+
+        $rootScope.map = map;
       }
     };
   });
