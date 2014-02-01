@@ -47,6 +47,17 @@ angular.module('zupWebAngularApp')
           marker.setPosition(place.geometry.location);
           marker.setVisible(true);
         });
+
+        // Detect when it's on streetview to hide search bar
+        var thePanorama = map.getStreetView();
+
+        google.maps.event.addListener(thePanorama, 'visible_changed', function() {
+          if (thePanorama.getVisible()) {
+            element.hide();
+          } else {
+            element.show();
+          }
+        });
       }
     };
   });
