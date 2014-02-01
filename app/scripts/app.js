@@ -234,7 +234,7 @@ angular.module('zupWebAngularApp', [
     $modal.open({
       templateUrl: 'views/modal_new_report.html',
       windowClass: 'modal_new_report',
-      controller: ['$scope', '$modalInstance', 'Reports', 'Alert', function($scope, $modalInstance, Reports, Alert) {
+      controller: ['$scope', '$modalInstance', 'Reports', 'Alert', '$route', function($scope, $modalInstance, Reports, Alert, $route) {
 
         $scope.inputs = {
           description: null
@@ -268,7 +268,9 @@ angular.module('zupWebAngularApp', [
 
           newReport.$save(function() {
             $modalInstance.close();
-            Alert.show('Relato criado com sucesso', 'Agora você pode checar o status do seu relato no menu superior.');
+            Alert.show('Relato criado com sucesso', 'Agora você pode checar o status do seu relato no menu superior.', function() {
+              $route.reload();
+            });
           }, function(response) {
             $scope.processingForm = false;
             $scope.inputErrors = response.data.error;

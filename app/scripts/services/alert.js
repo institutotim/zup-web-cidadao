@@ -6,7 +6,7 @@ angular.module('zupWebAngularApp')
 
   return {
     // Show a pretty modal with debug information about the error
-    show: function (title, message) {
+    show: function (title, message, callback) {
 
       $modal.open({
         templateUrl: 'views/modal_alert.html',
@@ -20,9 +20,20 @@ angular.module('zupWebAngularApp')
           $scope.title = text.title;
           $scope.message = text.message;
 
-          $scope.close = function () {
-            $modalInstance.close();
-          };
+          if (typeof callback === 'undefined')
+          {
+            $scope.close = function () {
+              $modalInstance.close();
+            };
+          }
+          else
+          {
+            $scope.close = function() {
+              callback();
+
+              $modalInstance.close();
+            };
+          }
         }]
       });
     }
