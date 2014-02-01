@@ -11,23 +11,29 @@
 
     <div ng-hide="categoryData == null">
         <h3>2. Selecione o endereço ou arraste o marcador até a posição exata</h3>
-        
-        <div id="map-canvas" report-map></div>
 
-        <span class="formattedAddress">{{ formattedAddress }}</span>
-        
+        <div class="report_map">
+          <div id="map-canvas" report-map></div>
+          <form role="form">
+              <input type="name" class="search_map" placeholder="Pesquisar" ng-model="$parent.formattedAddress" search-report-map>
+              <input type="reset" class="reset_map" value="x">
+          </form>
+        </div>
+
+        <!--<span class="formattedAddress">{{ formattedAddress }}</span>-->
+
         <h3>3. Adicione uma ou até 3 fotos</h3>
-        
+
         <hr />
-        
+
         <form role="form" ng-submit="send()">
             <div class="upload btn btn-default btn-upload">
                 <span>Selecione o arquivo</span>
                 <input type="file" id="upload">
             </div>
-            
+
             <textarea class="form-control" rows="4" ng-model="inputs.description"></textarea>
-            
+
             <div class="col-xs-6 checkboxes">
                 <div class="checkbox">
                     <label>
@@ -35,7 +41,7 @@
                     </label>
                 </div>
             </div>
-            
+
             <div class="col-xs-6 checkboxes" style="display: none;">
                 <div class="checkbox">
                     <label>
@@ -43,7 +49,7 @@
                     </label>
                 </div>
             </div>
-            
+
             <button type="submit" class="btn btn-default btn-azul btn-signup btn-forgot btn-publish" ng-disabled="!policy">Publicar</button>
         </form>
 
