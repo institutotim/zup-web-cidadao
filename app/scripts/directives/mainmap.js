@@ -17,26 +17,26 @@ angular.module('zupWebAngularApp')
         var homeLatlng = new google.maps.LatLng(-23.549671, -46.6321713);
 
         var mapOptions = {
-          center: homeLatlng,
-          zoom: 15,
-          mapTypeControl: false,
-          panControl: true,
-          panControlOptions: {
+            center: homeLatlng,
+            zoom: 15,
+            mapTypeControl: false,
+            panControl: true,
+            panControlOptions: {
               position: google.maps.ControlPosition.TOP_RIGHT
-          },
-          zoomControl: true,
-          zoomControlOptions: {
-            position: google.maps.ControlPosition.TOP_RIGHT
-          },
-          scaleControl: true,
-          scaleControlOptions: {
-            position: google.maps.ControlPosition.TOP_RIGHT
-          },
-          streetViewControl: true,
-          streetViewControlOptions: {
-            position: google.maps.ControlPosition.TOP_RIGHT
-          }
-        };
+            },
+            zoomControl: true,
+            zoomControlOptions: {
+              position: google.maps.ControlPosition.TOP_RIGHT
+            },
+            scaleControl: true,
+            scaleControlOptions: {
+              position: google.maps.ControlPosition.TOP_RIGHT
+            },
+            streetViewControl: true,
+            streetViewControlOptions: {
+              position: google.maps.ControlPosition.TOP_RIGHT
+            }
+          };
 
         var map = new google.maps.Map(element[0], mapOptions);
 

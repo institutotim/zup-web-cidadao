@@ -1,11 +1,11 @@
+/* global google */
 'use strict';
 
 angular.module('zupWebAngularApp')
   .directive('searchMap', function ($rootScope) {
     return {
       restrict: 'A',
-      link: function postLink(scope, element, attrs) {
-
+      link: function postLink(scope, element) {
         var map = $rootScope.map;
 
         var options = {
