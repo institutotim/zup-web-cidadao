@@ -17,6 +17,7 @@ angular.module('zupWebAngularApp')
           center: homeLatLng,
           zoom: 17,
           scrollwheel: false,
+          mapTypeControl: false,
           mapTypeControlOptions: {
             mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'zup']
           }
@@ -36,8 +37,7 @@ angular.module('zupWebAngularApp')
         map.setMapTypeId('zup');
 
         // Set position and address
-        google.maps.event.addListener(marker, 'dragend', function()
-        {
+        var changedMarkerPosition = function() {
           var geocoder = new google.maps.Geocoder();
 
           scope.$parent.lat = marker.getPosition().lat();
@@ -51,12 +51,14 @@ angular.module('zupWebAngularApp')
             if (status === google.maps.GeocoderStatus.OK)
             {
               scope.$parent.formattedAddress = results[0].formatted_address;
-            }
-            else
-            {
-              console.log('Cannot determine address at this location.' + status);
+
+              scope.$apply();
             }
           });
+        };
+
+        google.maps.event.addListener(marker, 'dragend', function() {
+          changedMarkerPosition();
         });
 
         // refresh map when shown
@@ -77,6 +79,10 @@ angular.module('zupWebAngularApp')
             scope.$parent.formattedAddress = null;
           }, 80);
         });
+
+        scope.reportMap = map;
+        scope.reportMarker = marker;
+        scope.reportChangedMarkerPosition = changedMarkerPosition;
 
       }
     };
