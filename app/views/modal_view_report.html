@@ -7,7 +7,11 @@
         <h2>{{ category.title }}</h2>
         <p class="muted">{{ report.address }}</p>
         <b>Enviada em {{ report.created_at | date: 'dd/MM/yy HH:mm'}}</b>
-        <img ng-src="{{ report.images[0].url }}" ng-hide="report.images.length == 0">
+        <carousel id="carousel" class="carousel slide" ng-hide="report.images.length == 0">
+          <slide class="item" ng-repeat="image in report.images">
+              <img ng-src="{{ image.url }}">
+          </slide>
+        </carousel><!--/.carousel -->
         <p class="desc">{{ report.description }}</p>
     </div>
 </div>

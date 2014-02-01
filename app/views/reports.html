@@ -65,7 +65,7 @@
                   <b>Enviada {{ current_report.created_at | date: 'dd/MM/yy HH:mm'}}</b>
               </div><!--/.padding -->
 
-              <carousel id="carousel" class="carousel slide">
+              <carousel id="carousel" class="carousel">
                 <slide class="item" ng-repeat="image in current_report.images">
                     <img ng-src="{{ image.url }}">
                 </slide>
