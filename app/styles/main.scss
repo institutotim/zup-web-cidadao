@@ -1571,28 +1571,6 @@ input.knob:after { content: "%" !important; }
 
       img { max-width: 100%; }
 
-      .carousel-control {
-          top: 37%;
-          width: 10%;
-          height: 80px;
-          background: rgba(0,0,0,.5);
-          background-color: none;
-          text-shadow: none;
-          font-size: 25px;
-          line-height: 1;
-          opacity: 1;
-
-          .fa-chevron-left, .fa-chevron-right {
-              position: absolute;
-              top: 30px;
-              z-index: 5;
-              display: inline-block; }
-
-          .fa-chevron-left { left: 12px; }
-
-          .fa-chevron-right { left: 15px; }
-      }
-
       p.desc {
           margin-bottom: 20px;
           color: #666;
