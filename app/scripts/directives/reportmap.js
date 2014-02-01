@@ -16,6 +16,7 @@ angular.module('zupWebAngularApp')
         var mapOptions = {
           center: homeLatLng,
           zoom: 17,
+          scrollwheel: false,
           mapTypeControlOptions: {
             mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'zup']
           }
