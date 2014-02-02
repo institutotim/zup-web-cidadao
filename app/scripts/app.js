@@ -6,7 +6,8 @@ angular.module('zupWebAngularApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'ui.mask'
 ])
 
 .config(function ($routeProvider, $httpProvider) {
