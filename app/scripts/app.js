@@ -196,6 +196,41 @@ angular.module('zupWebAngularApp', [
             }
           });
         };
+
+        $scope.forgot = function() {
+          $modalInstance.close();
+          $rootScope.forgot();
+        };
+      }]
+    });
+  };
+
+  $rootScope.forgot = function() {
+    $modal.open({
+      templateUrl: 'views/modal_forgot_password.html',
+      windowClass: 'modal_forgot',
+      controller: ['$scope', '$modalInstance', 'Users', 'Alert', function($scope, $modalInstance, Users, Alert) {
+
+        $scope.inputs = {};
+
+        $scope.close = function () {
+          $modalInstance.close();
+        };
+
+        $scope.send = function() {
+
+          $scope.inputErrors = {};
+          $scope.processingForm = true;
+
+          Users.recoverPassword({ 'email': $scope.inputs.email }, function() {
+            $modalInstance.close();
+            Alert.show('E-mail enviado', 'Um e-mail foi enviado a você com instruções para redefinir a sua senha.');
+          }, function(response) {
+            $scope.processingForm = false;
+            $scope.inputErrors = response.data.error;
+          });
+
+        };
       }]
     });
   };
