@@ -1,0 +1,18 @@
+{
+  "name": "angular-ui-mask",
+  "main": "./mask.js",
+  "dependencies": {
+    "angular": ">= 1.0.2"
+  },
+  "homepage": "https://github.com/angular-ui/ui-utils",
+  "_release": "aec5ba1d15",
+  "_resolution": {
+    "type": "branch",
+    "branch": "bower-mask",
+    "commit": "aec5ba1d15d757d22967cfb0b18cd708a21b461b"
+  },
+  "_source": "git://github.com/angular-ui/ui-utils.git",
+  "_target": "bower-mask",
+  "_originalSource": "angular-ui-utils",
+  "_direct": true
+}

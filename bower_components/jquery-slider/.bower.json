@@ -1,0 +1,15 @@
+{
+  "name": "jquery-slider",
+  "homepage": "https://github.com/7LI/jQuery-slider",
+  "main": "./jquery.slider.js",
+  "_release": "0d5eebe4a9",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "0d5eebe4a986f19a0f399785bc62895779a9e8f8"
+  },
+  "_source": "git://github.com/7LI/jQuery-slider.git",
+  "_target": "*",
+  "_originalSource": "jquery-slider",
+  "_direct": true
+}
