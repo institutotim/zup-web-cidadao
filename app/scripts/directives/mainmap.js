@@ -3,7 +3,7 @@
 'use strict';
 
 angular.module('zupWebAngularApp')
-  .directive('mainMap', function (Reports, $rootScope, $compile) {
+  .directive('mainMap', function (Reports, $rootScope, $compile, $timeout) {
     return {
       restrict: 'A',
       link: function postLink(scope, element) {
@@ -52,52 +52,110 @@ angular.module('zupWebAngularApp')
           //console.log(map.getCenter());
         });
 
+        var waitingRequest = false;
+
         scope.$watch('isLoading', function() {
           if (scope.isLoading === false)
           {
+            // Start showing items from 6 months ago to today
+            var begin_date = new Date();
+            begin_date.setHours(0, 0, 0, 0);
+            begin_date = new Date(begin_date.getFullYear(), begin_date.getMonth() - 6, 1);
+            begin_date = begin_date.toISOString();
+
+            var end_date = new Date();
+            end_date.setHours(0, 0, 0, 0);
+            end_date = end_date.toISOString();
+
             // After we get everything that is needed to render the map...
             var params = {
               'position[latitude]': -23.549671,
               'position[longitude]': -46.6321713,
               'position[distance]': 100000,
-              'max_items': 40
+              'max_items': 40,
+              'begin_date': begin_date,
+              'end_date': end_date
             };
 
             // FIXME Only use
-            Reports.getItems(params, function(data) {
-              for (var i = data.reports.length - 1; i >= 0; i--) {
-                var LatLng = new google.maps.LatLng(data.reports[i].position.latitude, data.reports[i].position.longitude);
+            var getItems = function()
+            {
+              $rootScope.isLoadingMap = true;
 
-                var infowindow = new google.maps.InfoWindow(),
-                    category = $rootScope.getReportCategory(data.reports[i].category_id);
+              Reports.getItems(params, function(data) {
+                for (var i = data.reports.length - 1; i >= 0; i--) {
+                  var LatLng = new google.maps.LatLng(data.reports[i].position.latitude, data.reports[i].position.longitude);
 
-                var pin = new google.maps.Marker({
-                    position: LatLng,
-                    map: map,
-                    animation: google.maps.Animation.DROP,
-                    icon: category.marker.url,
-                    category: category,
-                    report: data.reports[i]
+                  var infowindow = new google.maps.InfoWindow(),
+                      category = $rootScope.getReportCategory(data.reports[i].category_id);
+
+                  var pin = new google.maps.Marker({
+                      position: LatLng,
+                      map: map,
+                      animation: google.maps.Animation.DROP,
+                      icon: category.marker.url,
+                      category: category,
+                      report: data.reports[i]
+                    });
+
+                  $rootScope.markers.reports[category.id][data.reports[i].id] = pin;
+                  pin.setVisible(true);
+
+                  google.maps.event.addListener(pin, 'click', function() {
+                    var html = '<div class="pinTooltip"><h1>{{category.title}}</h1><p>Enviada {{ report.created_at | date: \'dd/MM/yy HH:mm\'}}</p><a href="" ng-click="viewReport(report, category)">Ver detalhes</a></div>';
+
+                    var new_scope = scope.$new(true);
+
+                    new_scope.category = this.category;
+                    new_scope.report = this.report;
+                    new_scope.viewReport = $rootScope.viewReport;
+
+                    var compiled = $compile(html)(new_scope);
+
+                    new_scope.$apply();
+
+                    infowindow.setContent(compiled[0]);
+                    infowindow.open(map, this);
                   });
 
-                $rootScope.markers.reports[category.id].push(pin);
+                  $rootScope.isLoadingMap = false;
+                }
 
-                google.maps.event.addListener(pin, 'click', function() {
-                  var html = '<div class="pinTooltip"><h1>{{category.title}}</h1><p>Enviada {{ report.created_at | date: \'dd/MM/yy HH:mm\'}}</p><a href="" ng-click="viewReport(report, category)">Ver detalhes</a></div>';
+                console.log($rootScope.markers.reports);
+              });
+            };
 
-                  var new_scope = scope.$new(true);
+            getItems();
 
-                  new_scope.category = this.category;
-                  new_scope.report = this.report;
-                  new_scope.viewReport = $rootScope.viewReport;
+            /* Watch for period changes */
+            var currentTimeout = null;
 
-                  var compiled = $compile(html)(new_scope);
+            scope.$watch('itemsPeriod', function() {
+              if (typeof scope.itemsPeriod !== 'undefined')
+              {
+                // Start loading
+                $rootScope.isLoadingMap = true;
 
-                  new_scope.$apply();
+                // Hide every marker in the map
+                for (var i = $rootScope.categories.length - 1; i >= 0; i--) {
+                  angular.forEach($rootScope.markers.reports[$rootScope.categories[i].id], function(value, key){
+                    value.setVisible(false);
+                  });
+                };
 
-                  infowindow.setContent(compiled[0]);
-                  infowindow.open(map, this);
-                });
+                params.begin_date = scope.itemsPeriod.beginDate;
+                params.end_date = scope.itemsPeriod.endDate;
+
+                if(currentTimeout) {
+                  $timeout.cancel(currentTimeout);
+                }
+
+                currentTimeout = $timeout(function(){
+                  getItems();
+                }, 700);
+
+                // Active all filters back
+                angular.element('.sidebar_filter').addClass('active');
               }
             });
           }

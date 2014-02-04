@@ -1,4 +1,5 @@
 <div id="main_loading" ng-show="isLoading"><span>Carregando...</span></div>
+<div id="main_loading" ng-show="isLoadingMap"><span>Carregando mapa...</span></div>
 
 <header>
     <div class="container">
@@ -43,13 +44,15 @@
 
             <hr />
 
-            <div id="slider"></div>
+            <div class="slider_content">
+              <div id="slider" slider-filter></div>
 
-            <div class="slider-dots">
-                <div class="slider-1">Últimos<br />6 meses</div>
-                <div class="slider-2">Últimos<br />3 meses</div>
-                <div class="slider-3">Último<br />mês</div>
-                <div class="slider-4">Última<br />semana</div>
+              <div class="slider-dots">
+                  <div class="slider-1">Últimos<br />6 meses</div>
+                  <div class="slider-2">Últimos<br />3 meses</div>
+                  <div class="slider-3">Último<br />mês</div>
+                  <div class="slider-4">Última<br />semana</div>
+              </div>
             </div>
 
             <div class="clearfix"></div>
@@ -60,11 +63,12 @@
                         Todos os status <img src="images/filtros_chevron_normal.png">
                     </a>
                     <ul class="dropdown-menu right">
-                        <li><a href="#" class="selected">Todos os status</a></li>
+                        <li style="padding: 20px; background: #262626; color: #FFF; font-size: 13px;">Limpeza de boca de lobo</li>
+                        <li><a href="#" class="selected">Não resolvidos</a></li>
                         <li><a href="#">Resolvidos</a></li>
-                        <li><a href="#">Em andamento</a></li>
-                        <li><a href="#">Em aberto</a></li>
+                        <li style="padding: 20px; background: #262626; color: #FFF; font-size: 13px;">Coleta de entulho</li>
                         <li><a href="#">Não resolvidos</a></li>
+                        <li><a href="#" class="selected">Todos os status</a></li>
                     </ul>
             </ul>
 

@@ -112,7 +112,7 @@ angular.module('zupWebAngularApp', [
       $q.all([reportsCategories.$promise, check.$promise]).then(function() {
         // Create objects in the markers array for each report category
         for (var i = $rootScope.categories.length - 1; i >= 0; i--) {
-          $rootScope.markers.reports[$rootScope.categories[i].id] = [];
+          $rootScope.markers.reports[$rootScope.categories[i].id] = {};
         }
 
         $rootScope.isLoading = false;
@@ -150,16 +150,16 @@ angular.module('zupWebAngularApp', [
     {
       if (parseInt(categoryId) === category.id)
       {
-        for (var i = $rootScope.markers.reports[categoryId].length - 1; i >= 0; i--) {
-          if ($rootScope.markers.reports[categoryId][i].getVisible() === true)
+        angular.forEach($rootScope.markers.reports[categoryId], function(value, key){
+          if (value.getVisible() === true)
           {
-            $rootScope.markers.reports[categoryId][i].setVisible(false);
+            value.setVisible(false);
           }
           else
           {
-            $rootScope.markers.reports[categoryId][i].setVisible(true);
+            value.setVisible(true);
           }
-        }
+        });
       }
     }
   };
