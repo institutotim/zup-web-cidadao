@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="author" content="Nancle from CAU CS101" />
+<title>jquery-slide</title>
+</head>
+<script type="text/javascript" src="lib/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="lib/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="jquery.slider.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#vscroll").jScroll({
+			'scroll_enable' : true,
+			'scroll_pace' : 35			
+		});
+		
+	$("#hscroll").jScroll({
+			'scroll_enable' : true,
+			'scroll_pace' : 15,
+			'scroll_id' : 'hscroll',
+			'layout' : 'horizon'
+		});
+})
+</script>
+
+<style type="text/css">
+	/*site css start*/
+	body{background:#89b543; font-family:Verdana, Geneva, sans-serif; font-size:14px; line-height:29px}
+	.wrapper{ width:800px; margin:0 auto;  margin-bottom:10px;  }
+	.wrapper h1{ text-align:center; width:800px; font-size:30px }
+	.tip{ width:740px; margin:0 auto; background:#fff; padding:6px 30px}
+	.tip h1{ font-size:14px; line-height:30px}
+	.tip h1 span{font-size:13px; font-weight:normal; margin-left:10px}
+	.tip p{ margin:0 } .tip a{ color:#000; text-decoration:none }
+	.tip .codeWrapper{ background:#eaeaea }
+	.tip code{font-size:13px; font-family:Verdana, Geneva, sans-serif;}
+	.tip ol{ background:#eaeaea;}
+	.tip ol li{ list-style: decimal-leading-zero; border-left: 3px solid #999; padding: 0 5px;}
+	/*site css end*/
+	
+	/*core css start*/
+	#vscroll{ width:800px; height:200px; background:#eee; position:relative; overflow:hidden }
+	#vscroll_content_panel{ width:770px; height:200px; background:#fafafa; position:absolute; top:0px; left:0px; overflow:hidden }
+	#vscroll_content{ width:750px;  position:absolute; top:0; left:0; text-indent:30px; padding:6px 10px}
+	#vscroll_bar_panel{ width:20px; height:200px; background:#fafafa; position:absolute; top:0px; left:780px }
+	#vscroll_bar{ width:10px; height:50px; background-color:#000; position:absolute; top:0px; left:5px }
+	
+	#hscroll{ width:800px; height:200px; background:#eee; position:relative; overflow:hidden }
+	#hscroll_content_panel{ width:800px; height:160px; background:#fafafa; position:absolute;top:0px;left:0px; overflow:hidden; padding:6px 10px }
+	#hscroll_content{ height:160px; position:absolute; top:0; left:0; width:4000px; text-indent:30px;}
+	#hscroll_bar_panel{ width:800px; height:20px; background:#fafafa; position:absolute; top:180px; left:0px }
+	#hscroll_bar{ width:50px; height:10px; background-color:#000; position:absolute; top:5px; left:0px }
+	/*core css end*/
+</style>
+<body>
+	<div class="wrapper">
+    	<h1>jQuery-slider</h1>
+    </div>
+	<div class="wrapper">
+    	<div id="vscroll">
+        	<div id="vscroll_content_panel">
+            	<div id="vscroll_content">
+                	<p>我们过了江，进了车站。我买票，他忙着照看行李。行李太多了，得向脚夫行些小费才可过去。他便又忙着和他们讲价钱。我那时真是聪明过分，总觉他说话不大漂亮，非自己插嘴不可，但他终于讲定了价钱；就送我上车。他给我拣定了靠车门的一张椅子；我将他给我做的紫毛大衣铺好坐位。他嘱我路上小心，夜里警醒些，不要受凉。又嘱托茶房好好照应我。我心里暗笑他的迂；他们只认得钱，托他们只是白托！而且我这样大年纪的人，难道还不能料理自己么？唉，我现在想想，那时真是太聪明了！ 
+                    </p>
+                    <p>我说道，“爸爸，你走吧。”他望车外看了看说：“我买几个橘子去。你就在此地，不要走动。”我看那边月台的栅栏外有几个卖东西的等着顾客。走到那边月台，须穿过铁道，须跳下去又爬上去。父亲是一个胖子，走过去自然要费事些。我本来要去的，他不肯，只好让他去。我看见他戴着黑布小帽，穿着黑布大马褂，深青布棉袍，蹒跚地走到铁道边，慢慢探身下去，尚不大难。可是他穿过铁道，要爬上那边月台，就不容易了。他用两手攀着上面，两脚再向上缩；他肥胖的身子向左微倾，显出努力的样子。这时我看见他的背影，我的泪很快地流下来了。我赶紧拭干了泪。怕他看见，也怕别人看见。我再向外看时，他已抱了朱红的橘子往回走了。过铁道时，他先将橘子散放在地上，自己慢慢爬下，再抱起橘子走。到这边时，我赶紧去搀他。他和我走到车上，将橘子一股脑儿放在我的皮大衣上。于是扑扑衣上的泥土，心里很轻松似的。过一会说：“我走了，到那边来信！”我望着他走出去。他走了几步，回过头看见我，说：“进去吧，里边没人。”等他的背影混入来来往往的人里，再找不着了，我便进来坐下，我的眼泪又来了。 
+                    </p>
+                    <p>近几年来，父亲和我都是东奔西走，家中光景是一日不如一日。他少年出外谋生，独力支持，做了许多大事。哪知老境却如此颓唐！他触目伤怀，自然情不能自已。情郁于中，自然要发之于外；家庭琐屑便往往触他之怒。他待我渐渐不同往日。但最近两年的不见，他终于忘却我的不好，只是惦记着我，惦记着我的儿子。我北来后，他写了一信给我，信中说道：“我身体平安，惟膀子疼痛厉害，举箸提笔，诸多不便，大约大去之期不远矣。”我读到此处，在晶莹的泪光中，又看见那肥胖的、青布棉袍黑布马褂的背影。唉！我不知何时再能与他相见！ <strong>-- 摘自朱自清《背影》</strong></p>
+                </div>
+            </div>
+            <div id="vscroll_bar_panel">
+            	<div id="vscroll_bar"></div>
+            </div>
+   	    </div>
+    </div>     
+    <div class="wrapper">
+        <div id="hscroll">
+        	<div id="hscroll_content_panel">
+            	<div id="hscroll_content">
+                	<p>我们过了江，进了车站。我买票，他忙着照看行李。行李太多了，得向脚夫行些小费才可过去。他便又忙着和他们讲价钱。我那时真是聪明过分，总觉他说话不大漂亮，非自己插嘴不可，但他终于讲定了价钱；就送我上车。他给我拣定了靠车门的一张椅子；我将他给我做的紫毛大衣铺好坐位。他嘱我路上小心，夜里警醒些，不要受凉。又嘱托茶房好好照应我。我心里暗笑他的迂；他们只认得钱，托他们只是白托！而且我这样大年纪的人，难道还不能料理自己么？唉，我现在想想，那时真是太聪明了！ 
+                    </p>
+                    <p>我说道，“爸爸，你走吧。”他望车外看了看说：“我买几个橘子去。你就在此地，不要走动。”我看那边月台的栅栏外有几个卖东西的等着顾客。走到那边月台，须穿过铁道，须跳下去又爬上去。父亲是一个胖子，走过去自然要费事些。我本来要去的，他不肯，只好让他去。我看见他戴着黑布小帽，穿着黑布大马褂，深青布棉袍，蹒跚地走到铁道边，慢慢探身下去，尚不大难。可是他穿过铁道，要爬上那边月台，就不容易了。他用两手攀着上面，两脚再向上缩；他肥胖的身子向左微倾，显出努力的样子。这时我看见他的背影，我的泪很快地流下来了。我赶紧拭干了泪。怕他看见，也怕别人看见。我再向外看时，他已抱了朱红的橘子往回走了。过铁道时，他先将橘子散放在地上，自己慢慢爬下，再抱起橘子走。到这边时，我赶紧去搀他。他和我走到车上，将橘子一股脑儿放在我的皮大衣上。于是扑扑衣上的泥土，心里很轻松似的。过一会说：“我走了，到那边来信！”我望着他走出去。他走了几步，回过头看见我，说：“进去吧，里边没人。”等他的背影混入来来往往的人里，再找不着了，我便进来坐下，我的眼泪又来了。 
+                    </p>
+                    <p>近几年来，父亲和我都是东奔西走，家中光景是一日不如一日。他少年出外谋生，独力支持，做了许多大事。哪知老境却如此颓唐！他触目伤怀，自然情不能自已。情郁于中，自然要发之于外；家庭琐屑便往往触他之怒。他待我渐渐不同往日。但最近两年的不见，他终于忘却我的不好，只是惦记着我，惦记着我的儿子。我北来后，他写了一信给我，信中说道：“我身体平安，惟膀子疼痛厉害，举箸提笔，诸多不便，大约大去之期不远矣。”我读到此处，在晶莹的泪光中，又看见那肥胖的、青布棉袍黑布马褂的背影。唉！我不知何时再能与他相见！ <strong>-- 摘自朱自清《背影》</strong></p>
+                </div>
+            </div>
+            <div id="hscroll_bar_panel">
+            	<div id="hscroll_bar"></div>
+            </div>
+   	    </div>
+    </div>
+    <div class="tip">	
+    	<h1>经过IE6&IE6+，chrome，firefox测试兼容<span>使用方法： {yourId}替换成你的id</span></h1>
+      
+        <h1>HTML</h1>
+        <div class="codeWrapper">
+        	<ol>
+            	<li><code>&lt;div id="{yourId}"&gt;</code></li>
+                <li><code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div id="{yourId}_content_panel"&gt;</code></li>
+                <li><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div id="{yourId}_content"&gt;&lt;/div&gt;</code></li>
+                <li><code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</code></li>
+                <li><code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div id="{yourId}_bar_panel"&gt;</code></li>
+                <li><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div id="{yourId}_bar"&gt&lt;/div&gt;</code></li>
+                <li><code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</code></li>
+                <li><code>&lt;/div&gt;</code></li>
+            </ol>
+        </div>
+        
+        <h1>CSS<span>以下这些参数是必备的，另外的可以根据自己的需要添加</span></h1>
+        <div class="codeWrapper">
+            <ol>
+                <li><code>#vscroll{ width:px; height:px; position:relative; overflow:hidden }</code></li>
+                <li><code>#vscroll_content_panel{ width:px; height:px; position:absolute; top:0px; left:0px; overflow:hidden }</code></li>
+                <li><code>#vscroll_content{ width:px;  position:absolute; top:0; left:0; }</code></li>
+                <li><code>#vscroll_bar_panel{ width:px; height:px; background:#; position:absolute; top:px; left:px }</code></li>
+                <li><code>#vscroll_bar{ width:px; height:px; background-color:#; position:absolute; top:px; left:px }</code></li>
+            </ol>
+        </div>
+       
+        <h1>JS</h1>
+        <div class="codeWrapper">
+        	<ol>
+            	<li><code>&lt;script type="text/javascript" src="lib/jquery-1.9.1.js"&gt;&lt;/script&gt;</code></li>
+                <li><code>&lt;script type="text/javascript" src="lib/jquery.mousewheel.js"&gt;&lt;/script&gt;</code></li>
+                <li><code>&lt;script type="text/javascript" src="jquery.slider.js"&gt;&lt;/script&gt;</code></li>
+            </ol>
+        </div
+        
+        ><h1>调用</h1>
+        <p>  <em> $("#{yourId}").jScroll({</em>
+                 <em>'scroll_enable' : true,</em>   //是否开启滚轮，默认开启
+                 <em>'scroll_pace' : 35,</em>      //滚轮每单位滚动的距离， 默认值是35
+                <em> 'scroll_id' : '{yourId}',</em>//触发滚轮的id， 默认是主id，即上述html中第一个标签的id
+                <em> 'layout' : 'vertical'</em> 	//布局方式：vertical(垂直) , horizon（水平）默认为垂直
+            <em> });</em>	
+        </p> 
+        <div class="codeWrapper">
+            <ol>
+                <li><code>$("#{yourId}").jScroll({</code></li>
+                <li><code>&nbsp;&nbsp;&nbsp;&nbsp;'scroll_enable' : true,   //是否开启滚轮，默认开启</code></li>
+                <li><code>&nbsp;&nbsp;&nbsp;&nbsp;'scroll_pace' : 35,      //滚轮每单位滚动的距离， 默认值是35</code></li>
+                <li><code>&nbsp;&nbsp;&nbsp;&nbsp;'scroll_id' : '{yourId}',//触发滚轮的id， 默认是主id，即上述html中第一个标签的id</code></li>
+                <li><code>&nbsp;&nbsp;&nbsp;&nbsp;'layout' : 'vertical'   //布局方式：vertical(垂直) , horizon（水平）默认为垂直</code></li>
+                <li><code>});</code></li>
+            </ol>
+        </div>
+        
+        <h1><strong>下载地址</strong>：<a href="https://github.com/7LI/jQuery-slider" target="_blank">https://github.com/7LI/jQuery-slider</a></h1>
+        <p>作者： <em>Nancle from CAU CS101</em></p>
+        <p><a href="http://blog.csdn.net/liuyanzhi08" target="_blank">博客：http://blog.csdn.net/liuyanzhi08	</a></p>
+    </div>
+	
+</body>
+</html>
