@@ -48,7 +48,7 @@ angular.module('zupWebAngularApp')
               }
 
               var endDate = new Date();
-              endDate.setHours(0, 0, 0, 0);
+              endDate.setTime(endDate.getTime() + (24 * 60 * 60 * 1000));
               endDate = endDate.toISOString();
 
               $rootScope.itemsPeriod = {beginDate: beginDate, endDate: endDate};

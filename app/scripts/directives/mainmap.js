@@ -64,7 +64,7 @@ angular.module('zupWebAngularApp')
             begin_date = begin_date.toISOString();
 
             var end_date = new Date();
-            end_date.setTime(end_date.getDate() + 1);
+            end_date.setTime(end_date.getTime() + (24 * 60 * 60 * 1000));
             end_date = end_date.toISOString();
 
             // After we get everything that is needed to render the map...
