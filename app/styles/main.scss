@@ -449,6 +449,7 @@ header {
         width: 34px;
         height: 39px;
         border: none;
+        cursor: move;
         background: url("../images/filtros_periodo_regua_handle_normal.png"); }
 
     .ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover,
@@ -1411,17 +1412,23 @@ input.knob:after { content: "%" !important; }
   position: fixed;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.1);
   z-index: 10000;
-  display: table;
 
   span {
-    display: table-cell;
-    vertical-align: middle;
-    color: #FFF;
-    font-size: 27px;
+    display: block;
+    position: fixed;
+    width: 60px;
+    top: 0px;
+    left: 50%;
+    margin-left: -30px;
+    background: #323232;
     text-align: center;
-    font-weight: bold;
+    padding: 15px 0 15px 0;
+
+    img {
+      width: 20px;
+    }
   }
 }
 

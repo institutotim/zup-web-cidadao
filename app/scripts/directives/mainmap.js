@@ -117,9 +117,9 @@ angular.module('zupWebAngularApp')
                     infowindow.setContent(compiled[0]);
                     infowindow.open(map, this);
                   });
-
-                  $rootScope.isLoadingMap = false;
                 }
+
+                $rootScope.isLoadingMap = false;
 
                 console.log($rootScope.markers.reports);
               });
