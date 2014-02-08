@@ -153,6 +153,11 @@ header {
         float: left;
         padding-top: 20px;
 
+        &.no_left {
+          position: static;
+          left: none;
+        }
+
         .nav > li > a {
             padding: 10px 25px 17px;
             border: none;
