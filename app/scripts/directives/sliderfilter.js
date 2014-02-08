@@ -11,7 +11,7 @@ angular.module('zupWebAngularApp')
             min: 1,
             max: 4,
             step: 1,
-            slide: function( event, ui ) {
+            stop: function( event, ui ) {
               // From 6 months ago to today
               if (ui.value == 1)
               {
