@@ -54,6 +54,15 @@ $blueButton: #29b3db;
     font-size: 14px;
     line-height: 1;
 
+    span.solic-icon {
+      display: block;
+      float: left;
+      width: 27px;
+      height: 25px;
+      margin-right: 10px;
+      background: url(../images/solicitacao.png);
+    }
+
     &:hover {
         color: #fff;
         background: {
@@ -138,7 +147,15 @@ header {
     .logo {
         display: inline-block;
         float: left;
-        padding: 20px 0 0 15px; }
+        padding: 20px 0 0 15px;
+
+        span {
+          display: block;
+          width: 217px;
+          height: 38px;
+          background: url(../images/topo_logo_zup.png);
+        }
+    }
 
     .centered-pills { text-align:center; }
     .centered-pills ul.nav-pills { display:inline-block; }
