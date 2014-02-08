@@ -29,7 +29,16 @@
         <form role="form" ng-submit="send()">
             <div class="upload btn btn-default btn-upload">
                 <span>Selecione o arquivo</span>
-                <input type="file" id="upload">
+
+                <input type="file" ng-file-select="onFileSelect($files)" >
+
+                <div ng-file-drop="onFileSelect($files)" ng-file-drag-over-class="optional-css-class"
+                ng-show="dropSupported">drop files here</div>
+
+                <div ng-file-drop-available="dropSupported=true"
+                ng-show="!dropSupported">HTML5 Drop File is not supported!</div>
+
+                <button ng-click="upload.abort()">Cancel Upload</button>
             </div>
 
             <textarea class="form-control" rows="4" ng-model="inputs.description"></textarea>
