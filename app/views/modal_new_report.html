@@ -1,5 +1,7 @@
 <button type="button" class="close" ng-click="close()"></button>
-<div class="newRequest">
+<div class="newRequest" ng-file-drop>
+    <div class="loadingRequest" ng-show="processingForm"><span><img src="images/loading.gif" /></span></div>
+
     <h1>Nova solicitação</h1>
     <h3>1. Selecione a categoria</h3>
 
@@ -30,15 +32,24 @@
             <div class="upload btn btn-default btn-upload">
                 <span>Selecione o arquivo</span>
 
-                <input type="file" ng-file-select="onFileSelect($files)" >
+                <input ng-file-select type="file" multiple  />
+            </div>
 
-                <div ng-file-drop="onFileSelect($files)" ng-file-drag-over-class="optional-css-class"
-                ng-show="dropSupported">drop files here</div>
+            <div class="queue">
+              <div class="image" ng-repeat="item in uploader.queue">
+                <div ng-show="uploader.isHTML5" ng-thumb="{ file: item.file, width: 150, height: 150 }"></div>
 
-                <div ng-file-drop-available="dropSupported=true"
-                ng-show="!dropSupported">HTML5 Drop File is not supported!</div>
+                <span ng-show="!uploader.isHTML5">{{ item.file.name }}</span>
 
-                <button ng-click="upload.abort()">Cancel Upload</button>
+                <button type="button" ng-click="item.remove()">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </button>
+              </div>
+
+              <div ng-show="uploader.isHTML5" class="drop-zone" ng-file-over>
+                <span>Ou arraste a imagem aqui</span>
+              </div>
+
             </div>
 
             <textarea class="form-control" rows="4" ng-model="inputs.description"></textarea>

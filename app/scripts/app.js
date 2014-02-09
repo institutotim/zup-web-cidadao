@@ -272,8 +272,7 @@ angular.module('zupWebAngularApp', [
     $modal.open({
       templateUrl: 'views/modal_new_report.html',
       windowClass: 'modal_new_report',
-      controller: ['$scope', '$modalInstance', 'Reports', 'Alert', '$route', '$upload', function($scope, $modalInstance, Reports, Alert, $route, $upload) {
-
+      controller: ['$scope', '$modalInstance', 'Reports', 'Alert', '$route', '$fileUploader', function($scope, $modalInstance, Reports, Alert, $route, $fileUploader) {
         $scope.inputs = {
           description: null
         };
@@ -292,56 +291,66 @@ angular.module('zupWebAngularApp', [
           $scope.categoryData = categoryData;
         };
 
-        $scope.onFileSelect = function($files) {
-          //$files: an array of files selected, each file has name, size, and type.
-          for (var i = 0; i < $files.length; i++) {
-            var file = $files[i];
-            $scope.upload = $upload.upload({
-              url: 'server/upload/url', //upload.php script, node.js route, or servlet url
-              // method: POST or PUT,
-              // headers: {'headerKey': 'headerValue'},
-              // withCredential: true,
-              data: {myObj: $scope.myModelObj},
-              file: file,
-              // file: $files, //upload multiple files, this feature only works in HTML5 FromData browsers
-              /* set file formData name for 'Content-Desposition' header. Default: 'file' */
-              //fileFormDataName: myFile, //OR for HTML5 multiple upload only a list: ['name1', 'name2', ...]
-              /* customize how data is added to formData. See #40#issuecomment-28612000 for example */
-              //formDataAppender: function(formData, key, val){}
-            }).progress(function(evt) {
-              console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
-            }).success(function(data, status, headers, config) {
-              // file is uploaded successfully
-              console.log(data);
-            });
-            //.error(...)
-            //.then(success, error, progress);
-          }
-        };
+        var uploader = $scope.uploader = $fileUploader.create({
+          scope: $scope
+        });
+
+        // Images only
+        uploader.filters.push(function(item /*{File|HTMLInputElement}*/) {
+          var type = uploader.isHTML5 ? item.type : '/' + item.value.slice(item.value.lastIndexOf('.') + 1);
+          type = '|' + type.toLowerCase().slice(type.lastIndexOf('/') + 1) + '|';
+          return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+        });
 
         $scope.send = function() {
           $scope.inputErrors = {};
           $scope.processingForm = true;
+          var images = [], promises = [];
 
-          var newReport = new Reports({
-            categoryId: $scope.categoryData.id,
-            latitude: $scope.lat,
-            longitude: $scope.lng,
-            description: $scope.inputs.description,
-            address: $scope.formattedAddress
-          });
+          // Add images to queue for processing it's dataUrl
+          function addAsync(file) {
+            var deferred = $q.defer();
 
-          newReport.$save(function() {
-            $modalInstance.close();
-            Alert.show('Relato criado com sucesso', 'Agora você pode checar o status do seu relato no menu superior.', function() {
-              $route.reload();
+            var file = file, picReader = new FileReader();
+
+            picReader.addEventListener('load', function(event) {
+              var picFile = event.target;
+
+              images.push(picFile.result);
+              deferred.resolve();
             });
-          }, function(response) {
-            $scope.processingForm = false;
-            $scope.inputErrors = response.data.error;
+
+            picReader.readAsDataURL(file);
+
+            return deferred.promise;
+          };
+
+          for (var i = uploader.queue.length - 1; i >= 0; i--) {
+            promises.push(addAsync(uploader.queue[i].file));
+          };
+
+          // Wait for all promises to be resolved to send request
+          $q.all(promises).then(function() {
+            var newReport = new Reports({
+              categoryId: $scope.categoryData.id,
+              latitude: $scope.lat,
+              longitude: $scope.lng,
+              description: $scope.inputs.description,
+              address: $scope.formattedAddress,
+              images: images
+            });
+
+            newReport.$save(function() {
+              $modalInstance.close();
+              Alert.show('Relato criado com sucesso', 'Agora você pode checar o status do seu relato no menu superior.', function() {
+                $route.reload();
+              });
+            }, function(response) {
+              $scope.processingForm = false;
+              $scope.inputErrors = response.data.error;
+            });
           });
         };
-
       }]
     });
   };
