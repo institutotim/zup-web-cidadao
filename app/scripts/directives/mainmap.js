@@ -89,11 +89,13 @@ angular.module('zupWebAngularApp')
                   var infowindow = new google.maps.InfoWindow(),
                       category = $rootScope.getReportCategory(data.reports[i].category_id);
 
+                  var categoryIcon = new google.maps.MarkerImage(category.marker.retina.web, null, null, null, new google.maps.Size(54, 51));
+
                   var pin = new google.maps.Marker({
                       position: LatLng,
                       map: map,
                       animation: google.maps.Animation.DROP,
-                      icon: category.marker.url,
+                      icon: categoryIcon,
                       category: category,
                       report: data.reports[i]
                     });

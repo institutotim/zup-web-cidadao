@@ -7,7 +7,8 @@
 
     <hr />
 
-    <a href="" class="filtro report_filter" ng-repeat="category in categories" ng-style="{'background-image':'url(' + category.icon.url + ')'}" ng-click="selectCategory(category)" report-category-icon>
+    <a href="" class="filtro report_filter" ng-repeat="category in categories" ng-click="selectCategory(category)" report-category-icon>
+        <span class="icon" ng-style="{'background-image':'url(' + category.icon.retina.web.active + ')'}"></span>
         <span class="text">{{ category.title }}</span>
     </a>
 

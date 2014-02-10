@@ -347,10 +347,6 @@ header {
 
     a.sidebar_filter {
         display: inline-block;
-        margin: 30px 0 -10px 0;
-        padding: 65px 0;
-        width: 80px;
-        height: 60px;
         color: #141414;
         text-decoration: none;
         -webkit-transition: all 0.15s ease;
@@ -359,9 +355,20 @@ header {
         -o-transition:      all 0.15s ease;
         transition:         all 0.15s ease;
         opacity: 0.3;
-
         background-repeat: no-repeat;
         background-position: center top;
+        margin: 20px 10px 20px 10px;
+
+        span.image {
+          display: inline-block;
+          width: 70px;
+          height: 70px;
+          background-size: 70px 70px;
+        }
+
+        span.text {
+          display: block;
+        }
 
         &:hover {
           color: #808080;
@@ -983,19 +990,25 @@ input.knob:after { content: "%" !important; }
 
         a.filtro {
             display: inline-block;
-            margin: 25px 80px 45px -25px;
-            width: 220px;
-            height: 70px;
             color: #999;
             text-decoration: none;
             background-position: center top;
             background-repeat: no-repeat;
             opacity: 0.5;
+            margin: 20px 10px 10px 20px;
             -webkit-transition: all 0.15s ease;
             -moz-transition:    all 0.15s ease;
             -ms-transition:     all 0.15s ease;
             -o-transition:      all 0.15s ease;
             transition:         all 0.15s ease;
+
+            .icon {
+              display: inline-block;
+              width: 70px;
+              height: 70px;
+              background-size: 70px 70px;
+              margin-right: 10px;
+            }
 
             &:hover {
                 opacity: 1;
@@ -1006,10 +1019,11 @@ input.knob:after { content: "%" !important; }
                 color: #fff; }
 
             .text {
-                position: relative;
-                top: 25px;
-                left: 115px;
-                color: #000; }
+              position: relative;
+              top: 25px;
+              color: #000;
+              vertical-align: top;
+            }
         }
 
         input#upload { margin: 15px auto; }
