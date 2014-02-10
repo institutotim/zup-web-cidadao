@@ -316,10 +316,11 @@ angular.module('zupWebAngularApp', [
             picReader.addEventListener('load', function(event) {
               var picFile = event.target;
 
-              images.push(picFile.result);
+              images.push(picFile.result.replace(/^data:image\/[^;]+;base64,/, ''));
               deferred.resolve();
             });
 
+            // pass as base64 and strip data:image
             picReader.readAsDataURL(file);
 
             return deferred.promise;
