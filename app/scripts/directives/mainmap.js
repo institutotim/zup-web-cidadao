@@ -71,6 +71,13 @@ angular.module('zupWebAngularApp')
               $rootScope.isLoadingMap = true;
 
               Reports.getItems(params, function(data) {
+                // Hide every marker in the map
+                for (var i = $rootScope.categories.length - 1; i >= 0; i--) {
+                  angular.forEach($rootScope.markers.reports[$rootScope.categories[i].id], function(value, key){
+                    value.setVisible(false);
+                  });
+                };
+
                 for (var i = data.reports.length - 1; i >= 0; i--) {
                   var LatLng = new google.maps.LatLng(data.reports[i].position.latitude, data.reports[i].position.longitude);
 
@@ -120,13 +127,6 @@ angular.module('zupWebAngularApp')
               {
                 // Start loading
                 $rootScope.isLoadingMap = true;
-
-                // Hide every marker in the map
-                for (var i = $rootScope.categories.length - 1; i >= 0; i--) {
-                  angular.forEach($rootScope.markers.reports[$rootScope.categories[i].id], function(value, key){
-                    value.setVisible(false);
-                  });
-                };
 
                 params.begin_date = scope.itemsPeriod.beginDate;
                 params.end_date = scope.itemsPeriod.endDate;
