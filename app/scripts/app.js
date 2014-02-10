@@ -132,6 +132,9 @@ angular.module('zupWebAngularApp', [
     {
       $rootScope.page = 'account';
     }
+
+    // Start map with first filter
+    $rootScope.itemsPeriod = $rootScope.getItemsPeriodBySliderPosition(1);
   });
 
   // Helper
@@ -163,6 +166,51 @@ angular.module('zupWebAngularApp', [
         });
       }
     }
+  };
+
+  // helper to get beginDate and endDate by the slider position
+  // Current possible positions: [1, 2, 3, 4]
+  $rootScope.getItemsPeriodBySliderPosition = function(pos) {
+    // From 6 months ago to today
+    if (pos == 1)
+    {
+      var beginDate = new Date();
+      beginDate.setHours(0, 0, 0, 0);
+      beginDate = new Date(beginDate.getFullYear(), beginDate.getMonth() - 6, 1);
+      beginDate = beginDate.toISOString();
+    }
+
+    // From 3 months ago to today
+    if (pos == 2)
+    {
+      var beginDate = new Date();
+      beginDate.setHours(0, 0, 0, 0);
+      beginDate = new Date(beginDate.getFullYear(), beginDate.getMonth() - 3, 1);
+      beginDate = beginDate.toISOString();
+    }
+
+    // From 1 month ago to today
+    if (pos == 3)
+    {
+      var beginDate = new Date();
+      beginDate.setHours(0, 0, 0, 0);
+      beginDate = new Date(beginDate.getFullYear(), beginDate.getMonth() - 1, 1);
+      beginDate = beginDate.toISOString();
+    }
+
+    // From 1 week ago to today
+    if (pos == 4)
+    {
+      var beginDate = new Date();
+      beginDate.setDate(beginDate.getDate() - 7);
+      beginDate = beginDate.toISOString();
+    }
+
+    var endDate = new Date();
+    endDate.setTime(endDate.getTime() + (24 * 60 * 60 * 1000));
+    endDate = endDate.toISOString();
+
+    return {beginDate: beginDate, endDate: endDate};
   };
 
   $rootScope.login = function() {

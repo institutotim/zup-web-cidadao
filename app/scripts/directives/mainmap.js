@@ -57,24 +57,12 @@ angular.module('zupWebAngularApp')
         scope.$watch('isLoading', function() {
           if (scope.isLoading === false)
           {
-            // Start showing items from 6 months ago to today
-            var begin_date = new Date();
-            begin_date.setHours(0, 0, 0, 0);
-            begin_date = new Date(begin_date.getFullYear(), begin_date.getMonth() - 6, 1);
-            begin_date = begin_date.toISOString();
-
-            var end_date = new Date();
-            end_date.setTime(end_date.getTime() + (24 * 60 * 60 * 1000));
-            end_date = end_date.toISOString();
-
             // After we get everything that is needed to render the map...
             var params = {
               'position[latitude]': -23.549671,
               'position[longitude]': -46.6321713,
               'position[distance]': 100000,
-              'max_items': 40,
-              'begin_date': begin_date,
-              'end_date': end_date
+              'max_items': 40
             };
 
             // FIXME Only use
@@ -127,11 +115,6 @@ angular.module('zupWebAngularApp')
               });
             };
 
-            getItems();
-
-            /* Watch for period changes */
-            var currentTimeout = null;
-
             scope.$watch('itemsPeriod', function() {
               if (typeof scope.itemsPeriod !== 'undefined')
               {
@@ -148,13 +131,7 @@ angular.module('zupWebAngularApp')
                 params.begin_date = scope.itemsPeriod.beginDate;
                 params.end_date = scope.itemsPeriod.endDate;
 
-                if(currentTimeout) {
-                  $timeout.cancel(currentTimeout);
-                }
-
-                currentTimeout = $timeout(function(){
-                  getItems();
-                }, 700);
+                getItems();
 
                 // Active all filters back
                 angular.element('.sidebar_filter').addClass('active');
