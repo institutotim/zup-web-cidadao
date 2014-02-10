@@ -27,6 +27,10 @@ angular.module('zupWebAngularApp', [
       controller: 'AccountCtrl',
       access: { logged: true }
     })
+    .when('/statistics', {
+      templateUrl: 'views/statistics.html',
+      controller: 'StatisticsCtrl'
+    })
     .otherwise({
       redirectTo: '/'
     });
@@ -109,8 +113,13 @@ angular.module('zupWebAngularApp', [
         $rootScope.categories = data.categories;
       });
 
+      // Get stats
+      var reportsStats = Reports.getStats(function(data) {
+        $rootScope.stats = data.stats;
+      });
+
       // Wait for all categories to load
-      $q.all([reportsCategories.$promise, check.$promise]).then(function() {
+      $q.all([reportsCategories.$promise, check.$promise, reportsStats.$promise]).then(function() {
         // Create objects in the markers array for each report category
         for (var i = $rootScope.categories.length - 1; i >= 0; i--) {
           $rootScope.markers.reports[$rootScope.categories[i].id] = {};
@@ -121,6 +130,10 @@ angular.module('zupWebAngularApp', [
     }
 
     if (curr.controller === 'MainCtrl')
+    {
+      $rootScope.page = 'main';
+    }
+    else if (curr.controller === 'StatisticsCtrl')
     {
       $rootScope.page = 'main';
     }
