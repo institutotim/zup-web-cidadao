@@ -255,7 +255,7 @@ angular.module('zupWebAngularApp')
               $timeout.cancel(this.getNewItemsTimeout);
             };
 
-            //$rootScope.isLoadingMap = true;
+            $rootScope.isLoadingItems = true;
 
             this.getNewItemsTimeout = $timeout(function() {
               var items = mapProvider.getItems({
@@ -263,7 +263,7 @@ angular.module('zupWebAngularApp')
                 distance: mapProvider.getDistance(),
                 limit: 100
               }, function() {
-                //$rootScope.isLoadingMap = false;
+                $rootScope.isLoadingItems = false;
 
                 if (zoomToHide)
                 {
