@@ -3,7 +3,7 @@
 'use strict';
 
 angular.module('zupWebAngularApp')
-  .directive('mainMap', function (Reports, $rootScope, $compile, $timeout) {
+  .directive('mainMap', function (Reports, $rootScope, $compile, $timeout, Inventory, $q) {
     return {
       restrict: 'A',
       link: function postLink(scope, element) {
@@ -149,7 +149,7 @@ angular.module('zupWebAngularApp')
             styles: [{}, {'featureType': 'poi.business', 'elementType': 'labels', 'stylers': [{ 'visibility': 'off' }] },{ 'featureType': 'poi.government', 'elementType': 'labels', 'stylers': [{ 'visibility': 'off' }] }, { 'featureType': 'poi.medical', 'elementType': 'labels', 'stylers': [{ 'visibility': 'off' }] }, { 'featureType': 'poi.place_of_worship', 'elementType': 'labels', 'stylers': [{ 'visibility': 'off' }] }, { 'featureType': 'poi.school', 'elementType': 'labels', 'stylers': [{ 'visibility': 'off' }] }, { 'featureType': 'poi.sports_complex', 'elementType': 'labels', 'stylers': [{ 'visibility': 'off' }] }, { 'featureType': 'transit', 'elementType': 'labels', 'stylers': [{ 'visibility': 'off' }, { 'saturation': -100 }, { 'lightness': 42 }] }, { 'featureType': 'road.highway', 'elementType': 'geometry.fill', 'stylers': [{ 'saturation': -100 }, { 'lightness': 47 }] }, { 'featureType': 'landscape', 'stylers': [{ 'lightness': 82 }, { 'saturation': -100 }] }, { 'featureType': 'water', 'stylers': [{ 'hue': '#00b2ff' }, { 'saturation': -21 }, { 'lightness': -4 }] }, { 'featureType': 'poi', 'stylers': [{ 'lightness': 19 }, { 'weight': 0.1 }, { 'saturation': -22 }] }, { 'elementType': 'geometry.fill', 'stylers': [{ 'visibility': 'on' }, { 'lightness': 18 }] }, { 'elementType': 'labels.text', 'stylers': [{ 'saturation': -100 }, { 'lightness': 28 }] }, { 'featureType': 'poi.attraction', 'elementType': 'labels', 'stylers': [{ 'visibility': 'off' }] }, { 'featureType': 'poi.park', 'elementType': 'geometry.fill', 'stylers': [{ 'saturation': 12 }, { 'lightness': 25 }] }, { 'featureType': 'road', 'elementType': 'labels.icon', 'stylers': [{ 'visibility': 'off' }] }, { 'featureType': 'road', 'elementType': 'labels.text', 'stylers': [{ 'lightness': 30 }] }, { 'featureType': 'landscape.man_made', 'elementType': 'labels', 'stylers': [{ 'visibility': 'off' }] }, { 'featureType': 'road.highway', 'elementType': 'geometry', 'stylers': [{ 'saturation': -100 }, { 'lightness': 56 }] }, { 'featureType': 'road.local', 'elementType': 'geometry.fill', 'stylers': [{ 'lightness': 62 }] }, { 'featureType': 'landscape.man_made', 'elementType': 'geometry', 'stylers': [{ 'visibility': 'off' }] }],
             homeLatlng: new google.maps.LatLng(-23.549671, -46.6321713),
             map: {
-              zoom: 15,
+              zoom: 2,
               mapTypeControl: false,
               panControl: true,
               panControlOptions: {
@@ -171,11 +171,12 @@ angular.module('zupWebAngularApp')
           },
 
           zoomLevels: {},
-          currentZoom: 15,
+          currentZoom: 2, // 15
           map: null,
           getNewItemsTimeout: null,
           hideNotVisibleMarkersTimeout: null,
           doAnimation: true,
+          activeMethod: 'items', // or items
 
           start: function() {
             element.css({'width': $(window).width() - 300, 'height': $(window).height() });
@@ -201,7 +202,7 @@ angular.module('zupWebAngularApp')
             });
           },
 
-          getItems: function(options, callback) {
+          getReports: function(options, callback) {
             var params = {
               'position[latitude]': options.center.lat(),
               'position[longitude]': options.center.lng(),
@@ -209,7 +210,7 @@ angular.module('zupWebAngularApp')
               'position[max_items]': 80
             };
 
-            Reports.getItems(params, function(data) {
+            var reportsData = Reports.getItems(params, function(data) {
               callback();
 
               for (var i = data.reports.length - 1; i >= 0; i--) {
@@ -221,6 +222,33 @@ angular.module('zupWebAngularApp')
               {
                 mapProvider.doAnimation = false;
               }
+
+              console.log(mapProvider.zoomLevels);
+            });
+          },
+
+          getItems: function(options, callback) {
+            var params = {
+              'position[latitude]': options.center.lat(),
+              'position[longitude]': options.center.lng(),
+              'position[distance]': options.distance,
+              'position[max_items]': 80
+            };
+
+            var reportsData = Inventory.getItems(params, function(data) {
+              callback();
+
+              for (var i = data.items.length - 1; i >= 0; i--) {
+                mapProvider.addMarker(data.items[i], mapProvider.doAnimation);
+              }
+
+              // after first request we will deactive animation
+              if (mapProvider.doAnimation === true)
+              {
+                mapProvider.doAnimation = false;
+              }
+
+              console.log(mapProvider.zoomLevels);
             });
           },
 
@@ -257,7 +285,22 @@ angular.module('zupWebAngularApp')
 
             $rootScope.isLoadingItems = true;
 
-            this.getNewItemsTimeout = $timeout(function() {
+            var getNewReports = function() {
+              var items = mapProvider.getReports({
+                center: mapProvider.map.getCenter(),
+                distance: mapProvider.getDistance(),
+                limit: 100
+              }, function() {
+                $rootScope.isLoadingItems = false;
+
+                if (zoomToHide)
+                {
+                  mapProvider.hideAllMarkersFromZoomLevel(zoomToHide);
+                }
+              });
+            };
+
+            var getNewItems = function() {
               var items = mapProvider.getItems({
                 center: mapProvider.map.getCenter(),
                 distance: mapProvider.getDistance(),
@@ -270,6 +313,17 @@ angular.module('zupWebAngularApp')
                   mapProvider.hideAllMarkersFromZoomLevel(zoomToHide);
                 }
               });
+            };
+
+            this.getNewItemsTimeout = $timeout(function() {
+              if (mapProvider.activeMethod === 'reports')
+              {
+                getNewReports();
+              }
+              else
+              {
+                getNewItems();
+              }
             }, 1000);
           },
 
@@ -297,22 +351,35 @@ angular.module('zupWebAngularApp')
             return this.map.getBounds().contains(marker.getPosition());
           },
 
-          addMarker: function(report, effect) {
-            if (typeof this.zoomLevels[this.map.getZoom()][report.id] === 'undefined')
+          addMarker: function(item, effect) {
+            if (typeof this.zoomLevels[this.map.getZoom()][item.id] === 'undefined')
             {
-              var LatLng = new google.maps.LatLng(report.position.latitude, report.position.longitude);
+              var LatLng = new google.maps.LatLng(item.position.latitude, item.position.longitude);
 
-              var infowindow = new google.maps.InfoWindow(),
-                  category = $rootScope.getReportCategory(report.category_id);
+              var infowindow = new google.maps.InfoWindow();
 
-              var categoryIcon = new google.maps.MarkerImage(category.marker.retina.web, null, null, null, new google.maps.Size(54, 51));
+              var category, iconSize, viewAction;
+              if (mapProvider.activeMethod === 'reports')
+              {
+                category = $rootScope.getReportCategory(item.category_id);
+                iconSize = new google.maps.Size(54, 51);
+                viewAction = $rootScope.viewReport;
+              }
+              else
+              {
+                category = $rootScope.getInventoryCategory(item.inventory_category_id);
+                iconSize = new google.maps.Size(15, 15);
+                viewAction = $rootScope.viewItem;
+              }
+
+              var categoryIcon = new google.maps.MarkerImage(category.marker.retina.web, null, null, null, iconSize);
 
               var pinOptions = {
                 position: LatLng,
                 map: this.map,
                 icon: categoryIcon,
                 category: category,
-                report: report
+                item: item
               };
 
               if (typeof effect !== 'undefined' && effect === true)
@@ -322,16 +389,16 @@ angular.module('zupWebAngularApp')
 
               var pin = new google.maps.Marker(pinOptions);
 
-              this.zoomLevels[this.map.getZoom()][report.id] = pin;
+              this.zoomLevels[this.map.getZoom()][item.id] = pin;
 
               google.maps.event.addListener(pin, 'click', function() {
-                var html = '<div class="pinTooltip"><h1>{{category.title}}</h1><p>Enviada {{ report.created_at | date: \'dd/MM/yy HH:mm\'}}</p><a href="" ng-click="viewReport(report, category)">Ver detalhes</a></div>';
+                var html = '<div class="pinTooltip"><h1>{{category.title}}</h1><p>Enviada {{ item.created_at | date: \'dd/MM/yy HH:mm\'}}</p><a href="" ng-click="view(item, category)">Ver detalhes</a></div>';
 
                 var new_scope = scope.$new(true);
 
                 new_scope.category = this.category;
-                new_scope.report = this.report;
-                new_scope.viewReport = $rootScope.viewReport;
+                new_scope.item = this.item;
+                new_scope.view = viewAction;
 
                 var compiled = $compile(html)(new_scope);
 

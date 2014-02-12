@@ -1,0 +1,56 @@
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+
+<div class="aside">
+    <div class="padding">
+        <h3>{{ category.title }} #{{ item.id }}</h3>
+    </div>
+
+    <ul class="nav nav-pills nav-stacked">
+        <li ng-class="{active: currentTab == 0}" id="modal-informacoes"><a href="" ng-click="currentTab = 0">Informações</a></li>
+        <li ng-class="{active: currentTab == 1}" id="modal-solicitacoes"><a href="" ng-click="currentTab = 1">Solicitações</a></li>
+    </ul>
+</div>
+
+<div class="informacoes" ng-show="currentTab == 0">
+    <div class="left_column">
+        <div class="padding">
+            <div ng-repeat="section in category.sections">
+                <div ng-repeat="field in section.fields">
+                    <h1>{{ field.title }}</h1>
+                    <p>{{ getDataByInventoryFieldId(field.id) }}</p>
+                </div>
+
+                <hr />
+            </div>
+        </div>
+    </div>
+
+    <div class="right_column">
+        <img src="images/infos/bocalobo4.jpg">
+
+        <div class="thumbnails">
+            <img src="images/infos/bocalobo4.jpg">
+            <img src="images/infos/bocalobo4.jpg">
+            <img src="images/infos/bocalobo4.jpg">
+        </div>
+    </div>
+</div>
+
+<div class="solicitacoes" ng-show="currentTab == 1">
+    <ul class="nav nav-pills nav-stacked">
+        <li class="active"><a href="#"><span class="aberto"></span> Limpeza de boca de lobo <span class="time">2 dias atrás</span></a></li>
+    </ul>
+</div>
+
+<div class="solicitacao" ng-show="currentTab == 1">
+    <div class="padding">
+        <h1>Protocolo 1746352803</h1>
+        <hr />
+        <span class="aberto">Em aberto</span>
+        <h2>Limpeza de boca de lobo</h2>
+        <p class="muted">Av. 9 de julho, 1522, Bela Vista, São Paulo</p>
+        <b>Enviada 2 dias atrás</b>
+        <img src="images/infos/bocalobo2.jpg">
+        <p class="desc">Hoje choveu e com a boca de lobo entupida, a água não pode escoar, causando alagamento e transtornos para pedestres como eu.</p>
+    </div>
+</div>

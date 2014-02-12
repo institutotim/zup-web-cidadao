@@ -380,47 +380,6 @@ header {
           opacity: 1;
         }
     }
-
-    .filtro-boca-lobo, .exibir-bocas-lobo {
-        background: url('../images/filtros_icon_boca-lobo_disabled.png') no-repeat center top;
-
-       &:hover {
-            background: url('../images/filtros_icon_boca-lobo_hover.png') no-repeat center top; }
-
-        &.active {
-            background: url('../images/filtros_icon_boca-lobo_active.png') no-repeat center top; }
-    }
-
-    .filtro-entulho {
-        background: url('../images/filtros_icon_entulho_disabled.png') no-repeat center top;
-
-       &:hover {
-            background: url('../images/filtros_icon_entulho_hover.png') no-repeat center top; }
-
-        &.active {
-            background: url('../images/filtros_icon_entulho_active.png') no-repeat center top; }
-    }
-
-    /* Exibir na barra lateral */
-    .exibir-floresta-urbana {
-        background: url('../images/filtros_icon_floresta-urbana_disabled.png') no-repeat center top;
-
-       &:hover {
-            background: url('../images/filtros_icon_floresta-urbana_hover.png') no-repeat center top; }
-
-        &.active {
-            background: url('../images/filtros_icon_floresta-urbana_active.png') no-repeat center top; }
-    }
-
-    .exibir-pracas-wifi {
-        background: url('../images/filtros_icon_wifi_disabled.png') no-repeat center top;
-
-       &:hover {
-            background: url('../images/filtros_icon_wifi_hover.png') no-repeat center top; }
-
-        &.active {
-            background: url('../images/filtros_icon_wifi_active.png') no-repeat center top; }
-    }
 }
 
 .aside .nav-pills { margin: 25px 0; }
@@ -635,6 +594,10 @@ input.knob:after { content: "%" !important; }
 
 .modal_view_report .modal-dialog {
   width: 420px;
+}
+
+.modal_view_item .modal-dialog {
+  @extend .large-width;
 }
 
 .modal-content {

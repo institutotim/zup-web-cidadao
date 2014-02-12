@@ -41,7 +41,7 @@
         <div class="col-xs-4 aside">
             <h6>Exibir solicitações de</h6>
 
-            <a href="" class="sidebar_filter active" ng-repeat="category in categories" ng-click="filterByReportCategory(category)" filter-reports-category>
+            <a href="" class="sidebar_filter active" ng-repeat="category in reportCategories" ng-click="filterByReportCategory(category)" filter-reports-category>
               <span class="image" ng-style="{'background-image':'url(' + category.icon.retina.web.active + ')'}"></span>
               <span class="text">{{ category.title }}</span>
             </a>
@@ -77,9 +77,10 @@
             </ul>
 
             <h6>Exibir pontos de</h6>
-            <a href="" class="exibir-floresta-urbana">Floresta urbana</a>
-            <a href="" class="exibir-pracas-wifi">Praças com Wi-Fi</a>
-            <a href="" class="exibir-bocas-lobo">Bocas de<br />lobo</a>
+            <a href="" class="sidebar_filter" ng-repeat="category in inventoryCategories" filter-items>
+              <span class="image"></span>
+              <span class="text">{{ category.title }}</span>
+            </a>
         </div>
 
         <div class="col-xs-8 map">

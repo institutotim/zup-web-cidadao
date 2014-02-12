@@ -77,19 +77,14 @@ angular.module('zupWebAngularApp', [
   delete $httpProvider.defaults.headers.common['X-Requested-With'];
 })
 
-.run(['$rootScope', '$q', '$location', 'Auth', '$modal', 'Reports', function($rootScope, $q, $location, Auth, $modal, Reports) {
+.run(['$rootScope', '$q', '$location', 'Auth', '$modal', 'Reports', 'Inventory', function($rootScope, $q, $location, Auth, $modal, Reports, Inventory) {
 
   $rootScope.$on('$routeChangeStart', function(e, curr, prev) {
 
     if (typeof prev === 'undefined')
     {
-     // Save references of our markers in $rootScope
-      $rootScope.markers = {
-        reports: {},
-        items: {}
-      };
-
-      $rootScope.categories = {};
+      $rootScope.reportCategories = {};
+      $rootScope.inventoryCategories = {};
 
       $rootScope.isLoading = true;
 
@@ -108,9 +103,14 @@ angular.module('zupWebAngularApp', [
         }
       });
 
-      // Get categories
+      // Get report categories
       var reportsCategories = Reports.get(function(data) {
-        $rootScope.categories = data.categories;
+        $rootScope.reportCategories = data.categories;
+      });
+
+      // Get inventory categories
+      var inventoryCategories = Inventory.get(function(data) {
+        $rootScope.inventoryCategories = data.categories;
       });
 
       // Get stats
@@ -119,12 +119,7 @@ angular.module('zupWebAngularApp', [
       });
 
       // Wait for all categories to load
-      $q.all([reportsCategories.$promise, check.$promise, reportsStats.$promise]).then(function() {
-        // Create objects in the markers array for each report category
-        for (var i = $rootScope.categories.length - 1; i >= 0; i--) {
-          $rootScope.markers.reports[$rootScope.categories[i].id] = {};
-        }
-
+      $q.all([reportsCategories.$promise, inventoryCategories.$promise, check.$promise, reportsStats.$promise]).then(function() {
         $rootScope.isLoading = false;
       });
     }
@@ -152,10 +147,22 @@ angular.module('zupWebAngularApp', [
 
   // Helper
   $rootScope.getReportCategory = function(id) {
-    for (var i = $rootScope.categories.length - 1; i >= 0; i--) {
-      if ($rootScope.categories[i].id === id)
+    for (var i = $rootScope.reportCategories.length - 1; i >= 0; i--) {
+      if ($rootScope.reportCategories[i].id === id)
       {
-        return $rootScope.categories[i];
+        return $rootScope.reportCategories[i];
+      }
+    }
+
+    return null;
+  };
+
+  // Helper
+  $rootScope.getInventoryCategory = function(id) {
+    for (var i = $rootScope.inventoryCategories.length - 1; i >= 0; i--) {
+      if ($rootScope.inventoryCategories[i].id === id)
+      {
+        return $rootScope.inventoryCategories[i];
       }
     }
 
@@ -444,6 +451,46 @@ angular.module('zupWebAngularApp', [
             $scope.status = category.statuses[i];
           }
         }
+      }]
+    });
+  };
+
+  $rootScope.viewItem = function(item, category) {
+    $modal.open({
+      templateUrl: 'views/modal_view_item.html',
+      windowClass: 'modal_view_item',
+      resolve: {
+        item: function() {
+          return item;
+        },
+
+        category: function() {
+          return category;
+        }
+      },
+      controller: ['$scope', '$modalInstance', 'item', 'category', 'Reports', function($scope, $modalInstance, item, category, Reports) {
+        $scope.item = item;
+        $scope.category = category;
+        $scope.currentTab = 0;
+
+        $scope.getDataByInventoryFieldId = function(id) {
+          for (var i = item.data.length - 1; i >= 0; i--) {
+            if (item.data[i].inventory_field_id === id)
+            {
+              return item.data[i].content;
+            }
+          };
+        };
+
+        Reports.getItemsByInventory({inventoryId: category.id}, function(data) {
+          $scope.reports = data.reports;
+        });
+
+        console.log(item, category);
+
+        $scope.close = function () {
+          $modalInstance.close();
+        };
       }]
     });
   };
