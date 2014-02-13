@@ -176,10 +176,12 @@ angular.module('zupWebAngularApp')
           getNewItemsTimeout: null,
           hideNotVisibleMarkersTimeout: null,
           doAnimation: true,
-          activeMethod: 'items', // or items
+          activeMethod: 'reports', // or items
+          activeInventoryFilters: [],
 
           start: function() {
             element.css({'width': $(window).width() - 300, 'height': $(window).height() });
+            scope.readyToFilterInventoryItems = false;
 
             this.createMap();
             this.setListeners();
@@ -227,7 +229,7 @@ angular.module('zupWebAngularApp')
             });
           },
 
-          getItems: function(options, callback) {
+          getItems: function(options, precallback, callback) {
             var params = {
               'position[latitude]': options.center.lat(),
               'position[longitude]': options.center.lng(),
@@ -236,7 +238,7 @@ angular.module('zupWebAngularApp')
             };
 
             var reportsData = Inventory.getItems(params, function(data) {
-              callback();
+              precallback();
 
               for (var i = data.items.length - 1; i >= 0; i--) {
                 mapProvider.addMarker(data.items[i], mapProvider.doAnimation);
@@ -247,6 +249,8 @@ angular.module('zupWebAngularApp')
               {
                 mapProvider.doAnimation = false;
               }
+
+              callback();
 
               console.log(mapProvider.zoomLevels);
             });
@@ -312,6 +316,8 @@ angular.module('zupWebAngularApp')
                 {
                   mapProvider.hideAllMarkersFromZoomLevel(zoomToHide);
                 }
+              }, function() {
+                scope.readyToFilterInventoryItems = true;
               });
             };
 
@@ -358,18 +364,28 @@ angular.module('zupWebAngularApp')
 
               var infowindow = new google.maps.InfoWindow();
 
-              var category, iconSize, viewAction;
+              var category, iconSize, viewAction, itemType, visibility = true;
               if (mapProvider.activeMethod === 'reports')
               {
                 category = $rootScope.getReportCategory(item.category_id);
                 iconSize = new google.maps.Size(54, 51);
                 viewAction = $rootScope.viewReport;
+                itemType = 'report';
               }
               else
               {
                 category = $rootScope.getInventoryCategory(item.inventory_category_id);
                 iconSize = new google.maps.Size(15, 15);
                 viewAction = $rootScope.viewItem;
+                itemType = 'item';
+                visibility = false;
+
+                // Check if the item is inside of a active filter
+                // If yes, we show it as soon it loads
+                if (~mapProvider.activeInventoryFilters.indexOf(category.id) && scope.readyToFilterInventoryItems === true)
+                {
+                  visibility = true;
+                }
               }
 
               var categoryIcon = new google.maps.MarkerImage(category.marker.retina.web, null, null, null, iconSize);
@@ -379,7 +395,8 @@ angular.module('zupWebAngularApp')
                 map: this.map,
                 icon: categoryIcon,
                 category: category,
-                item: item
+                item: item,
+                type: itemType
               };
 
               if (typeof effect !== 'undefined' && effect === true)
@@ -388,6 +405,11 @@ angular.module('zupWebAngularApp')
               }
 
               var pin = new google.maps.Marker(pinOptions);
+
+              if (!visibility)
+              {
+                pin.setVisible(false);
+              }
 
               this.zoomLevels[this.map.getZoom()][item.id] = pin;
 
@@ -419,10 +441,61 @@ angular.module('zupWebAngularApp')
             var dis = google.maps.geometry.spherical.computeDistanceBetween(center, ne);
 
             return dis;
+          },
+
+          filterItems: function(inventoryId) {
+            // We change the active filters array
+            var position = mapProvider.activeInventoryFilters.indexOf(inventoryId);
+
+            if (~position)
+            {
+              mapProvider.activeInventoryFilters.splice(position, 1)
+            }
+            else
+            {
+              mapProvider.activeInventoryFilters.push(inventoryId);
+            };
+
+            // If it's the first time showing the items, we need to force them to load
+            if (mapProvider.activeMethod === 'reports')
+            {
+              mapProvider.activeMethod = 'items';
+              mapProvider.boundsChanged();
+            }
+
+            // we check if we already got all the items loaded
+            scope.$watch('readyToFilterInventoryItems', function() {
+              if (scope.readyToFilterInventoryItems === true)
+              {
+                console.log('show items');
+                mapProvider.toggleItemsVisibility(inventoryId);
+              }
+            });
+
+            console.log(mapProvider.activeInventoryFilters);
+          },
+
+          toggleItemsVisibility: function(inventoryId) {
+            angular.forEach(this.zoomLevels[this.map.getZoom()], function(marker, id) {
+              if (marker.item.inventory_category_id === inventoryId)
+              {
+                if (marker.getVisible() === true)
+                {
+                  marker.setVisible(false);
+                }
+                else
+                {
+                  marker.setVisible(true);
+                }
+              }
+            });
           }
         };
 
         mapProvider.start();
+
+        // bind to $rootScope
+        $rootScope.filterItemsByInventoryId = mapProvider.filterItems;
       }
     };
   });

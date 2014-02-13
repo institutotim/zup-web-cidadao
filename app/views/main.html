@@ -77,7 +77,7 @@
             </ul>
 
             <h6>Exibir pontos de</h6>
-            <a href="" class="sidebar_filter" ng-repeat="category in inventoryCategories" filter-items>
+            <a href="" class="sidebar_filter" ng-repeat="category in inventoryCategories" ng-click="filterItemsByInventoryId(category.id)" filter-items>
               <span class="image"></span>
               <span class="text">{{ category.title }}</span>
             </a>
