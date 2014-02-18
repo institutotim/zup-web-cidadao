@@ -15,7 +15,7 @@
             </ul>
         </div>
 
-        <div class="account">
+        <div class="account" ng-hide="!enabledReports">
             <a href="" class="btn btn-azul" ng-click="newReport()" ng-show="logged"><span class="solic-icon"></span> Faça uma solicitação</a>
             <a href="" class="btn btn-azul" ng-click="login()" ng-hide="logged"><span class="solic-icon"></span> Faça uma solicitação</a>
             <a href="" class="btn btn-auth" ng-click="login()" ng-hide="logged">Entrar ou criar conta</a>
@@ -39,30 +39,31 @@
 
     <div class="container">
         <div class="col-xs-4 aside">
-            <h6>Exibir solicitações de</h6>
+            <div ng-hide="!enabledReports">
+              <h6>Exibir solicitações de</h6>
 
-            <a href="" class="sidebar_filter active" ng-repeat="category in reportCategories" ng-click="filterByReportCategory(category.id)" filter-reports-category>
-              <span class="image" ng-style="{'background-image':'url(' + category.icon.retina.web.active + ')'}"></span>
-              <span class="text">{{ category.title }}</span>
-            </a>
+              <a href="" class="sidebar_filter active" ng-repeat="category in reportCategories" ng-click="filterByReportCategory(category.id)" filter-reports-category>
+                <span class="image" ng-style="{'background-image':'url(' + category.icon.retina.web.active + ')'}"></span>
+                <span class="text">{{ category.title }}</span>
+              </a>
 
-            <hr />
+              <hr />
 
-            <div class="slider_content">
-              <div id="slider" slider-filter></div>
+              <div class="slider_content">
+                <div id="slider" slider-filter></div>
 
-              <div class="slider-dots">
-                  <div class="slider-1">Últimos<br />6 meses</div>
-                  <div class="slider-2">Últimos<br />3 meses</div>
-                  <div class="slider-3">Último<br />mês</div>
-                  <div class="slider-4">Última<br />semana</div>
+                <div class="slider-dots">
+                    <div class="slider-1">Últimos<br />6 meses</div>
+                    <div class="slider-2">Últimos<br />3 meses</div>
+                    <div class="slider-3">Último<br />mês</div>
+                    <div class="slider-4">Última<br />semana</div>
+                </div>
               </div>
-            </div>
 
-            <div class="clearfix"></div>
+              <div class="clearfix"></div>
 
-            <ul class="nav nav-pills nav-stacked">
-                <li class="dropdown">
+              <ul class="nav nav-pills nav-stacked">
+                  <li class="dropdown">
                     <a class="dropdown-toggle" href="">
                         Todos os status <img src="images/filtros_chevron_normal.png">
                     </a>
@@ -74,7 +75,8 @@
                         <li><a href="#">Não resolvidos</a></li>
                         <li><a href="#" class="selected">Todos os status</a></li>
                     </ul>
-            </ul>
+              </ul>
+            </div>
 
             <h6>Exibir pontos de</h6>
             <a href="" class="sidebar_filter" ng-repeat="category in inventoryCategories" ng-click="filterItemsByInventoryId(category.id)" filter-items>

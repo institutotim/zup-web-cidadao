@@ -85,6 +85,7 @@ angular.module('zupWebAngularApp', [
     {
       $rootScope.reportCategories = {};
       $rootScope.inventoryCategories = {};
+      $rootScope.enabledReports = true;
 
       $rootScope.isLoading = true;
 
@@ -106,6 +107,10 @@ angular.module('zupWebAngularApp', [
       // Get report categories
       var reportsCategories = Reports.get(function(data) {
         $rootScope.reportCategories = data.categories;
+
+        if (data.categories.length === 0) {
+          $rootScope.enabledReports = false;
+        };
       });
 
       // Get inventory categories
