@@ -49,13 +49,17 @@
             <span>Carregando...</span>
           </div>
 
-          <div class="col-xs-4 solicitacoes" ng-hide="loadingReports">
+          <div class="col-xs-9 loadingReports" ng-show="reports.length == 0">
+            <span>Você não tem relatos criados.<br><a href="" ng-click="newReport()">Crie um novo!</a></span>
+          </div>
+
+          <div class="col-xs-4 solicitacoes" ng-hide="loadingReports || reports.length == 0">
               <ul class="nav nav-pills nav-stacked">
                   <li ng-repeat="report in reports" ng-class="{ active: report == currentReport }"><a href="" ng-click="viewReport(report)"><span class="ball_status" ng-style="{'background-color': report.status.color }"></span> {{ report.category.title }} <span class="time">{{ report.created_at | date: 'dd/MM/yy HH:mm'}}</span></a></li>
               </ul>
           </div><!--/.solicitacoes -->
 
-          <div class="col-xs-5 solicitacao" ng-hide="loadingReports">
+          <div class="col-xs-5 solicitacao" ng-hide="loadingReports || reports.length == 0">
               <div class="padding">
                   <h1>Protocolo {{ currentReport.protocol }}</h1>
                   <hr />
