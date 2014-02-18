@@ -179,12 +179,23 @@ angular.module('zupWebAngularApp')
           activeMethod: 'reports', // or items
           activeInventoryFilters: [],
           hiddenReportsCategories: [],
-          hiddenInventoryCategories: [1, 2, 3],
+          hiddenInventoryCategories: [],
 
           start: function() {
             element.css({'width': $(window).width() - 300, 'height': $(window).height() });
             scope.readyToFilterInventoryItems = false;
 
+            // populate hiddenInventoryCategories with all inventory categories
+            $rootScope.$watch('inventoryCategories', function() {
+              if (typeof $rootScope.inventoryCategories !== 'undefined')
+              {
+                for (var i = $rootScope.inventoryCategories.length - 1; i >= 0; i--) {
+                  mapProvider.hiddenInventoryCategories.push($rootScope.inventoryCategories[i].id);
+                };
+              }
+            });
+
+            // create map and set specific listeners
             this.createMap();
             this.setListeners();
           },
