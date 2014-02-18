@@ -179,6 +179,7 @@ angular.module('zupWebAngularApp')
           activeMethod: 'reports', // or items
           activeInventoryFilters: [],
           hiddenReportsCategories: [],
+          hiddenInventoryCategories: [1, 2, 3],
 
           start: function() {
             element.css({'width': $(window).width() - 300, 'height': $(window).height() });
@@ -315,14 +316,17 @@ angular.module('zupWebAngularApp')
               }
               else
               {
-                var cat;
+                var cat, all;
 
                 if (marker.type === 'report')
                 {
-                  cat = marker.item.category_id;
+                  pos = mapProvider.hiddenReportsCategories.indexOf(marker.item.category_id);
                 }
 
-                var pos = mapProvider.hiddenReportsCategories.indexOf(cat);
+                if (marker.type === 'item')
+                {
+                  pos = mapProvider.hiddenInventoryCategories.indexOf(marker.item.inventory_category_id);
+                }
 
                 if (!~pos)
                 {
@@ -337,7 +341,6 @@ angular.module('zupWebAngularApp')
               console.log(zoomLevelId, mapProvider.currentZoom);
               if (zoomLevelId != mapProvider.currentZoom)
               {
-                console.log(zoomLevelId);
                 angular.forEach(zoomLevel, function(marker, id) {
                   marker.setVisible(false);
                 });
@@ -350,7 +353,6 @@ angular.module('zupWebAngularApp')
           },
 
           addMarker: function(item, effect, type) {
-            console.log(typeof this.zoomLevels[this.map.getZoom()][type + '_' + item.id]);
             if (typeof this.zoomLevels[this.map.getZoom()][type + '_' + item.id] === 'undefined')
             {
               var LatLng = new google.maps.LatLng(item.position.latitude, item.position.longitude);
@@ -379,14 +381,13 @@ angular.module('zupWebAngularApp')
                 iconSize = new google.maps.Size(15, 15);
                 viewAction = $rootScope.viewItem;
                 itemType = 'item';
-                //visibility = false;
 
-                // Check if the item is inside of a active filter
-                // If yes, we show it as soon it loads
-                /*if (~mapProvider.activeInventoryFilters.indexOf(category.id) && scope.readyToFilterInventoryItems === true)
+                var pos = mapProvider.hiddenInventoryCategories.indexOf(item.inventory_category_id);
+
+                if (!~pos)
                 {
                   visibility = true;
-                }*/
+                }
               }
 
               var categoryIcon = new google.maps.MarkerImage(category.marker.retina.web, null, null, null, iconSize);
@@ -445,19 +446,18 @@ angular.module('zupWebAngularApp')
           },
 
           filterItems: function(inventoryId) {
-            // We change the active filters array
-            var position = mapProvider.activeInventoryFilters.indexOf(inventoryId);
+            var pos = mapProvider.hiddenInventoryCategories.indexOf(inventoryId);
 
-            if (~position)
+            if (~pos)
             {
-              mapProvider.activeInventoryFilters.splice(position, 1)
+              mapProvider.toggleItemsVisibility(inventoryId, 'show');
+              mapProvider.hiddenInventoryCategories.splice(pos, 1);
             }
             else
             {
-              mapProvider.activeInventoryFilters.push(inventoryId);
+              mapProvider.toggleItemsVisibility(inventoryId, 'hide');
+              mapProvider.hiddenInventoryCategories.push(inventoryId);
             };
-
-            mapProvider.toggleItemsVisibility(inventoryId);
           },
 
           filterReports: function(reportCategoryId) {
@@ -497,12 +497,23 @@ angular.module('zupWebAngularApp')
             });
           },
 
-          toggleItemsVisibility: function(inventoryId) {
+          toggleItemsVisibility: function(inventoryId, action) {
             angular.forEach(mapProvider.zoomLevels, function(zoomLevel, zoomLevelId) {
               angular.forEach(zoomLevel, function(marker, id) {
-                if (marker.item.inventory_category_id === inventoryId)
+                if (mapProvider.isMarkerInsideBounds(marker))
                 {
-                  marker.setVisible(false);
+                  if (marker.item.inventory_category_id === inventoryId)
+                  {
+                    if (action === 'show')
+                    {
+                      marker.setVisible(true);
+                    };
+
+                    if (action === 'hide')
+                    {
+                      marker.setVisible(false);
+                    };
+                  }
                 }
               });
             });
