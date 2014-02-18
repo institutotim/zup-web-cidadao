@@ -169,25 +169,6 @@ angular.module('zupWebAngularApp', [
     return null;
   };
 
-  $rootScope.filterByReportCategory = function(category) {
-    for (var categoryId in $rootScope.markers.reports)
-    {
-      if (parseInt(categoryId) === category.id)
-      {
-        angular.forEach($rootScope.markers.reports[categoryId], function(value, key){
-          if (value.getVisible() === true)
-          {
-            value.setVisible(false);
-          }
-          else
-          {
-            value.setVisible(true);
-          }
-        });
-      }
-    }
-  };
-
   // helper to get beginDate and endDate by the slider position
   // Current possible positions: [1, 2, 3, 4]
   $rootScope.getItemsPeriodBySliderPosition = function(pos) {
