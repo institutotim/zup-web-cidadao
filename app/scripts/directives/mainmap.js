@@ -316,7 +316,7 @@ angular.module('zupWebAngularApp')
               }
               else
               {
-                var cat, all;
+                var cat, pos;
 
                 if (marker.type === 'report')
                 {
@@ -523,6 +523,7 @@ angular.module('zupWebAngularApp')
         mapProvider.start();
 
         // bind to $rootScope
+        $rootScope.map = mapProvider.map;
         $rootScope.filterItemsByInventoryId = mapProvider.filterItems;
         $rootScope.filterByReportCategory = mapProvider.filterReports;
       }
