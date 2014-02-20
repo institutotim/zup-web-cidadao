@@ -68,11 +68,14 @@ angular.module('zupWebAngularApp')
             google.maps.event.trigger(map, 'bounds_changed');
             map.setCenter(marker.getPosition());
 
-            var categoryIcon = new google.maps.MarkerImage(scope.$parent.categoryData.marker.retina.web, null, null, null, new google.maps.Size(54, 51));
-
             if (scope.$parent.categoryData !== null)
             {
-              marker.setIcon(categoryIcon);
+              if (scope.$parent.categoryData.allows_arbitrary_position === true)
+              {
+                var categoryIcon = new google.maps.MarkerImage(scope.$parent.categoryData.marker.retina.web, null, null, null, new google.maps.Size(54, 51));
+
+                marker.setIcon(categoryIcon);
+              }
             }
 
             // clear addresses
