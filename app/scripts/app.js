@@ -331,6 +331,7 @@ angular.module('zupWebAngularApp', [
           description: null
         };
 
+        $scope.itemId = null;
         $scope.categoryData = null;
         $scope.lat = null;
         $scope.lng = null;
@@ -390,6 +391,7 @@ angular.module('zupWebAngularApp', [
               categoryId: $scope.categoryData.id,
               latitude: $scope.lat,
               longitude: $scope.lng,
+              inventory_item_id: $scope.itemId,
               description: $scope.inputs.description,
               address: $scope.formattedAddress,
               images: images
