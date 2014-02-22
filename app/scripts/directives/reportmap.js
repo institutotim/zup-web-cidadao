@@ -185,6 +185,8 @@ angular.module('zupWebAngularApp')
                 scope.$parent.lng = null;
                 scope.$parent.itemId = null;
                 scope.$parent.formattedAddress = null;
+
+                scope.$apply();
               }, 80);
             });
           },

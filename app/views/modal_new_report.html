@@ -71,7 +71,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-default btn-azul btn-signup btn-forgot btn-publish" ng-disabled="!policy">Publicar</button>
+            <button type="submit" class="btn btn-default btn-azul btn-signup btn-forgot btn-publish" ng-disabled="!(policy && (itemId !== null || lat !== null))">Publicar</button>
         </form>
 
     </div>
