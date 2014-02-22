@@ -223,7 +223,8 @@ angular.module('zupWebAngularApp')
               'position[latitude]': options.center.lat(),
               'position[longitude]': options.center.lng(),
               'position[distance]': options.distance,
-              'position[max_items]': 300
+              'limit': 80,
+              'zoom': mapProvider.map.getZoom()
             };
 
             var itemsData = Inventory.getItems(params);
