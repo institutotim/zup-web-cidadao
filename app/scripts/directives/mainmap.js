@@ -44,6 +44,7 @@ angular.module('zupWebAngularApp')
           activeInventoryFilters: [],
           hiddenReportsCategories: [],
           hiddenInventoryCategories: [],
+          infoWindow: new google.maps.InfoWindow(),
 
           start: function() {
             element.css({'width': $(window).width() - 300, 'height': $(window).height() });
@@ -234,7 +235,7 @@ angular.module('zupWebAngularApp')
             {
               var LatLng = new google.maps.LatLng(item.position.latitude, item.position.longitude);
 
-              var infowindow = new google.maps.InfoWindow();
+              var infowindow = mapProvider.infoWindow;
 
               var category, iconSize, viewAction, itemType, visibility = false;
 
