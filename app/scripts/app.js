@@ -470,11 +470,33 @@ angular.module('zupWebAngularApp', [
           };
         };
 
-        Reports.getItemsByInventory({inventoryId: category.id}, function(data) {
+        $scope.loadingReports = true;
+
+        Reports.getReportsByItem({itemId: item.id}, function(data) {
+          for (var i = data.reports.length - 1; i >= 0; i--) {
+            data.reports[i].category = $rootScope.getReportCategory(data.reports[i].category_id);
+            console.log(data.reports[i].category);
+
+            for (var j = data.reports[i].category.statuses.length - 1; j >= 0; j--) {
+              if (data.reports[i].category.statuses[j].id === data.reports[i].status_id)
+              {
+                data.reports[i].status = data.reports[i].category.statuses[j];
+              }
+            }
+          };
+
+          console.log(data);
+
           $scope.reports = data.reports;
+
+          $scope.currentReport = data.reports[0];
+
+          $scope.loadingReports = false;
         });
 
-        console.log(item, category);
+        $scope.viewReport = function(report) {
+          $scope.currentReport = report;
+        };
 
         $scope.close = function () {
           $modalInstance.close();

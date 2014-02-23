@@ -12,19 +12,20 @@
 </div>
 
 <div class="informacoes" ng-show="currentTab == 0">
-    <div class="left_column">
+    <!--<div class="left_column">-->
         <div class="padding">
             <div ng-repeat="section in category.sections">
-                <div ng-repeat="field in section.fields">
-                    <h1>{{ field.title }}</h1>
-                    <p>{{ getDataByInventoryFieldId(field.id) }}</p>
-                </div>
+              <div class="separator">{{ section.title }}</div>
 
-                <hr />
+              <div ng-repeat="field in section.fields">
+                  <h1>{{ field.title }}</h1>
+                  <p>{{ getDataByInventoryFieldId(field.id) }}</p>
+              </div>
             </div>
         </div>
-    </div>
+    <!--</div>-->
 
+    <!--
     <div class="right_column">
         <img src="images/infos/bocalobo4.jpg">
 
@@ -34,23 +35,43 @@
             <img src="images/infos/bocalobo4.jpg">
         </div>
     </div>
+    -->
 </div>
 
-<div class="solicitacoes" ng-show="currentTab == 1">
+<div class="col-xs-9 loadingReports" ng-show="loadingReports && currentTab == 1">
+  <span>Carregando...</span>
+</div>
+
+<div class="col-xs-9 loadingReports" ng-show="reports.length == 0 && currentTab == 1">
+  <span>Não existem relatos para este item.</span>
+</div>
+
+<div class="col-xs-4 solicitacoes" ng-hide="loadingReports || reports.length == 0 || currentTab != 1">
     <ul class="nav nav-pills nav-stacked">
-        <li class="active"><a href="#"><span class="aberto"></span> Limpeza de boca de lobo <span class="time">2 dias atrás</span></a></li>
+        <li ng-repeat="report in reports" ng-class="{ active: report == currentReport }"><a href="" ng-click="viewReport(report)"><span class="ball_status" ng-style="{'background-color': report.status.color }"></span> {{ report.category.title }} <span class="time">{{ report.created_at | date: 'dd/MM/yy HH:mm'}}</span></a></li>
     </ul>
 </div>
 
-<div class="solicitacao" ng-show="currentTab == 1">
+<div class="solicitacao" ng-hide="loadingReports || reports.length == 0 || currentTab != 1">
     <div class="padding">
-        <h1>Protocolo 1746352803</h1>
-        <hr />
-        <span class="aberto">Em aberto</span>
-        <h2>Limpeza de boca de lobo</h2>
-        <p class="muted">Av. 9 de julho, 1522, Bela Vista, São Paulo</p>
-        <b>Enviada 2 dias atrás</b>
-        <img src="images/infos/bocalobo2.jpg">
-        <p class="desc">Hoje choveu e com a boca de lobo entupida, a água não pode escoar, causando alagamento e transtornos para pedestres como eu.</p>
+      <div class="padding">
+          <h1>Protocolo {{ currentReport.protocol }}</h1>
+          <hr />
+          <span class="aberto" ng-style="{'background-color': currentReport.status.color }">{{ currentReport.status.title }}</span>
+          <h2>{{ currentReport.category.title }}</h2>
+          <p class="muted">{{ currentReport.address }}</p>
+          <b>Enviada {{ currentReport.created_at | date: 'dd/MM/yy HH:mm'}}</b>
+      </div><!--/.padding -->
+
+      <carousel id="carousel" class="carousel">
+        <slide class="item" ng-repeat="image in currentReport.images">
+            <img ng-src="{{ image.url }}">
+        </slide>
+      </carousel><!--/.carousel -->
+
+      <div class="padding">
+          <p class="desc">{{ currentReport.description }}</p>
+          <!--<a href="#" class="desc">Ver detalhes da boca de lobo 28728472</a>-->
+      </div><!--/.padding -->
     </div>
 </div>

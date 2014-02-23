@@ -1139,6 +1139,25 @@ input.knob:after { content: "%" !important; }
         }
     }
 
+    .loadingReports {
+      padding-right: 0;
+      padding-left: 0;
+      width: 730px;
+      height: 820px;
+      border-right: 1px solid #ccc;
+      background-color: #fff;
+      display: table;
+
+      span {
+        display: table-cell;
+        vertical-align: middle;
+        color: #999;
+        font-size: 27px;
+        text-align: center;
+        font-weight: bold;
+      }
+    }
+
     .solicitacoes {
         float: left;
         overflow-y: scroll;
@@ -1192,6 +1211,16 @@ input.knob:after { content: "%" !important; }
         .resolvido { background-color: #76cc4f; }
 
         .nao-resolvido { background-color: #979797; }
+
+        .ball_status {
+            position: relative;
+            top: 1px;
+            display: inline-block;
+            margin-right: 10px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50px;
+          }
 
         .time {
             float: right;
@@ -1322,7 +1351,7 @@ input.knob:after { content: "%" !important; }
             font-size: 16px; }
 
         .separator {
-            margin: 30px 10px;
+            margin-top: 20px;
             padding: 0 10px;
             height: 30px;
             background-color: #e5e5e5;

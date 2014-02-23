@@ -9,7 +9,7 @@ angular.module('zupWebAngularApp')
       'getItems': { url: '{base_url}/reports/items/:id.json', method: 'GET', params: { id:'@id' } },
       'save': { url: '{base_url}/reports/:categoryId/items.json', method: 'POST', params: { categoryId:'@categoryId' } },
       'getMyItems': {url: '{base_url}/reports/users/me/items.json', method: 'GET'},
-      'getItemsByInventory': { url: '{base_url}/reports/inventory/:inventoryId/items.json', method: 'GET', params: { inventoryId: '@inventoryId' } },
+      'getReportsByItem': { url: '{base_url}/reports/inventory/:itemId/items.json', method: 'GET', params: { itemId: '@itemId' } },
       'getStats': {url: '{base_url}/reports/stats.json', method: 'GET'}
     });
 });
