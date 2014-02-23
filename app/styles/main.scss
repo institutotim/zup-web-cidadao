@@ -454,6 +454,14 @@ header {
         border: none;
         background: url("../images/filtros_periodo_regua_handle_normal.png");
         box-shadow: none; }
+
+      .slider_bar {
+        width: 215px;
+        height: 14px;
+        border: 0;
+        border-radius: 0;
+        background: none;
+      }
 }
 
 .slider-dots {
