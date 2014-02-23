@@ -53,12 +53,17 @@
               </div>
 
               <div class="form-group">
-                  <label for="input_email">E-mail *</label>
+                  <label for="input_email">E-mail</label>
                   <input type="email" class="form-control" id="input_email" name="email" ng-model="me.email" generic-input>
               </div>
 
+              <div class="form-group">
+                  <label for="input_current_password">Senha atual</label>
+                  <input type="password" class="form-control" id="input_current_password" name="current_password" ng-model="me.current_password" generic-input>
+              </div>
+
               <div class="form-group password">
-                  <label for="input_password">Senha *</label>
+                  <label for="input_password">Nova senha</label>
                   <div class="clearfix"></div>
                   <input type="password" class="form-control input_password" id="input_password" placeholder="Nova senha" name="password" ng-model="me.password" generic-input>
                   <input type="password" class="form-control input_password_confirmation" id="input_password_confirmation" placeholder="Confirme a senha" ng-model="me.password_confirmation" name="password_confirmation" generic-input>

@@ -7,8 +7,8 @@ angular.module('zupWebAngularApp')
     restrict: 'A',
     link: function postLink(scope, element) {
 
-      scope.$parent.$watch('inputErrors', function() {
-        var errors = scope.$parent.inputErrors,
+      scope.$watch('inputErrors', function() {
+        var errors = scope.inputErrors,
             label = angular.element('label[for=\'' + element.attr('id') + '\']');
 
         // clear errors
@@ -21,7 +21,6 @@ angular.module('zupWebAngularApp')
           {
             if (index === element.attr('name'))
             {
-              console.log(index, errors[index]);
               element.addClass('has-error');
               label.addClass('has-error');
             }
