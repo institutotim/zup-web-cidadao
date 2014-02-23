@@ -311,7 +311,7 @@ angular.module('zupWebAngularApp', [
 
           newUser.$save(function() {
             $modalInstance.close();
-            Alert.show('Parabéns!', 'Sua conta foi criada com sucesso. Agora você pode efetuar solicitações de limpeza de boca de lobo e para coletas de entulho.');
+            Alert.show('Parabéns!', 'Sua conta foi criada com sucesso. Agora você pode criar e verificar suas solicitações.');
           }, function(response) {
             $scope.processingForm = false;
             $scope.inputErrors = response.data.error;
