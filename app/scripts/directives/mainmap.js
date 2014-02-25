@@ -384,8 +384,8 @@ angular.module('zupWebAngularApp')
           toggleReportCategoryVisibility: function(reportCategoryId, action) {
             angular.forEach(mapProvider.zoomLevels, function(zoomLevel, zoomLevelId) {
               angular.forEach(zoomLevel, function(marker, id) {
-                if (mapProvider.isMarkerInsideBounds(marker))
-                {
+                //if (mapProvider.isMarkerInsideBounds(marker))
+                //{
                   if (marker.item.category_id === reportCategoryId)
                   {
                     if (action === 'show')
@@ -398,7 +398,7 @@ angular.module('zupWebAngularApp')
                       marker.setVisible(false);
                     };
                   }
-                }
+                //}
               });
             });
           },
@@ -406,8 +406,8 @@ angular.module('zupWebAngularApp')
           toggleItemsVisibility: function(inventoryId, action) {
             angular.forEach(mapProvider.zoomLevels, function(zoomLevel, zoomLevelId) {
               angular.forEach(zoomLevel, function(marker, id) {
-                if (mapProvider.isMarkerInsideBounds(marker))
-                {
+                //if (mapProvider.isMarkerInsideBounds(marker))
+                //{
                   if (marker.item.inventory_category_id === inventoryId)
                   {
                     if (action === 'show')
@@ -420,7 +420,7 @@ angular.module('zupWebAngularApp')
                       marker.setVisible(false);
                     };
                   }
-                }
+                //}
               });
             });
           }
