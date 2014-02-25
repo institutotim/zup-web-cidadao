@@ -23,6 +23,9 @@ angular.module('zupWebAngularApp')
         });
 
         element.click(function() {
+          // let's disable reports icons
+          $('.report_category_icon').removeClass('active');
+
           element.toggleClass('active');
 
           if (element.hasClass('active'))

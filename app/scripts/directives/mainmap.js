@@ -323,7 +323,12 @@ angular.module('zupWebAngularApp')
             return dis;
           },
 
-          filterItems: function(inventoryId) {
+          filterItems: function(inventoryId, hideAll) {
+            if (hideAll !== true)
+            {
+              mapProvider.hideAllReports();
+            }
+
             var pos = mapProvider.hiddenInventoryCategories.indexOf(inventoryId);
 
             if (~pos)
@@ -338,7 +343,12 @@ angular.module('zupWebAngularApp')
             };
           },
 
-          filterReports: function(reportCategoryId) {
+          filterReports: function(reportCategoryId, hideAll) {
+            if (hideAll !== true)
+            {
+              mapProvider.hideAllItems();
+            }
+
             var pos = mapProvider.hiddenReportsCategories.indexOf(reportCategoryId);
 
             if (~pos)
@@ -350,6 +360,24 @@ angular.module('zupWebAngularApp')
             {
               mapProvider.toggleReportCategoryVisibility(reportCategoryId, 'hide');
               mapProvider.hiddenReportsCategories.push(reportCategoryId);
+            };
+          },
+
+          hideAllItems: function() {
+            for (var i = $rootScope.inventoryCategories.length - 1; i >= 0; i--) {
+              if (!~mapProvider.hiddenInventoryCategories.indexOf($rootScope.inventoryCategories[i].id))
+              {
+                mapProvider.filterItems($rootScope.inventoryCategories[i].id, true);
+              }
+            };
+          },
+
+          hideAllReports: function() {
+            for (var i = $rootScope.reportCategories.length - 1; i >= 0; i--) {
+              if (!~mapProvider.hiddenReportsCategories.indexOf($rootScope.reportCategories[i].id))
+              {
+                mapProvider.filterReports($rootScope.reportCategories[i].id, true);
+              }
             };
           },
 
