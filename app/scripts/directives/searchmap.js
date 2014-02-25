@@ -13,17 +13,17 @@ angular.module('zupWebAngularApp')
           componentRestrictions: { country: 'br' }
         };
 
-        var autocomplete = new google.maps.places.Autocomplete(element[0], options);
-        autocomplete.bindTo('bounds', map);
+        var searchbox = new google.maps.places.SearchBox(element[0], options);
+        searchbox.bindTo('bounds', map);
 
         var marker = new google.maps.Marker({
           map: map
         });
 
-        google.maps.event.addListener(autocomplete, 'place_changed', function() {
+        google.maps.event.addListener(searchbox, 'places_changed', function() {
           marker.setVisible(false);
 
-          var place = autocomplete.getPlace();
+          var place = searchbox.getPlaces()[0];
 
           if (!place.geometry) {
             return;
