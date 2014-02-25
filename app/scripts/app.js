@@ -110,7 +110,7 @@ angular.module('zupWebAngularApp', [
       });
 
       // Get report categories
-      var reportsCategories = Reports.get(function(data) {
+      var reportsCategories = Reports.get({'display_type': 'full'}, function(data) {
         $rootScope.reportCategories = data.categories;
 
         if (data.categories.length === 0) {
