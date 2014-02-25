@@ -22,6 +22,11 @@ angular.module('zupWebAngularApp', [
       controller: 'ReportsCtrl',
       access: { logged: true }
     })
+    .when('/reports/view/:reportId', {
+      templateUrl: 'views/reports.html',
+      controller: 'ReportsCtrl',
+      access: { logged: true }
+    })
     .when('/account', {
       templateUrl: 'views/account.html',
       controller: 'AccountCtrl',
@@ -326,7 +331,7 @@ angular.module('zupWebAngularApp', [
     $modal.open({
       templateUrl: 'views/modal_new_report.html',
       windowClass: 'modal_new_report',
-      controller: ['$scope', '$modalInstance', 'Reports', 'Alert', '$route', '$fileUploader', function($scope, $modalInstance, Reports, Alert, $route, $fileUploader) {
+      controller: ['$scope', '$modalInstance', 'Reports', 'Alert', '$location', '$fileUploader', function($scope, $modalInstance, Reports, Alert, $location, $fileUploader) {
         $scope.inputs = {
           description: null
         };
@@ -397,10 +402,11 @@ angular.module('zupWebAngularApp', [
               images: images
             });
 
-            newReport.$save(function() {
+            newReport.$save(function(data) {
               $modalInstance.close();
+
               Alert.show('Relato criado com sucesso', 'Agora você pode checar o status do seu relato no menu superior.', function() {
-                $route.reload();
+                $location.path('/reports/view/' + data.report.id);
               });
             }, function(response) {
               $scope.processingForm = false;
