@@ -279,7 +279,7 @@ angular.module('zupWebAngularApp')
 
               var pos = mapProvider.hiddenInventoryCategories.indexOf(item.inventory_category_id);
 
-              var categoryIcon = new google.maps.MarkerImage(category.marker.retina.web, null, null, null, iconSize);
+              var categoryIcon = new google.maps.MarkerImage(category.pin.retina.web, null, null, null, iconSize);
 
               var pinOptions = {
                 position: LatLng,
