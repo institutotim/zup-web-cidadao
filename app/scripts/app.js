@@ -466,6 +466,12 @@ angular.module('zupWebAngularApp', [
     });
   };
 
+  $rootScope.viewItemWithReports = function(item, category) {
+    var id = item.inventory_item_id;
+
+    console.log(item, category);
+  },
+
   $rootScope.viewItem = function(item, category) {
     $modal.open({
       templateUrl: 'views/modal_view_item.html',

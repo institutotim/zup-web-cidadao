@@ -282,6 +282,11 @@ angular.module('zupWebAngularApp')
                 {
                   visibility = true;
                 }
+
+                if (item.inventory_item_id !== null)
+                {
+                  viewAction = $rootScope.viewItemWithReports;
+                }
               }
               else
               {
