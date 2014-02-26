@@ -12,8 +12,7 @@ angular.module('zupWebAngularApp')
           max: 4,
           step: 1,
           stop: function( event, ui ) {
-            $rootScope.itemsPeriod = scope.getItemsPeriodBySliderPosition(ui.value);
-            $rootScope.$apply();
+            $rootScope.filterReportsByPeriod(scope.getItemsPeriodBySliderPosition(ui.value));
           }
         });
       }

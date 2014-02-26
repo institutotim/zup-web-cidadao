@@ -46,6 +46,8 @@ angular.module('zupWebAngularApp')
           hiddenInventoryCategories: [],
           infoWindow: new google.maps.InfoWindow(),
           currentReportFilterStatus: null,
+          beginDate: null,
+          endDate: null,
 
           start: function() {
             element.css({'width': $(window).width() - 300, 'height': $(window).height() });
@@ -60,6 +62,12 @@ angular.module('zupWebAngularApp')
                 };
               }
             });
+
+            // set dates to first filter
+            var period = $rootScope.getItemsPeriodBySliderPosition(1);
+
+            this.beginDate = period.beginDate;
+            this.endDate = period.endDate;
 
             // create map and set specific listeners
             this.createMap();
@@ -89,7 +97,9 @@ angular.module('zupWebAngularApp')
               'position[longitude]': options.center.lng(),
               'position[distance]': options.distance,
               'limit': 80,
-              'zoom': mapProvider.map.getZoom()
+              'zoom': mapProvider.map.getZoom(),
+              'begin_date': mapProvider.beginDate,
+              'end_date': mapProvider.endDate
             };
 
             if (mapProvider.currentReportFilterStatus !== null)
@@ -351,6 +361,13 @@ angular.module('zupWebAngularApp')
             mapProvider.boundsChanged(true);
           },
 
+          filterReportsByPeriod: function(period) {
+            mapProvider.beginDate = period.beginDate;
+            mapProvider.endDate = period.endDate;
+
+            mapProvider.boundsChanged(true);
+          },
+
           filterItems: function(inventoryId, hideAll) {
             if (hideAll !== true)
             {
@@ -462,6 +479,7 @@ angular.module('zupWebAngularApp')
         $rootScope.filterByReportCategory = mapProvider.filterReports;
         $rootScope.filterReportsByStatus = mapProvider.filterReportsByStatus;
         $rootScope.activeStatus = mapProvider.currentReportFilterStatus;
+        $rootScope.filterReportsByPeriod = mapProvider.filterReportsByPeriod;
       }
     };
   });

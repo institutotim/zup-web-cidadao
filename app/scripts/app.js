@@ -170,9 +170,6 @@ angular.module('zupWebAngularApp', [
     {
       $rootScope.page = 'account';
     }
-
-    // Start map with first filter
-    $rootScope.itemsPeriod = $rootScope.getItemsPeriodBySliderPosition(1);
   });
 
   // Helper
