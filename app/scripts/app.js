@@ -90,6 +90,7 @@ angular.module('zupWebAngularApp', [
     {
       $rootScope.reportCategories = {};
       $rootScope.inventoryCategories = {};
+      $rootScope.statuses = [];
       $rootScope.enabledReports = true;
 
       $rootScope.isLoading = true;
@@ -112,6 +113,25 @@ angular.module('zupWebAngularApp', [
       // Get report categories
       var reportsCategories = Reports.get({'display_type': 'full'}, function(data) {
         $rootScope.reportCategories = data.categories;
+
+        // merge all categories statuses in one array with no duplicates
+        for (var i = data.categories.length - 1; i >= 0; i--) {
+          for (var j = data.categories[i].statuses.length - 1; j >= 0; j--) {
+            var found = false;
+
+            for (var k = $rootScope.statuses.length - 1; k >= 0; k--) {
+              if ($rootScope.statuses[k].id === data.categories[i].statuses[j].id)
+              {
+                found = true;
+              }
+            };
+
+            if (!found)
+            {
+              $rootScope.statuses.push(data.categories[i].statuses[j])
+            }
+          };
+        };
 
         if (data.categories.length === 0) {
           $rootScope.enabledReports = false;

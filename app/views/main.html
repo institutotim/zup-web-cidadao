@@ -70,12 +70,8 @@
                         Todos os status <img src="images/filtros_chevron_normal.png">
                     </a>
                     <ul class="dropdown-menu right">
-                        <li style="padding: 20px; background: #262626; color: #FFF; font-size: 13px;">Limpeza de boca de lobo</li>
-                        <li><a href="#" class="selected">Não resolvidos</a></li>
-                        <li><a href="#">Resolvidos</a></li>
-                        <li style="padding: 20px; background: #262626; color: #FFF; font-size: 13px;">Coleta de entulho</li>
-                        <li><a href="#">Não resolvidos</a></li>
-                        <li><a href="#" class="selected">Todos os status</a></li>
+                        <li ng-repeat="status in statuses"><a href="" ng-class="{selected: activeStatus === status.id }" ng-click="filterReportsByStatus(status.id)">{{ status.title }}</a></li>
+                        <li><a href="" ng-class="{selected: activeStatus === null }" ng-click="filterReportsByStatus(null)">Todos os relatos</a></li>
                     </ul>
               </ul>
             </div>

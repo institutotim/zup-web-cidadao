@@ -45,6 +45,7 @@ angular.module('zupWebAngularApp')
           hiddenReportsCategories: [],
           hiddenInventoryCategories: [],
           infoWindow: new google.maps.InfoWindow(),
+          currentReportFilterStatus: null,
 
           start: function() {
             element.css({'width': $(window).width() - 300, 'height': $(window).height() });
@@ -91,6 +92,11 @@ angular.module('zupWebAngularApp')
               'zoom': mapProvider.map.getZoom()
             };
 
+            if (mapProvider.currentReportFilterStatus !== null)
+            {
+              params.statuses = mapProvider.currentReportFilterStatus;
+            }
+
             var reportsData = Reports.getItems(params);
 
             return reportsData;
@@ -110,7 +116,7 @@ angular.module('zupWebAngularApp')
             return itemsData;
           },
 
-          boundsChanged: function() {
+          boundsChanged: function(forceReset) {
             var clearLevels = false;
 
             if (typeof this.zoomLevels[this.map.getZoom()] === 'undefined')
@@ -159,6 +165,11 @@ angular.module('zupWebAngularApp')
 
               $q.all([reports.$promise, items.$promise]).then(function(values) {
                 $rootScope.isLoadingItems = false;
+
+                if (forceReset === true)
+                {
+                  mapProvider.removeAllMarkers();
+                }
 
                 if (clearLevels)
                 {
@@ -216,13 +227,22 @@ angular.module('zupWebAngularApp')
 
           hideAllMarkersFromInactiveLevels: function() {
             angular.forEach(this.zoomLevels, function(zoomLevel, zoomLevelId) {
-              console.log(zoomLevelId, mapProvider.currentZoom);
               if (zoomLevelId != mapProvider.currentZoom)
               {
                 angular.forEach(zoomLevel, function(marker, id) {
                   marker.setVisible(false);
                 });
               }
+            });
+          },
+
+          removeAllMarkers: function() {
+            angular.forEach(this.zoomLevels, function(zoomLevel, zoomLevelId) {
+              angular.forEach(zoomLevel, function(marker, id) {
+                marker.setMap(null);
+
+                delete mapProvider.zoomLevels[zoomLevelId][id];
+              });
             });
           },
 
@@ -321,6 +341,14 @@ angular.module('zupWebAngularApp')
             var dis = google.maps.geometry.spherical.computeDistanceBetween(center, ne);
 
             return dis;
+          },
+
+          filterReportsByStatus: function(statusId) {
+            // set status id
+            mapProvider.currentReportFilterStatus = $rootScope.activeStatus = statusId;
+
+            // force reload, now requests will search with the category id
+            mapProvider.boundsChanged(true);
           },
 
           filterItems: function(inventoryId, hideAll) {
@@ -432,6 +460,8 @@ angular.module('zupWebAngularApp')
         $rootScope.map = mapProvider.map;
         $rootScope.filterItemsByInventoryId = mapProvider.filterItems;
         $rootScope.filterByReportCategory = mapProvider.filterReports;
+        $rootScope.filterReportsByStatus = mapProvider.filterReportsByStatus;
+        $rootScope.activeStatus = mapProvider.currentReportFilterStatus;
       }
     };
   });
