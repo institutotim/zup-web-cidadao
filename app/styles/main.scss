@@ -531,35 +531,29 @@ input.knob:after { content: "%" !important; }
         padding: 20px 75px 10px 0;
         border-right: 1px solid #b3b3b3;
 
-        #resolvidas > b, #emAndamento > b, #emAberto > b, #naoResolvidas > b {
+        .numero > b {
             position: relative;
             top: -15px;
             left: 45px;
             letter-spacing: -.05em;
             font-weight: 800;
-            font-size: 60px; }
-
-        #resolvidas > b { color: #76cc4f; }
-
-        #emAndamento > b { color: #ffac2c; }
-
-        #emAberto > b { color: #ff5f4d; }
-
-        #naoResolvidas > b { color: #979797; }
+            font-size: 60px;
+            color: #76cc4f;
+        }
     }
 
     .nomes {
         float: left;
         padding: 41px 0 0 30px;
 
-        .resolvidas > h1, .emAndamento > h1, .emAberto > h1, .naoResolvidas > h1 {
+        .nome > h1 {
             margin: 4px 0 45px 0;
             color: #000;
             font-weight: 300;
             font-size: 28px;
         }
 
-        .resolvidas > h3, .emAndamento > h3, .emAberto > h3, .naoResolvidas > h3 {
+        .nome > h3 {
             margin: 0;
             color: #808080;
             text-transform: uppercase;

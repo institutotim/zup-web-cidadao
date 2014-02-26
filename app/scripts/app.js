@@ -143,13 +143,8 @@ angular.module('zupWebAngularApp', [
         $rootScope.inventoryCategories = data.categories;
       });
 
-      // Get stats
-      var reportsStats = Reports.getStats(function(data) {
-        $rootScope.stats = data.stats;
-      });
-
       // Wait for all categories to load
-      $q.all([reportsCategories.$promise, inventoryCategories.$promise, check.$promise, reportsStats.$promise]).then(function() {
+      $q.all([reportsCategories.$promise, inventoryCategories.$promise, check.$promise]).then(function() {
         $rootScope.isLoading = false;
       });
     }

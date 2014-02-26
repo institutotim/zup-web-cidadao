@@ -2,7 +2,7 @@
 'use strict';
 
 angular.module('zupWebAngularApp')
-  .directive('sliderFilter', function ($rootScope) {
+  .directive('sliderFilter', function () {
     return {
       restrict: 'A',
       link: function postLink(scope, element) {
@@ -12,7 +12,7 @@ angular.module('zupWebAngularApp')
           max: 4,
           step: 1,
           stop: function( event, ui ) {
-            $rootScope.filterReportsByPeriod(scope.getItemsPeriodBySliderPosition(ui.value));
+            scope.filterReportsByPeriod(scope.getItemsPeriodBySliderPosition(ui.value));
           }
         });
       }
