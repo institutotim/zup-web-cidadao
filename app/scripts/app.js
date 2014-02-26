@@ -462,12 +462,14 @@ angular.module('zupWebAngularApp', [
   };
 
   $rootScope.viewItemWithReports = function(item, category) {
-    var id = item.inventory_item_id;
+    var id = item.inventory_item_id, categoryId = item.inventory_item_category_id;
 
-    console.log(item, category);
+    Inventory.getItem({ id: id, categoryId: categoryId }, function(data) {
+      $rootScope.viewItem(data.item, $rootScope.getInventoryCategory(categoryId), true);
+    });
   },
 
-  $rootScope.viewItem = function(item, category) {
+  $rootScope.viewItem = function(item, category, viewReports) {
     $modal.open({
       templateUrl: 'views/modal_view_item.html',
       windowClass: 'modal_view_item',
@@ -484,6 +486,11 @@ angular.module('zupWebAngularApp', [
         $scope.item = item;
         $scope.category = category;
         $scope.currentTab = 0;
+
+        if (viewReports === true)
+        {
+          $scope.currentTab = 1;
+        }
 
         $scope.getDataByInventoryFieldId = function(id) {
           for (var i = item.data.length - 1; i >= 0; i--) {
