@@ -6,7 +6,7 @@ angular.module('zupWebAngularApp')
     return {
       restrict: 'A',
       link: function postLink(scope, element) {
-        var map = scope.mapProvider.map;
+        google.maps.event.clearListeners(scope.mapProvider.map);
 
         var options = {
           types: ['geocode'],
@@ -14,7 +14,7 @@ angular.module('zupWebAngularApp')
         };
 
         var autocomplete = new google.maps.places.Autocomplete(element[0], options);
-        autocomplete.bindTo('bounds', map);
+        autocomplete.bindTo('bounds', scope.mapProvider.map);
 
         google.maps.event.addListener(autocomplete, 'place_changed', function() {
           var place = autocomplete.getPlace();
@@ -24,10 +24,10 @@ angular.module('zupWebAngularApp')
           }
 
           if (place.geometry.viewport) {
-            map.fitBounds(place.geometry.viewport);
+            scope.mapProvider.map.fitBounds(place.geometry.viewport);
           } else {
-            map.setCenter(place.geometry.location);
-            map.setZoom(17);
+            scope.mapProvider.map.setCenter(place.geometry.location);
+            scope.mapProvider.map.setZoom(17);
           }
 
           if (scope.mapProvider.allows_arbitrary_position == true)
@@ -38,11 +38,9 @@ angular.module('zupWebAngularApp')
           else
           {
             var marker = new google.maps.Marker({
-              map: map,
+              map: scope.mapProvider.map,
               position: place.geometry.location
             });
-
-            console.log(place.geometry.location);
 
             marker.setIcon(({
               url: place.icon,

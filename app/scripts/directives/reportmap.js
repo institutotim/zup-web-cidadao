@@ -78,6 +78,8 @@ angular.module('zupWebAngularApp')
 
                     mapProvider.mainMarker = marker;
 
+                    mapProvider.allows_arbitrary_position = true;
+
                     scope.$apply();
 
                     google.maps.event.addListener(marker, 'dragend', function() {
@@ -94,6 +96,8 @@ angular.module('zupWebAngularApp')
                     google.maps.event.trigger(mapProvider.map, 'bounds_changed');
 
                     mapProvider.allows_arbitrary_position = false;
+
+                    scope.$apply();
                   }
                 }
 
