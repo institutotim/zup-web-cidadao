@@ -54,24 +54,26 @@
 
 <div class="solicitacao" ng-hide="loadingReports || reports.length == 0 || currentTab != 1">
     <div class="padding">
-      <div class="padding">
-          <h1>Protocolo {{ currentReport.protocol }}</h1>
-          <hr />
-          <span class="aberto" ng-style="{'background-color': currentReport.status.color }">{{ currentReport.status.title }}</span>
-          <h2>{{ currentReport.category.title }}</h2>
-          <p class="muted">{{ currentReport.address }}</p>
-          <b>Enviada {{ currentReport.created_at | date: 'dd/MM/yy HH:mm'}}</b>
-      </div><!--/.padding -->
+      <h1>Protocolo {{ currentReport.protocol }}</h1>
+      <hr />
+      <span class="aberto" ng-style="{'background-color': currentReport.status.color }">{{ currentReport.status.title }}</span>
+      <h2>{{ currentReport.category.title }}</h2>
+      <p class="muted">{{ currentReport.address }}</p>
+      <b>Enviada {{ currentReport.created_at | date: 'dd/MM/yy HH:mm'}}</b>
 
-      <carousel id="carousel" class="carousel">
+      <carousel id="carousel" class="carousel" ng-hide="currentReport.images.length == 0">
         <slide class="item" ng-repeat="image in currentReport.images">
             <img ng-src="{{ image.url }}">
         </slide>
       </carousel><!--/.carousel -->
 
-      <div class="padding">
-          <p class="desc">{{ currentReport.description }}</p>
-          <!--<a href="#" class="desc">Ver detalhes da boca de lobo 28728472</a>-->
-      </div><!--/.padding -->
+      <div class="slide" ng-show="currentReport.images.length == 0">
+        <div class="item">
+          <img ng-src="http://maps.googleapis.com/maps/api/staticmap?size=420x340&maptype=roadmap\&markers=icon:http://zup-images.s3.amazonaws.com/uploads/reports/category/1/markers/default_web_icon_bocalobo_2x.png|{{ currentReport.position.latitude }},{{ currentReport.position.longitude }}&sensor=false">
+        </div>
+      </div>
+
+      <p class="desc">{{ currentReport.description }}</p>
+      <!--<a href="#" class="desc">Ver detalhes da boca de lobo 28728472</a>-->
     </div>
 </div>
