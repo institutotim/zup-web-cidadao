@@ -42,6 +42,9 @@ angular.module('zupWebAngularApp')
           },
 
           createMap: function() {
+            this.zoomLevels = {};
+            this.currentZoom = 11;
+
             var styledMap = new google.maps.StyledMapType(this.options.styles, { name: 'zup' });
 
             this.map = new google.maps.Map(element[0], this.options.map);
@@ -63,7 +66,7 @@ angular.module('zupWebAngularApp')
 
                 if (scope.$parent.categoryData !== null)
                 {
-                  if (scope.$parent.categoryData.allows_arbitrary_position === true)
+                  if (scope.$parent.categoryData.inventory_categories.length == 0)
                   {
                     var categoryIcon = new google.maps.MarkerImage(scope.$parent.categoryData.marker.retina.web, null, null, null, new google.maps.Size(54, 51));
 
