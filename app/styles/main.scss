@@ -1292,6 +1292,15 @@ input.knob:after { content: "%" !important; }
         .carousel, .slide {
             margin: 20px 0 0 -20px;
             width: 420px;
+
+            .carousel-indicators li {
+              margin: 0 0 0 10px;
+            }
+
+            .carousel-control .glyphicons-chevron-left, .carousel-control .glyphicons-chevron-right, .carousel-control .icon-prev, .carousel-control .icon-next {
+              margin-top: -40px;
+              font-size: 60px;
+            }
         }
 
         p.desc {
