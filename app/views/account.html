@@ -71,12 +71,12 @@
 
               <div class="form-group telefone">
                   <label for="input_phone">Telefone</label>
-                  <input type="text" class="form-control" id="input_phone" name="phone" ng-model="me.phone" generic-input>
+                  <input type="text" class="form-control" id="input_phone" name="phone" ng-model="me.phone" ui-mask="(99) 99999999?9" generic-input>
               </div>
 
               <div class="form-group cpf">
                   <label for="input_cpf">CPF</label>
-                  <input type="text" class="form-control" id="input_cpf" name="document" ng-model="me.document" generic-input>
+                  <input type="text" class="form-control" id="input_cpf" name="document" ng-model="me.document" ui-mask="999.999.999-99" generic-input>
               </div>
 
               <div class="form-group">
@@ -91,7 +91,7 @@
 
               <div class="form-group cep">
                   <label for="input_postal_code">CEP</label>
-                  <input type="text" class="form-control" id="input_postal_code" name="postal_code" ng-model="me.postal_code" generic-input>
+                  <input type="text" class="form-control" id="input_postal_code" name="postal_code" ng-model="me.postal_code" ui-mask="99999-999" generic-input>
               </div>
 
               <div class="form-group">
