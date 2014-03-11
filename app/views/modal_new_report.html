@@ -13,7 +13,8 @@
     </a>
 
     <div ng-hide="categoryData == null">
-        <h3>2. Selecione o endereço ou arraste o marcador até a posição exata</h3>
+        <h3 ng-hide="categoryData.inventory_categories.length == 0">2. Clique no ponto exato que deseja fazer a solicitação.</h3>
+        <h3 ng-show="categoryData.inventory_categories.length == 0">2. Digite o endereço ou arraste o marcador até a posição exata.</h3>
 
         <div class="report_map">
           <div id="map-canvas" report-map></div>
