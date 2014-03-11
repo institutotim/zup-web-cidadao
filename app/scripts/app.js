@@ -139,7 +139,7 @@ angular.module('zupWebAngularApp', [
       });
 
       // Get inventory categories
-      var inventoryCategories = Inventory.get(function(data) {
+      var inventoryCategories = Inventory.get({'display_type': 'full'}, function(data) {
         $rootScope.inventoryCategories = data.categories;
       });
 
@@ -236,7 +236,7 @@ angular.module('zupWebAngularApp', [
     return {beginDate: beginDate, endDate: endDate};
   };
 
-  $rootScope.login = function() {
+  $rootScope.login = function(showNewReportModel) {
     $modal.open({
       templateUrl: 'views/modal_login.html',
       windowClass: 'modal_login',
@@ -261,6 +261,11 @@ angular.module('zupWebAngularApp', [
           user.auth().then(function() {
             $rootScope.logged = true;
             $modalInstance.close();
+
+            if (showNewReportModel === true)
+            {
+              $rootScope.newReport();
+            }
           }, function(response) {
             if (response.status === 400 || response.status === 401)
             {
@@ -506,7 +511,6 @@ angular.module('zupWebAngularApp', [
         Reports.getReportsByItem({itemId: item.id}, function(data) {
           for (var i = data.reports.length - 1; i >= 0; i--) {
             data.reports[i].category = $rootScope.getReportCategory(data.reports[i].category_id);
-            console.log(data.reports[i].category);
 
             for (var j = data.reports[i].category.statuses.length - 1; j >= 0; j--) {
               if (data.reports[i].category.statuses[j].id === data.reports[i].status_id)
@@ -515,8 +519,6 @@ angular.module('zupWebAngularApp', [
               }
             }
           };
-
-          console.log(data);
 
           $scope.reports = data.reports;
 
