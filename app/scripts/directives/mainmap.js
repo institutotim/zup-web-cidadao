@@ -382,6 +382,22 @@ angular.module('zupWebAngularApp')
             mapProvider.boundsChanged(true);
           },
 
+          filterOneCategory: function(inventoryId) {
+            for (var i = $rootScope.inventoryCategories.length - 1; i >= 0; i--) {
+              if ($rootScope.inventoryCategories[i].id == inventoryId)
+              {
+                mapProvider.filterItems(inventoryId);
+              }
+              else
+              {
+                if (!~mapProvider.hiddenInventoryCategories.indexOf($rootScope.inventoryCategories[i].id))
+                {
+                  mapProvider.filterItems($rootScope.inventoryCategories[i].id);
+                }
+              }
+            };
+          },
+
           filterItems: function(inventoryId, hideAll) {
             if (hideAll !== true)
             {
@@ -489,7 +505,7 @@ angular.module('zupWebAngularApp')
 
         // bind to $rootScope
         $rootScope.map = mapProvider.map;
-        $rootScope.filterItemsByInventoryId = mapProvider.filterItems;
+        $rootScope.filterItemsByInventoryId = mapProvider.filterOneCategory;
         $rootScope.filterByReportCategory = mapProvider.filterReports;
         $rootScope.filterReportsByStatus = mapProvider.filterReportsByStatus;
         $rootScope.activeStatus = mapProvider.currentReportFilterStatus;

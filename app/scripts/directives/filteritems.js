@@ -26,6 +26,13 @@ angular.module('zupWebAngularApp')
           // let's disable reports icons
           $('.report_category_icon').removeClass('active');
 
+          $('.inventory_category_icon').each(function() {
+            var elScope = angular.element(this).scope();
+
+            $(this).find('span.image').css('background-image', 'url(' + elScope.category.icon.retina.web.disabled + ')');
+            $(this).removeClass('active');
+          });
+
           element.toggleClass('active');
 
           if (element.hasClass('active'))
