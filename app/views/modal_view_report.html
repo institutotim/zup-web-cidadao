@@ -9,7 +9,7 @@
         <b>Enviada em {{ report.created_at | date: 'dd/MM/yy HH:mm'}}</b>
         <carousel id="carousel" class="carousel slide" ng-hide="report.images.length == 0">
           <slide class="item" ng-repeat="image in report.images">
-              <img ng-src="{{ image.url }}">
+              <img ng-src="{{ image.high }}">
           </slide>
         </carousel><!--/.carousel -->
 
