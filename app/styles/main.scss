@@ -1840,3 +1840,26 @@ input.knob:after { content: "%" !important; }
 
   }
 }
+
+.password_reset {
+  width: 250px;
+  margin: 0 auto;
+  margin-top: 150px;
+
+  h1 {
+    font: 24px 'Lato', sans-serif;
+    color: #75C3E1;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .form-control {
+    height: 50px;
+    border-color: #dcdcdc;
+    border-radius: 5px;
+    background-clip: padding-box;
+    box-shadow: none;
+    color: #000;
+    font-size: 16px;
+  }
+}

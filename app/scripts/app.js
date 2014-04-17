@@ -36,6 +36,10 @@ angular.module('zupWebAngularApp', [
       templateUrl: 'views/statistics.html',
       controller: 'StatisticsCtrl'
     })
+    .when('/password_reset/:token', {
+      templateUrl: 'views/password_reset.html',
+      controller: 'PasswordResetCtrl'
+    })
     .otherwise({
       redirectTo: '/'
     });
