@@ -15,7 +15,7 @@ angular.module('zupWebAngularApp')
 
     return {
         restrict: 'A',
-        template: '<canvas/>',
+        template: '<span class="upload-img-thumb"/>',
         link: function(scope, element, attributes) {
             if (!helper.support) return;
 
@@ -24,7 +24,7 @@ angular.module('zupWebAngularApp')
             if (!helper.isFile(params.file)) return;
             if (!helper.isImage(params.file)) return;
 
-            var canvas = element.find('canvas');
+            var span = element.find('span');
             var reader = new FileReader();
 
             reader.onload = onLoadFile;
@@ -32,15 +32,19 @@ angular.module('zupWebAngularApp')
 
             function onLoadFile(event) {
                 var img = new Image();
-                img.onload = onLoadImage;
                 img.src = event.target.result;
+                img.onload = onLoadImage(img.src);
             }
 
-            function onLoadImage() {
-                var width = params.width || this.width / this.height * params.height;
-                var height = params.height || this.height / this.width * params.width;
-                canvas.attr({ width: width, height: height });
-                canvas[0].getContext('2d').drawImage(this, 0, 0, width, height);
+            function onLoadImage(img) {
+                span.attr({ 'style' : 'background: ' +
+                    'url(' + img + ') no-repeat center center;' +
+                    '-webkit-background-size: cover;' +
+                    '-moz-background-size: cover;' +
+                    '-o-background-size: cover;' +
+                    'background-size: cover'
+                });
+                span[0];
             }
         }
     };

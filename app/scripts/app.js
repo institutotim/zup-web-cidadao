@@ -426,7 +426,7 @@ angular.module('zupWebAngularApp', [
             newReport.$save(function(data) {
               $modalInstance.close();
 
-              Alert.show('Relato criado com sucesso', 'Solicitação enviada com sucesso. Agora você pode checar o status da sua solicitação no menu superior.', function() {
+              Alert.show('Relato criado com sucesso', 'Solicitação enviada com sucesso. Agora você pode visualizar o andamento da sua solicitação no menu superior.', function() {
                 $location.path('/reports/view/' + data.report.id);
               });
             }, function(response) {

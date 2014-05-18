@@ -39,7 +39,7 @@
 
             <div class="queue">
               <div class="image" ng-repeat="item in uploader.queue">
-                <div ng-show="uploader.isHTML5" ng-thumb="{ file: item.file, width: 150, height: 150 }"></div>
+                <div ng-show="uploader.isHTML5" ng-thumb="{ file: item.file }"></div>
 
                 <span ng-show="!uploader.isHTML5">{{ item.file.name }}</span>
 

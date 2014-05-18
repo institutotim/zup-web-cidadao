@@ -624,6 +624,14 @@ input.knob:after { content: "%" !important; }
         &:hover, &:focus { background: url("../images/lightbox_btn_close_hover.png"); }
     }
 
+    span.upload-img-thumb {
+      display: block;
+      width: 150px;
+      height: 150px;
+      overflow: hidden;
+      overflow: hidden;
+    }
+
     /* Autenticação */
     .login, .signup {
         float: left;
@@ -1302,6 +1310,7 @@ input.knob:after { content: "%" !important; }
               margin-top: -40px;
               font-size: 60px;
             }
+
         }
 
         p.desc {
@@ -1787,7 +1796,30 @@ input.knob:after { content: "%" !important; }
           color: #666;
           text-transform: uppercase;
           font-weight: 700;
-          font-size: 12px; }
+          font-size: 12px;
+      }
+
+      a.left.carousel-control, a.right.carousel-control {
+          background: black;
+          width: 41px;
+          height: 72px;
+          top: 50%;
+          margin-top: -36px;
+          cursor: pointer;
+      }
+
+      a.left.carousel-control span.icon-prev, a.right.carousel-control span.icon-next {
+          margin-top: -43px;
+          font-size: 60px;
+      }
+
+      a.left.carousel-control span.icon-prev {
+          margin-left: -17px;
+      }
+
+      a.right.carousel-control span.icon-next {
+          margin-right: -17px;
+      }
   }
 
   /* Dados */
@@ -1862,4 +1894,8 @@ input.knob:after { content: "%" !important; }
     color: #000;
     font-size: 16px;
   }
+}
+
+.solicitacao {
+
 }
