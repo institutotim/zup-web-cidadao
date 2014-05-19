@@ -40,6 +40,7 @@ Behaviors :
 * angleArc : arc size in degrees | default=360.
 * stopper : stop at min & max on keydown/mousewheel | default=true.
 * readOnly : disable input and events | default=false.
+* rotation : direction of progression | default=clockwise.
 
 UI :
 * cursor : display mode "cursor", cursor size could be changed passing a numeric value to the option, default width is used when passing boolean value "true" | default=gauge.
@@ -84,7 +85,7 @@ Hooks
 
 * 'cancel' : triggered on [esc] keydown
 
-* 'error' : called if the browser doesn't support canvases and the plugin didn't initialize as a result
+* 'format' : allows to format output (add unit %, ms ...)
 
 The scope (this) of each hook function is the current Knob instance (refer to the demo code).
 
@@ -129,4 +130,6 @@ Set the value
 Supported browser
 -------
 
-Tested on Chrome, Safari, Firefox, IE 9.0.
+Tested on Chrome, Safari, Firefox, IE>=8.0 (IE8.0 with excanvas).
+
+![secretplan](https://raw.github.com/aterrien/jQuery-Knob/master/secretplan.jpg)

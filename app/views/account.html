@@ -1,5 +1,6 @@
 <div id="account">
   <header>
+
     <div class="container">
         <div class="col-xs-3 logo">
           <span></span>
@@ -31,13 +32,19 @@
 </header>
 
   <div class="clearfix"></div>
-
   <section id="content">
       <div class="container">
           <div class="col-xs-3 aside">
               <div class="padding">
                   <h3>{{ me.name }}</h3>
-                  <b>15 solicitações</b>
+                  <b>{{ reportsn }}
+                  <span ng-if="reportsn > 1">
+                          solicitações
+                      </span>
+                      <span ng-if="reportsn <= 1">
+                          solicitação
+                      </span>
+                  </b>
               </div><!--/.padding -->
               <ul class="nav nav-pills nav-stacked">
                   <li id="minhas-solicitacoes"><a href="#/reports">Minhas solicitações</a></li>
