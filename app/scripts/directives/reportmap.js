@@ -352,14 +352,13 @@ angular.module('zupWebAngularApp')
       }
     };
   })
-  .directive('currentReportMap',['$parse','$compile', function ($parse,$compile) {
+  .directive('currentReportMap', function () {
     return {
         restrict: 'A',
-        link : function (scope, element, attrs,parse,compile) {
+        link : function (scope, element, attrs) {
             var latn = scope.$eval(attrs.mapLatitude);
             var long = scope.$eval(attrs.mapLongitude);
             var markerIcon = angular.element($.parseHTML(attrs.mapMarker));
-            console.log(markerIcon);
             var mapIcon = new google.maps.MarkerImage(markerIcon[0].data, null, null, null, new google.maps.Size(54, 51));
             var currentLatLng = new google.maps.LatLng(latn, long);
             var currentMapOptions = {
@@ -382,4 +381,4 @@ angular.module('zupWebAngularApp')
             marker.setMap(currentMap);
         }
     }
-  }]);
+  });

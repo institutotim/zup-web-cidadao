@@ -9,7 +9,11 @@ angular.module('zupWebAngularApp')
           element.find('span.image').css('background-image', 'url(' + scope.category.icon.retina.web.disabled + ')');
         };
 
-        var enableIcon = function() {
+          var imgPreload = new Image();
+
+          imgPreload.src = scope.category.icon.retina.web.active;
+
+          var enableIcon = function() {
           element.find('span.image').css('background-image', 'url(' + scope.category.icon.retina.web.active + ')');
         };
 

@@ -20,6 +20,11 @@ body {
   }
 }
 
+body:after {
+  display: none;
+
+}
+
 * {
   outline: none;
 }
