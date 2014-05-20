@@ -40,6 +40,10 @@ angular.module('zupWebAngularApp', [
       templateUrl: 'views/password_reset.html',
       controller: 'PasswordResetCtrl'
     })
+    .when('/feedback', {
+      templateUrl: 'views/feedback.html',
+      controller: 'FeedBackCtrl'
+    })
     .otherwise({
       redirectTo: '/'
     });
