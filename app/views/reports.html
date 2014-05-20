@@ -30,7 +30,7 @@
     </div>
 </header>
 
-  <div class="clearfix"></div>
+ <div class="clearfix"></div>
   <section id="content">
       <div class="container">
           <div class="col-xs-3 aside">
@@ -81,7 +81,9 @@
                     <img ng-src="{{ image.high }}">
                 </slide>
               </carousel><!--/.carousel -->
-
+              <div ng-if="currentReport.images.length == 0">
+                  <div id="current-report-map" map-latitude="{{ currentReport.position.latitude }}" map-longitude="{{ currentReport.position.longitude }}" map-marker="{{ currentReport.category.marker.retina.web }}" current-report-map></div>
+              </div>
               <div class="padding">
                   <p class="desc">{{ currentReport.description }}</p>
                   <!--<a href="#" class="desc">Ver detalhes da boca de lobo 28728472</a>-->
