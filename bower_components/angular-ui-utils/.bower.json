@@ -5,11 +5,19 @@
     "angular": ">= 1.0.2"
   },
   "homepage": "https://github.com/angular-ui/ui-utils",
+<<<<<<< HEAD
   "_release": "431db21ed9",
   "_resolution": {
     "type": "branch",
     "branch": "bower-mask",
     "commit": "431db21ed9201a16704f9a155586318816548c85"
+=======
+  "_release": "1b47e1617a",
+  "_resolution": {
+    "type": "branch",
+    "branch": "bower-mask",
+    "commit": "1b47e1617ad52d2db3c1976c8b37d76271635199"
+>>>>>>> befe5231972f71b3b2de2f639f8b7e74238e9f5f
   },
   "_source": "git://github.com/angular-ui/ui-utils.git",
   "_target": "bower-mask",
