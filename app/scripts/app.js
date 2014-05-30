@@ -40,9 +40,9 @@ angular.module('zupWebAngularApp', [
       templateUrl: 'views/password_reset.html',
       controller: 'PasswordResetCtrl'
     })
-    .when('/feedback', {
+    .when('/feedback/:feedbackId', {
       templateUrl: 'views/feedback.html',
-      controller: 'FeedBackCtrl'
+      controller: 'FeedbackCtrl'
     })
     .otherwise({
       redirectTo: '/'
@@ -90,7 +90,7 @@ angular.module('zupWebAngularApp', [
   delete $httpProvider.defaults.headers.common['X-Requested-With'];
 })
 
-.run(['$rootScope', '$q', '$location', 'Auth', '$modal', 'Reports', 'Inventory', function($rootScope, $q, $location, Auth, $modal, Reports, Inventory) {
+.run(['$rootScope', '$q', '$location', 'Auth', '$modal', 'Reports', 'Inventory', 'Feedback', function($rootScope, $q, $location, Auth, $modal, Reports, Inventory, Feedback) {
 
   $rootScope.$on('$routeChangeStart', function(e, curr, prev) {
 
@@ -168,6 +168,10 @@ angular.module('zupWebAngularApp', [
     else if (curr.controller === 'ReportsCtrl')
     {
       $rootScope.page = 'reports';
+    }
+    else if (curr.controller === 'FeedbackCtrl')
+    {
+      $rootScope.page = 'feedback';
     }
     else if (curr.controller === 'AccountCtrl')
     {

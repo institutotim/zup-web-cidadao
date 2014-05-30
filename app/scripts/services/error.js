@@ -15,7 +15,7 @@ angular.module('zupWebAngularApp')
             return response;
           }
         },
-        controller: ['$scope', '$modalInstance', 'response', function($scope, $modalInstance, response) {
+        controller: ['$scope', '$modalInstance', 'response',  function($scope, $modalInstance, response) {
           $scope.response = response;
 
           $scope.ok = function () {
