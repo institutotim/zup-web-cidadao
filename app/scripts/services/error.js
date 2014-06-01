@@ -9,7 +9,8 @@ angular.module('zupWebAngularApp')
     showDetails: function (response) {
       if (response.status == '401') {
         var forceReload = true;
-        $rootScope.login(null, forceReload);
+        var reloginMsg = true;
+        $rootScope.login(null, forceReload, reloginMsg);
         return false;
       }
       $modal.open({

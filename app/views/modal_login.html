@@ -2,7 +2,7 @@
 
 <div class="login">
     <h1>Já é cadastrado?</h1>
-
+    <h6 ng-show="reloginmsg">{{ reloginmsg }}</h6>
     <form role="form" ng-submit="login()">
         <div class="form-group">
             <input type="email" class="form-control" ng-class="{'has-error': loginError}" id="email" placeholder="E-mail" ng-model="inputs.email">

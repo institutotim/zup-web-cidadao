@@ -248,12 +248,15 @@ angular.module('zupWebAngularApp', [
     return {beginDate: beginDate, endDate: endDate};
   };
 
-  $rootScope.login = function(showNewReportModel, forceReload) {
+  $rootScope.login = function(showNewReportModel, forceReload, reloginMsg) {
     $modal.open({
       templateUrl: 'views/modal_login.html',
       windowClass: 'modal_login',
       controller: ['$scope', '$route', '$rootScope', '$modalInstance', 'User', function($scope, $route, $rootScope, $modalInstance, User) {
 
+        if (reloginMsg === true) {
+          $scope.reloginmsg = 'Sua sessão expirou. Por favor, entre novamente.';
+        }
         $scope.inputs = {};
 
         $scope.close = function() {
