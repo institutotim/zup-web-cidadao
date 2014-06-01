@@ -2,7 +2,7 @@
 
 angular.module('zupWebAngularApp')
 
-.controller('FeedbackCtrl', ['$scope', '$q', 'Feedback', 'Reports', 'Alert', 'Users', 'Error', '$routeParams', '$location', '$fileUploader', function ($scope, $q, Feedback, Reports, Alert, Users, Error, $routeParams, $location, $fileUploader) {
+.controller('FeedbackCtrl', ['$scope', '$q', 'Feedback', 'Reports', 'Alert', 'Users', '$routeParams', '$location', '$fileUploader', function ($scope, $q, Feedback, Reports, Alert, Users, $routeParams, $location, $fileUploader) {
 
   var feedbackId = $routeParams.feedbackId;
 

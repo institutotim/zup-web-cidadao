@@ -248,11 +248,11 @@ angular.module('zupWebAngularApp', [
     return {beginDate: beginDate, endDate: endDate};
   };
 
-  $rootScope.login = function(showNewReportModel) {
+  $rootScope.login = function(showNewReportModel, forceReload) {
     $modal.open({
       templateUrl: 'views/modal_login.html',
       windowClass: 'modal_login',
-      controller: ['$scope', '$rootScope', '$modalInstance', 'User', function($scope, $rootScope, $modalInstance, User) {
+      controller: ['$scope', '$route', '$rootScope', '$modalInstance', 'User', function($scope, $route, $rootScope, $modalInstance, User) {
 
         $scope.inputs = {};
 
@@ -267,7 +267,6 @@ angular.module('zupWebAngularApp', [
 
         $scope.login = function() {
           $scope.loginError = false;
-
           var user = new User($scope.inputs.email, $scope.inputs.password);
 
           user.auth().then(function() {
@@ -277,6 +276,9 @@ angular.module('zupWebAngularApp', [
             if (showNewReportModel === true)
             {
               $rootScope.newReport();
+            }
+            if (forceReload === true) {
+              $route.reload();
             }
           }, function(response) {
             if (response.status === 400 || response.status === 401)
@@ -517,7 +519,6 @@ angular.module('zupWebAngularApp', [
             }
           };
         };
-
         $scope.loadingReports = true;
 
         Reports.getReportsByItem({itemId: item.id}, function(data) {
