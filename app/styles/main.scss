@@ -623,10 +623,10 @@ input.knob:after { content: "%" !important; }
         z-index: 9999;
         width: 45px;
         height: 45px;
-        background: url("../images/lightbox_btn_close_normal.png");
+        background: url("../images/lightbox_btn_close.png") no-repeat 0 0;
         opacity: 1;
 
-        &:hover, &:focus { background: url("../images/lightbox_btn_close_hover.png"); }
+        &:hover, &:focus { background-position: -55px 0; }
     }
 
     span.upload-img-thumb {
