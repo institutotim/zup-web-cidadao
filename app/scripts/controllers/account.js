@@ -9,7 +9,7 @@ angular.module('zupWebAngularApp')
     Reports.getMyItems(function(data) {
         $scope.reportsn = data.reports.length;
     });
-        $scope.submit = function() {
+    $scope.submit = function() {
     $scope.inputErrors = {};
     $scope.processingForm = true;
     Users.update($scope.me, function() {

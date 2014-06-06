@@ -413,8 +413,8 @@ header {
 }
 
 .aside .dropdown-menu.right {
-    top: -3px;
-    left: 102%;
+    top: -4px;
+    left: 100%;
     padding: 0;
     border: none;
     border-radius: 0;
@@ -1350,14 +1350,42 @@ input.knob:after { content: "%" !important; }
             img {
                 width: 400px;
             }
+          .galeria-wrapper {
+            min-height: 300px;
+            position: relative;
+          }
+            .imagens {
+              position: absolute;
+              min-height: 300px;
+            }
 
             .thumbnails {
                 margin-top: 10px;
+                clear: both;
 
-                img {
-                    float: left;
-                    margin-left: 10px;
+                .thumb {
+                  float: left;
+                  margin: 10px 0 15px 10px;
+                }
+                &:hover {
+                  cursor: pointer;
+                }
+                a:hover span, a.active span {
+                  background: rgba(0, 127, 117, 0.16);
+                }
+
+                h5 {
+                  text-transform: uppercase;
+                  color: #ccc;
+                  font-size: 12px;
+                  display: block;
+                  margin: 15px 0 0 10px;
+                }
+
+                .thumb, .thumb span {
                     width: 120px;
+                    height: 120px;
+                    display: block;
                 }
             }
         }

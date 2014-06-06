@@ -504,7 +504,7 @@ angular.module('zupWebAngularApp', [
           return category;
         }
       },
-      controller: ['$scope', '$modalInstance', 'item', 'category', 'Reports', function($scope, $modalInstance, item, category, Reports) {
+      controller: ['$scope', '$modalInstance', 'item', 'category', 'Reports','$interpolate', function($scope, $modalInstance, item, category, Reports, $interpolate) {
         $scope.item = item;
         $scope.category = category;
         $scope.currentTab = 0;
@@ -513,12 +513,30 @@ angular.module('zupWebAngularApp', [
         {
           $scope.currentTab = 1;
         }
-
         $scope.getDataByInventoryFieldId = function(id) {
-          for (var i = item.data.length - 1; i >= 0; i--) {
-            if (item.data[i].inventory_field_id === id)
-            {
-              return item.data[i].content;
+
+          $scope._Index = 0;
+
+          $scope.isActive = function (index) {
+            return $scope._Index === index;
+          };
+
+          $scope.showPhoto = function (index) {
+            $scope._Index = index;
+          };
+
+          for (var i = 0; i < item.data.length; i++) {
+            if (item.data[i].field.id === id) {
+              if (item.data[i].field.kind === 'images') {
+                for (var j = item.data[i].content.length - 1; j >= 0; j--) {
+                  var titulo = item.data[i].field.label;
+                  item.data[i].content[j]['titulo'] = titulo;
+                  $scope.galerias = item.data[i].content;
+                  //var counter item.data[i].content[j].inventory_item_data_id;
+                }
+              } else {
+                return item.data[i].content;
+              }
             }
           };
         };

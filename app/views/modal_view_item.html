@@ -12,30 +12,38 @@
 </div>
 
 <div class="informacoes" ng-show="currentTab == 0">
-    <!--<div class="left_column">-->
+    <div class="left_column">
         <div class="padding">
             <div ng-repeat="section in category.sections">
-              <div class="separator">{{ section.title }}</div>
+              <div ng-show="section.id !== 34" class="separator">{{ section.title }}</div>
 
               <div ng-repeat="field in section.fields">
-                  <h1>{{ field.title }}</h1>
-                  <p>{{ getDataByInventoryFieldId(field.id) }}</p>
+                <h5 ng-show="field.label !== null && field.kind != 'images'">{{ field.label }}</h5>
+                <h5 ng-show="field.label == null && field.kind != 'images'">{{ field.title }}</h5>
+                <p>{{ getDataByInventoryFieldId(field.id) }}</p>
               </div>
             </div>
         </div>
-    <!--</div>-->
-
-    <!--
-    <div class="right_column">
-        <img src="images/infos/bocalobo4.jpg">
-
-        <div class="thumbnails">
-            <img src="images/infos/bocalobo4.jpg">
-            <img src="images/infos/bocalobo4.jpg">
-            <img src="images/infos/bocalobo4.jpg">
+  </div>
+  {{galerias}}
+  <div ng-show="galerias" class="right_column">
+    <div class="galeria-wrapper">
+      <div class="galeria" ng-repeat="image in galerias" ng-show="isActive($index)">
+        <div class="imagens">
+          <img ng-src="{{ image.versions.high }}">
         </div>
+      </div>
     </div>
-    -->
+    <div class="thumbnails" ng-repeat="image in galerias">
+      <h5>{{ image.titulo }}</h5>
+      <div class="thumb-image" ng-repeat="images in galerias">
+        <a href="" class="thumb" ng-style="{'background-image': 'url({{ images.versions.thumb }})'}" ng-click="showPhoto($index);" ng-class="{'active':isActive($index)}">
+          <span></span>
+        </a>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <div class="col-xs-9 loadingReports" ng-show="loadingReports && currentTab == 1">
