@@ -598,7 +598,8 @@ input.knob:after { content: "%" !important; }
   @extend .small-width;
 }
 
-.modal_new_report .modal-dialog {
+.modal_new_report .modal-dialog,
+.modal_terms_of_use .modal-dialog {
   @extend .medium-width;
 }
 
@@ -606,8 +607,12 @@ input.knob:after { content: "%" !important; }
   width: 420px;
 }
 
-.modal_view_item .modal-dialog {
+.modal_view_item .modal-dialog{
   @extend .large-width;
+}
+
+.modal_terms_of_use {
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .modal-content {
@@ -615,6 +620,24 @@ input.knob:after { content: "%" !important; }
     border-radius: 0;
     background-color: #fff;
     box-shadow: none;
+
+    .terms-of-use {
+      padding: 40px;
+      color: #333;
+
+      h1 {
+        font-size: 20px;
+        color: #999;
+        text-transform: uppercase;
+        text-align: center;
+        margin-top: 0;
+      }
+
+      button.btn {
+        margin-left: 540px;
+        font-weight: normal;
+      }
+    }
 
     .close {
         position: absolute;
@@ -1309,6 +1332,7 @@ input.knob:after { content: "%" !important; }
         .carousel, .slide {
             margin: 20px 0 0 -20px;
             width: 420px;
+            min-height: 300px;
 
             .carousel-indicators li {
               margin: 0 0 0 10px;
@@ -1935,6 +1959,10 @@ input.knob:after { content: "%" !important; }
 #current-report-map {
   width: 100%;
   height: 300px;
+}
+
+.carousel-inner {
+  min-height: 300px;
 }
 
 #feedback {

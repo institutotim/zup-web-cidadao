@@ -483,7 +483,19 @@ angular.module('zupWebAngularApp', [
     });
   };
 
-  $rootScope.viewItemWithReports = function(item, category) {
+  $rootScope.termsOfUse = function () {
+    $modal.open({
+      templateUrl: 'views/modal_terms_of_use.html',
+      windowClass: 'modal_terms_of_use',
+      controller: ['$scope', '$modalInstance', function ($scope, $modalInstance) {
+        $scope.close = function () {
+          $modalInstance.close();
+        };
+      }]
+    });
+  };
+
+    $rootScope.viewItemWithReports = function(item, category) {
     var id = item.inventory_item_id, categoryId = item.inventory_item_category_id;
 
     Inventory.getItem({ id: id, categoryId: categoryId }, function(data) {
