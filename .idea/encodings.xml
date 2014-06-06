@@ -12,6 +12,7 @@
     <file url="file://$PROJECT_DIR$/app/scripts/controllers/feedback.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/scripts/controllers/reports.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/scripts/directives/feedback.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/scripts/directives/filteritems.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/scripts/directives/reportmap.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/scripts/services/error.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/scripts/services/feedback.js" charset="UTF-8" />
