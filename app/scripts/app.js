@@ -90,9 +90,8 @@ angular.module('zupWebAngularApp', [
   delete $httpProvider.defaults.headers.common['X-Requested-With'];
 })
 
-.run(['$rootScope', '$q', '$location', 'Auth', '$modal', 'Reports', 'Inventory', 'Feedback', function($rootScope, $q, $location, Auth, $modal, Reports, Inventory, Feedback) {
-
-  $rootScope.$on('$routeChangeStart', function(e, curr, prev) {
+.run(['$rootScope', '$q', '$location', 'Auth', '$modal', 'Reports', 'Inventory', function($rootScope, $q, $location, Auth, $modal, Reports, Inventory) {
+    $rootScope.$on('$routeChangeStart', function(e, curr, prev) {
 
     if (typeof prev === 'undefined')
     {
@@ -438,7 +437,6 @@ angular.module('zupWebAngularApp', [
 
             newReport.$save(function(data) {
               $modalInstance.close();
-
               Alert.show('Relato criado com sucesso', 'Solicitação enviada com sucesso. Agora você pode visualizar o andamento da sua solicitação no menu superior.', function() {
                 $location.path('/reports/view/' + data.report.id);
               });

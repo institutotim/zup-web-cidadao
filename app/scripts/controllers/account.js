@@ -12,7 +12,6 @@ angular.module('zupWebAngularApp')
     $scope.submit = function() {
     $scope.inputErrors = {};
     $scope.processingForm = true;
-      console.log($scope.processingForm);
     Users.update($scope.me, function() {
       $scope.processingForm = false;
       Alert.show('Parabéns!', 'Dados atualizados com sucesso.');

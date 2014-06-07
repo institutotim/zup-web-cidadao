@@ -1632,7 +1632,10 @@ input.knob:after { content: "%" !important; }
 }
 
 #account {
-  .container { width: 960px !important; }
+  position: relative;
+  overflow:hidden;
+
+  .container { width: 960px !important;}
 
   header {
     margin-bottom: 40px;
@@ -1963,6 +1966,10 @@ input.knob:after { content: "%" !important; }
 
 .carousel-inner {
   min-height: 300px;
+}
+
+body.account.modal-open {
+  overflow: hidden;
 }
 
 #feedback {
