@@ -78,8 +78,9 @@
 
               <carousel ng-show="currentReport.images" id="carousel" class="carousel">
                 <slide class="item" ng-repeat="image in currentReport.images">
-                    <img ng-src="{{ image.high }}">
+                   <img ng-src="{{ image.high }}" spinner-on-load>
                 </slide>
+                <div class="loader"></div>
               </carousel><!--/.carousel -->
               <div ng-if="currentReport.images.length == 0">
                   <div id="current-report-map" map-latitude="{{ currentReport.position.latitude }}" map-longitude="{{ currentReport.position.longitude }}" map-marker="{{ currentReport.category.marker.retina.web }}" current-report-map></div>

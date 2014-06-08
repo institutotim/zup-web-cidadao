@@ -1635,6 +1635,24 @@ input.knob:after { content: "%" !important; }
   position: relative;
   overflow:hidden;
 
+  a.carousel-control {
+    display: none;
+  }
+
+  .spinner {
+    width: 50px;
+    line-height: 50px;
+    text-align: center;
+    height: 50px;
+    background: #323232;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -15px;
+    margin-left: -15px;
+  }
+
   .container { width: 960px !important;}
 
   header {
@@ -1964,8 +1982,10 @@ input.knob:after { content: "%" !important; }
   height: 300px;
 }
 
-.carousel-inner {
+.carousel-inner, .image-item {
+  width: 400px;
   min-height: 300px;
+  position: relative
 }
 
 body.modal-open {
