@@ -1635,6 +1635,10 @@ input.knob:after { content: "%" !important; }
   position: relative;
   overflow:hidden;
 
+  .carousel-inner .item span {
+    display: none;
+  }
+
   a.carousel-control {
     display: none;
   }
