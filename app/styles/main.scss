@@ -129,6 +129,7 @@ a.btn-login { padding: 16px 0; }
     font-weight: 400;
     font-size: 18px;
     line-height: 1;
+    background-color: $blueButton !important;
 }
 
 .btn-forgot {
@@ -1633,7 +1634,6 @@ input.knob:after { content: "%" !important; }
 
 #account {
   position: relative;
-  overflow:hidden;
 
   .carousel-inner .item span {
     display: none;
@@ -1655,6 +1655,10 @@ input.knob:after { content: "%" !important; }
     left: 50%;
     margin-top: -15px;
     margin-left: -15px;
+  }
+
+  span.label {
+    font-size: 12px
   }
 
   .container { width: 960px !important;}

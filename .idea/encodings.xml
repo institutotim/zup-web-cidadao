@@ -14,6 +14,7 @@
     <file url="file://$PROJECT_DIR$/app/scripts/controllers/reports.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/scripts/directives/feedback.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/scripts/directives/filteritems.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/scripts/directives/genericinput.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/scripts/directives/mainmap.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/scripts/directives/reportmap.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/scripts/directives/spinner.js" charset="UTF-8" />
@@ -23,9 +24,11 @@
     <file url="file://$PROJECT_DIR$/app/scripts/services/reports.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/scripts/services/users.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/styles/main.scss" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/views/account.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/views/feedback.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/views/modal_login.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/views/modal_new_report.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/views/modal_signup.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/views/modal_terms_of_use.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/views/modal_view_item.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/views/reports.html" charset="UTF-8" />
