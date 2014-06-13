@@ -33,6 +33,7 @@
     <file url="file://$PROJECT_DIR$/app/views/modal_view_item.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/views/reports.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/bower.json" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../zup-web-angular/Gruntfile.js" charset="UTF-8" />
   </component>
 </project>
 

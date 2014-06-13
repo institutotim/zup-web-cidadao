@@ -626,6 +626,10 @@ input.knob:after { content: "%" !important; }
       padding: 40px;
       color: #333;
 
+      p {
+        font-size: 14px
+      }
+
       h1 {
         font-size: 20px;
         color: #999;
@@ -634,9 +638,12 @@ input.knob:after { content: "%" !important; }
         margin-top: 0;
       }
 
-      button.btn {
-        margin-left: 540px;
+      a.btn {
+        margin-left: 520px;
         font-weight: normal;
+        width: 95px;
+        height: 40px;
+        padding: 14px 0;
       }
     }
 
@@ -1363,7 +1370,7 @@ input.knob:after { content: "%" !important; }
 
         .left_column {
             float: left;
-            width: 350px;
+            width: 340px;
         }
 
         .right_column {
@@ -1372,47 +1379,62 @@ input.knob:after { content: "%" !important; }
             height: 100%;
             background: #212121;
 
-            img {
-                width: 400px;
-            }
-          .galeria-wrapper {
-            min-height: 300px;
-            position: relative;
+          img {
+              width: 400px;
           }
-            .imagens {
+          .galeria-wrapper {
+            height: 300px;
+            position: relative;
+            overflow-x: hidden;
+
+            .galeria {
               position: absolute;
+              padding: 0;
+              margin: 0;
+              top: 0;
+              left: 0;
+              white-space: nowrap;
+              transition: left .8s ease;
+              -ms-transition: left .8s ease;
+              -o-transition: left .8s ease;
+              -webkit-transition: left .8s ease;
+              -moz-transition: left .8s ease;
+            }
+
+            .galeria .imagem {
+              display: inline-block;
+            }
+
+            .imagens {
               min-height: 300px;
             }
+          }
 
-            .thumbnails {
-                margin-top: 10px;
-                clear: both;
+          .thumbnails {
+            margin: 0 10px 10px 10px;
 
-                .thumb {
-                  float: left;
-                  margin: 10px 0 15px 10px;
-                }
-                &:hover {
-                  cursor: pointer;
-                }
-                a:hover span, a.active span {
-                  background: rgba(0, 127, 117, 0.16);
-                }
-
-                h5 {
-                  text-transform: uppercase;
-                  color: #ccc;
-                  font-size: 12px;
-                  display: block;
-                  margin: 15px 0 0 10px;
-                }
-
-                .thumb, .thumb span {
-                    width: 120px;
-                    height: 120px;
-                    display: block;
-                }
+            a:hover span, a.active span {
+              background: rgba(0, 127, 117, 0.16);
+              cursor: pointer;
             }
+
+            h5 {
+              text-transform: uppercase;
+              color: #ccc;
+              font-size: 12px;
+              display: block;
+              margin-top: 20px;
+            }
+
+            .thumb, .thumb span {
+              width: 118px;
+              height: 113px;
+              overflow: hidden;
+              display: block;
+              margin: 0 7px 15px 0;
+              float: left;
+            }
+          }
         }
 
         .padding { padding: 0 30px; }
@@ -1991,7 +2013,7 @@ input.knob:after { content: "%" !important; }
 }
 
 .carousel-inner, .image-item {
-  width: 400px;
+  width: 420px;
   min-height: 300px;
   position: relative
 }
@@ -2355,4 +2377,47 @@ body.modal-open {
       }
     }
   }
+}
+.animate-enter,
+
+.animate-leave {
+
+  -webkit-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+
+  -moz-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+
+  -ms-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+
+  -o-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+
+  transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+
+  position: relative;
+
+  display: block;
+
+}
+
+.animate-enter.animate-enter-active,
+
+.animate-leave {
+
+  opacity: 1;
+
+  left: 0;
+
+  height: 30px;
+
+}
+
+.animate-leave.animate-leave-active,
+
+.animate-enter {
+
+  opacity: 0;
+
+  left: -50px;
+
+  height: 0px;
+
 }

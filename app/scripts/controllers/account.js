@@ -21,5 +21,4 @@ angular.module('zupWebAngularApp')
         $scope.inputErrors = response.data.error;
       });
     };
-
-  }]);
+}]);

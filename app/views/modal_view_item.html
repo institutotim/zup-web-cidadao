@@ -27,22 +27,19 @@
   </div>
   <div ng-show="galerias" class="right_column">
     <div class="galeria-wrapper">
-      <div class="galeria" ng-repeat="image in galerias" ng-show="isActive($index)">
-        <div class="imagens">
-          <img ng-src="{{ image.versions.high }}">
-        </div>
-      </div>
+      <ul class="galeria" ng-style="position">
+       <li class="imagem" ng-repeat="image in galerias">
+          <img ng-src="{{ image.versions.high }}" width="400">
+        </li>
+      </ul>
     </div>
     <div class="thumbnails" ng-repeat="image in galerias">
-      <h5>{{ image.titulo }}</h5>
-      <div class="thumb-image" ng-repeat="images in galerias">
-        <a href="" class="thumb" ng-style="{'background-image': 'url({{ images.versions.thumb }})'}" ng-click="showPhoto($index);" ng-class="{'active':isActive($index)}">
-          <span></span>
-        </a>
-      </div>
+      <h5 ng-show="$index % 3 == 0">{{ image.titulo }}</h5>
+      <a class="thumb" ng-style="{'background': 'url({{ image.versions.thumb }}) no-repeat center center'}" ng-click="scrollTo($index)" ng-class="{'active': isActive($index)}">
+        <span></span>
+      </a>
     </div>
   </div>
-
 </div>
 
 <div class="col-xs-9 loadingReports" ng-show="loadingReports && currentTab == 1">

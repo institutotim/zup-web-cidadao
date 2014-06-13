@@ -18,7 +18,8 @@ angular.module('zupWebAngularApp')
         disabledIconIndex[4] = arvoresDisabledIcon;
         disabledIconIndex[5] = bocaLoboDisabledIcon;
         disabledIconIndex[6] = pracaWifiDisabledIcon;
-
+        disabledIconIndex[7] = pracaWifiDisabledIcon;
+        //console.log(scope.category.icon.retina.web.active);
         if (scope.category.id === 4) {
           disabledIcon = arvoresDisabledIcon;
           enabledIcon = arvoresEnabledIcon;
@@ -36,8 +37,8 @@ angular.module('zupWebAngularApp')
           element.find('span.image').css('background-image',  'url(' + disabledIcon + ')');
         };
 
-         var enableIcon = function() {
-           element.find('span.image').css('background-image', 'url(' + enabledIcon + ')');
+        var enableIcon = function() {
+          element.find('span.image').css('background-image', 'url(' + enabledIcon + ')');
         };
 
         element.hover(function() {
