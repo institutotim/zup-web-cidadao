@@ -29,9 +29,10 @@
     <div class="galeria-wrapper">
       <ul class="galeria" ng-style="position">
        <li class="imagem" ng-repeat="image in galerias">
-          <img ng-src="{{ image.versions.high }}" width="400">
-        </li>
+          <img ng-src="{{ image.versions.high }}" width="400" spinner-on-load>
+       </li>
       </ul>
+      <div class="loader"></div>
     </div>
     <div class="thumbnails" ng-repeat="image in galerias">
       <h5 ng-show="$index % 3 == 0">{{ image.titulo }}</h5>

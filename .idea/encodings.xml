@@ -26,6 +26,7 @@
     <file url="file://$PROJECT_DIR$/app/styles/main.scss" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/views/account.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/views/feedback.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/views/main.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/views/modal_login.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/views/modal_new_report.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/views/modal_signup.html" charset="UTF-8" />

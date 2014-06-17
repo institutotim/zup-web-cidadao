@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 angular.module('zupWebAngularApp')
 
@@ -122,4 +122,4 @@ angular.module('zupWebAngularApp')
       });
     };
   }
-}])
+}]);
