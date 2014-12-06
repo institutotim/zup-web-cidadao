@@ -508,6 +508,8 @@ angular.module('zupWebAngularApp', [
               return item.data[i].content;
             }
           };
+
+          return null;
         };
 
         $scope.loadingReports = true;

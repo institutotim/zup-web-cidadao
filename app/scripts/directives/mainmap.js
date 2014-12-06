@@ -300,7 +300,7 @@ angular.module('zupWebAngularApp')
               else
               {
                 category = $rootScope.getInventoryCategory(item.inventory_category_id);
-                iconSize = new google.maps.Size(15, 15);
+                iconSize = new google.maps.Size(54, 51);
                 viewAction = $rootScope.viewItem;
                 itemType = 'item';
 

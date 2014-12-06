@@ -18,7 +18,8 @@
               <div class="separator">{{ section.title }}</div>
 
               <div ng-repeat="field in section.fields">
-                  <h1>{{ field.title }}</h1>
+                  <h1 ng-show="field.label == null">{{ field.title }}</h1>
+                  <h1 ng-hide="field.label == null">{{ field.label }}</h1>
                   <p>{{ getDataByInventoryFieldId(field.id) }}</p>
               </div>
             </div>
