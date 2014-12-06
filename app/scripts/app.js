@@ -40,6 +40,10 @@ angular.module('zupWebAngularApp', [
       templateUrl: 'views/password_reset.html',
       controller: 'PasswordResetCtrl'
     })
+    .when('/feedback/:feedbackId', {
+      templateUrl: 'views/feedback.html',
+      controller: 'FeedbackCtrl'
+    })
     .otherwise({
       redirectTo: '/'
     });
@@ -87,8 +91,7 @@ angular.module('zupWebAngularApp', [
 })
 
 .run(['$rootScope', '$q', '$location', 'Auth', '$modal', 'Reports', 'Inventory', function($rootScope, $q, $location, Auth, $modal, Reports, Inventory) {
-
-  $rootScope.$on('$routeChangeStart', function(e, curr, prev) {
+    $rootScope.$on('$routeChangeStart', function(e, curr, prev) {
 
     if (typeof prev === 'undefined')
     {
@@ -165,6 +168,10 @@ angular.module('zupWebAngularApp', [
     {
       $rootScope.page = 'reports';
     }
+    else if (curr.controller === 'FeedbackCtrl')
+    {
+      $rootScope.page = 'feedback';
+    }
     else if (curr.controller === 'AccountCtrl')
     {
       $rootScope.page = 'account';
@@ -240,12 +247,15 @@ angular.module('zupWebAngularApp', [
     return {beginDate: beginDate, endDate: endDate};
   };
 
-  $rootScope.login = function(showNewReportModel) {
+  $rootScope.login = function(showNewReportModel, forceReload, reloginMsg) {
     $modal.open({
       templateUrl: 'views/modal_login.html',
       windowClass: 'modal_login',
-      controller: ['$scope', '$rootScope', '$modalInstance', 'User', function($scope, $rootScope, $modalInstance, User) {
+      controller: ['$scope', '$route', '$rootScope', '$modalInstance', 'User', function($scope, $route, $rootScope, $modalInstance, User) {
 
+        if (reloginMsg === true) {
+          $scope.reloginmsg = 'Sua sessão expirou. Por favor, entre novamente.';
+        }
         $scope.inputs = {};
 
         $scope.close = function() {
@@ -259,7 +269,6 @@ angular.module('zupWebAngularApp', [
 
         $scope.login = function() {
           $scope.loginError = false;
-
           var user = new User($scope.inputs.email, $scope.inputs.password);
 
           user.auth().then(function() {
@@ -269,6 +278,9 @@ angular.module('zupWebAngularApp', [
             if (showNewReportModel === true)
             {
               $rootScope.newReport();
+            }
+            if (forceReload === true) {
+              $route.reload();
             }
           }, function(response) {
             if (response.status === 400 || response.status === 401)
@@ -425,8 +437,7 @@ angular.module('zupWebAngularApp', [
 
             newReport.$save(function(data) {
               $modalInstance.close();
-
-              Alert.show('Relato criado com sucesso', 'Solicitação enviada com sucesso. Agora você pode checar o status da sua solicitação no menu superior.', function() {
+              Alert.show('Relato criado com sucesso', 'Solicitação enviada com sucesso. Agora você pode visualizar o andamento da sua solicitação no menu superior.', function() {
                 $location.path('/reports/view/' + data.report.id);
               });
             }, function(response) {
@@ -470,6 +481,18 @@ angular.module('zupWebAngularApp', [
     });
   };
 
+  $rootScope.termsOfUse = function () {
+    $modal.open({
+      templateUrl: 'views/modal_terms_of_use.html',
+      windowClass: 'modal_terms_of_use',
+      controller: ['$scope', '$modalInstance', function ($scope, $modalInstance) {
+        $scope.close = function () {
+          $modalInstance.close();
+        };
+      }]
+    });
+  };
+
   $rootScope.viewItemWithReports = function(item, category) {
     var id = item.inventory_item_id, categoryId = item.inventory_item_category_id;
 
@@ -501,17 +524,35 @@ angular.module('zupWebAngularApp', [
           $scope.currentTab = 1;
         }
 
+        $scope._Index = 0;
+
+        $scope.scrollTo = function(index) {
+          $scope.position = {left:(400 * index * -1) + "px"};
+          $scope._Index = index;
+        };
+
+        $scope.isActive = function (index) {
+          return $scope._Index === index;
+        };
+        $scope.thumbs = [];
+
         $scope.getDataByInventoryFieldId = function(id) {
-          for (var i = item.data.length - 1; i >= 0; i--) {
-            if (item.data[i].inventory_field_id === id)
-            {
-              return item.data[i].content;
+          for (var i = 0; i < item.data.length; i++) {
+            if (item.data[i].field.id === id) {
+              if (item.data[i].field.kind === 'images') {
+                for (var j = item.data[i].content.length - 1; j >= 0; j--) {
+                  var titulo = item.data[i].field.label;
+                  item.data[i].content[j]['titulo'] = titulo;
+                  $scope.galerias = item.data[i].content;
+                }
+              } else {
+                return item.data[i].content;
+              }
             }
           };
 
           return null;
         };
-
         $scope.loadingReports = true;
 
         Reports.getReportsByItem({itemId: item.id}, function(data) {

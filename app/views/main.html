@@ -78,7 +78,15 @@
 
             <h6>Exibir pontos de</h6>
             <a href="" class="sidebar_filter inventory_category_icon" ng-repeat="category in inventoryCategories" ng-click="filterItemsByInventoryId(category.id)" filter-items>
-              <span class="image"></span>
+              <!--<span class="image"></span>-->
+              <div class="icons-wrapper">
+                <span class="enabled">
+                  <img ng-src="{{category.icon.retina.web.active}}" alt="" width="70" height="70"/>
+                </span>
+                <span class="disabled">
+                  <img ng-src="{{category.icon.retina.web.disabled}}" alt="" width="70" height="70"/>
+                </span>
+              </div>
               <span class="text">{{ category.title }}</span>
             </a>
         </div>

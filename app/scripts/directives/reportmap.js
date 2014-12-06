@@ -69,7 +69,6 @@ angular.module('zupWebAngularApp')
                   if (scope.$parent.categoryData.inventory_categories.length == 0)
                   {
                     var categoryIcon = new google.maps.MarkerImage(scope.$parent.categoryData.marker.retina.web, null, null, null, new google.maps.Size(54, 51));
-
                     var marker = new google.maps.Marker(
                     {
                       map: mapProvider.map,
@@ -352,4 +351,34 @@ angular.module('zupWebAngularApp')
 
       }
     };
+  })
+  .directive('currentReportMap', function () {
+    return {
+        restrict: 'A',
+        link : function (scope, element, attrs) {
+            var latn = scope.$eval(attrs.mapLatitude);
+            var long = scope.$eval(attrs.mapLongitude);
+            var markerIcon = angular.element($.parseHTML(attrs.mapMarker));
+            var mapIcon = new google.maps.MarkerImage(markerIcon[0].data, null, null, null, new google.maps.Size(54, 51));
+            var currentLatLng = new google.maps.LatLng(latn, long);
+            var currentMapOptions = {
+                styles: [{}, {'featureType': 'poi.business', 'elementType': 'labels', 'stylers': [{ 'visibility': 'off' }] },{ 'featureType': 'poi.government', 'elementType': 'labels', 'stylers': [{ 'visibility': 'off' }] }, { 'featureType': 'poi.medical', 'elementType': 'labels', 'stylers': [{ 'visibility': 'off' }] }, { 'featureType': 'poi.place_of_worship', 'elementType': 'labels', 'stylers': [{ 'visibility': 'off' }] }, { 'featureType': 'poi.school', 'elementType': 'labels', 'stylers': [{ 'visibility': 'off' }] }, { 'featureType': 'poi.sports_complex', 'elementType': 'labels', 'stylers': [{ 'visibility': 'off' }] }, { 'featureType': 'transit', 'elementType': 'labels', 'stylers': [{ 'visibility': 'off' }, { 'saturation': -100 }, { 'lightness': 42 }] }, { 'featureType': 'road.highway', 'elementType': 'geometry.fill', 'stylers': [{ 'saturation': -100 }, { 'lightness': 47 }] }, { 'featureType': 'landscape', 'stylers': [{ 'lightness': 82 }, { 'saturation': -100 }] }, { 'featureType': 'water', 'stylers': [{ 'hue': '#00b2ff' }, { 'saturation': -21 }, { 'lightness': -4 }] }, { 'featureType': 'poi', 'stylers': [{ 'lightness': 19 }, { 'weight': 0.1 }, { 'saturation': -22 }] }, { 'elementType': 'geometry.fill', 'stylers': [{ 'visibility': 'on' }, { 'lightness': 18 }] }, { 'elementType': 'labels.text', 'stylers': [{ 'saturation': -100 }, { 'lightness': 28 }] }, { 'featureType': 'poi.attraction', 'elementType': 'labels', 'stylers': [{ 'visibility': 'off' }] }, { 'featureType': 'poi.park', 'elementType': 'geometry.fill', 'stylers': [{ 'saturation': 12 }, { 'lightness': 25 }] }, { 'featureType': 'road', 'elementType': 'labels.icon', 'stylers': [{ 'visibility': 'off' }] }, { 'featureType': 'road', 'elementType': 'labels.text', 'stylers': [{ 'lightness': 30 }] }, { 'featureType': 'landscape.man_made', 'elementType': 'labels', 'stylers': [{ 'visibility': 'off' }] }, { 'featureType': 'road.highway', 'elementType': 'geometry', 'stylers': [{ 'saturation': -100 }, { 'lightness': 56 }] }, { 'featureType': 'road.local', 'elementType': 'geometry.fill', 'stylers': [{ 'lightness': 62 }] }, { 'featureType': 'landscape.man_made', 'elementType': 'geometry', 'stylers': [{ 'visibility': 'off' }] }],
+                center: currentLatLng,
+                zoom: 11,
+                scrollwheel: false,
+                mapTypeControl: false,
+                mapTypeControlOptions: {
+                    mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'zup']
+                }
+            };
+            var currentMap = new google.maps.Map(document.getElementById(attrs.id),currentMapOptions);
+            var marker = new google.maps.Marker({
+                position: currentLatLng,
+                animation: google.maps.Animation.DROP,
+                map: currentMap,
+                icon: mapIcon
+            });
+            marker.setMap(currentMap);
+        }
+    }
   });

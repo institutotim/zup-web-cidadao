@@ -36,7 +36,6 @@ angular.module('zupWebAngularApp')
       organizeData: function(stats) {
         statisticsProvider.statuses = [];
         statisticsProvider.totalCount = 0;
-
         // merge all categories statuses in one array with no duplicates
         for (var i = stats.length - 1; i >= 0; i--) {
           for (var j = stats[i].statuses.length - 1; j >= 0; j--) {
@@ -52,15 +51,20 @@ angular.module('zupWebAngularApp')
               }
             };
 
-            if (!found)
-            {
-              statisticsProvider.totalCount += stats[i].statuses[j].count;
-              stats[i].statuses[j].percentage = 100 * stats[i].statuses[j].count / statisticsProvider.totalCount;
-
-              statisticsProvider.statuses.push(stats[i].statuses[j])
+            if (!found) {
+              statisticsProvider.statuses.push(stats[i].statuses[j]);
             }
           };
         };
+
+        // !DRY
+        for (var i = 0; i < this.statuses.length; i++) {
+            statisticsProvider.totalCount += this.statuses[i].count;
+        }
+
+        for (var i = 0; i < this.statuses.length; i++) {
+            this.statuses[i].percentage = (this.statuses[i].count / statisticsProvider.totalCount ) * 100;
+        }
 
         $scope.statuses = this.statuses;
       },
@@ -70,7 +74,7 @@ angular.module('zupWebAngularApp')
         statisticsProvider.endDate = period.endDate;
 
         statisticsProvider.getStats();
-      },
+      }
     };
 
     $scope.filterReportsByPeriod = statisticsProvider.filterReportsByPeriod;

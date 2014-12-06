@@ -2,12 +2,17 @@
 
 angular.module('zupWebAngularApp')
 
-.factory('Error', function ($modal) {
+.factory('Error', ['$rootScope', '$modal', function ($rootScope, $modal) {
 
   return {
     // Show a pretty modal with debug information about the error
     showDetails: function (response) {
-
+      if (response.status == '401') {
+        var forceReload = true;
+        var reloginMsg = true;
+        $rootScope.login(null, forceReload, reloginMsg);
+        return false;
+      }
       $modal.open({
         templateUrl: 'views/modal_error.html',
         resolve: {
@@ -15,9 +20,8 @@ angular.module('zupWebAngularApp')
             return response;
           }
         },
-        controller: ['$scope', '$modalInstance', 'response', function($scope, $modalInstance, response) {
+        controller: ['$scope', '$modalInstance', 'response',  function($scope, $modalInstance, response) {
           $scope.response = response;
-
           $scope.ok = function () {
             window.location.reload();
           };
@@ -25,5 +29,4 @@ angular.module('zupWebAngularApp')
       });
     }
   };
-
-});
+}]);

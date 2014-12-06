@@ -5,8 +5,8 @@ angular.module('zupWebAngularApp')
   var reportId = $routeParams.reportId;
 
   $scope.loadingReports = true;
-
   Reports.getMyItems(function(data) {
+
     var reports = $scope.reports = data.reports;
     $scope.currentReport = data.reports[0];
 
@@ -16,6 +16,7 @@ angular.module('zupWebAngularApp')
         if (reports[i].id == reportId)
         {
           $scope.currentReport = reports[i];
+
         }
       };
     }

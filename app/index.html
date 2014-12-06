@@ -2,6 +2,7 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if IE 9]>         <html class="no-js ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
   <head>
     <meta charset="utf-8">
@@ -20,6 +21,7 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
+
   <body ng-app="zupWebAngularApp" change-body-style>
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -42,6 +44,7 @@
     <!--[if lt IE 9]>
     <script src="bower_components/es5-shim/es5-shim.js"></script>
     <script src="bower_components/json3/lib/json3.min.js"></script>
+
     <![endif]-->
 
     <!-- build:js scripts/vendor.js -->
@@ -70,6 +73,7 @@
     <script src="scripts/services/Auth.js"></script>
     <script src="scripts/services/Users.js"></script>
     <script src="scripts/services/Error.js"></script>
+    <script src="scripts/services/Feedback.js"></script>
     <script src="scripts/directives/genericInput.js"></script>
     <script src="scripts/services/Alert.js"></script>
     <script src="scripts/services/Reports.js"></script>
@@ -79,6 +83,7 @@
     <script src="scripts/directives/filterReportsCategory.js"></script>
     <script src="scripts/controllers/reports.js"></script>
     <script src="scripts/controllers/account.js"></script>
+    <script src="scripts/controllers/feedback.js"></script>
     <script src="scripts/directives/changeBodyStyle.js"></script>
     <script src="scripts/directives/searchMap.js"></script>
     <script src="scripts/directives/searchReportMap.js"></script>
@@ -86,9 +91,12 @@
     <script src="scripts/directives/ngThumb.js"></script>
     <script src="scripts/controllers/statistics.js"></script>
     <script src="scripts/directives/knob.js"></script>
+    <script src="scripts/directives/feedback.js"></script>
     <script src="scripts/services/Inventory.js"></script>
     <script src="scripts/directives/filterItems.js"></script>
+    <script src="scripts/directives/spinner.js"></script>
     <script src="scripts/controllers/password_reset.js"></script>
+    <script src="bower_components/angular-i18n/angular-locale_pt-br.js"></script>
     <!-- endbuild -->
 </body>
 </html>
