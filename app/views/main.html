@@ -77,18 +77,30 @@
             </div>
 
             <h6>Exibir pontos de</h6>
-            <a href="" class="sidebar_filter inventory_category_icon" ng-repeat="category in inventoryCategories" ng-click="filterItemsByInventoryId(category.id)" filter-items>
-              <!--<span class="image"></span>-->
-              <div class="icons-wrapper">
-                <span class="enabled">
-                  <img ng-src="{{category.icon.retina.web.active}}" alt="" width="70" height="70"/>
-                </span>
-                <span class="disabled">
-                  <img ng-src="{{category.icon.retina.web.disabled}}" alt="" width="70" height="70"/>
-                </span>
-              </div>
-              <span class="text">{{ category.title }}</span>
-            </a>
+
+            <ul class="nav nav-pills nav-stacked">
+              <li class="dropdown">
+                <a class="dropdown-toggle" href="">
+                    Categorias <img src="images/filtros_chevron_normal.png">
+                </a>
+
+                <ul class="dropdown-menu right">
+                    <li ng-repeat="category in inventoryCategories">
+                        <a href="" class="inventory_category_icon" ng-click="filterItemsByInventoryId(category.id)" filter-items>
+                        <div class="icons-wrapper">
+                          <span class="enabled">
+                            <img ng-src="{{category.icon.retina.web.active}}" alt="" width="30" height="30"/>
+                          </span>
+                          <span class="disabled">
+                            <img ng-src="{{category.icon.retina.web.disabled}}" alt="" width="30" height="30"/>
+                          </span>
+                        </div>
+
+                        <span class="name">{{ category.title }}</span>
+                      </a>
+                    </li>
+                </ul>
+            </ul>
         </div>
 
         <div class="col-xs-8 map">

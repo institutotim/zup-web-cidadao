@@ -415,6 +415,58 @@ header {
           }
         }
     }
+
+    a.inventory_category_icon {
+        span.name {
+          vertical-align: top;
+          line-height: 32px;
+          margin-left: 9px;
+        }
+
+        .icons-wrapper {
+            position: relative;
+        }
+
+        span.image, span.enabled, span.disabled, .icons-wrapper {
+          display: inline-block;
+          width: 30px;
+          height: 30px;
+        }
+
+        span.enabled, span.disabled {
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+
+        span.enabled {
+          opacity: 0;
+        }
+
+        &:hover {
+          color: #808080;
+          opacity: 1;
+
+          span.enabled {
+            opacity: 1;
+          }
+          span.disabled {
+            opacity: 0;
+          }
+        }
+
+        &.active {
+          color: #fff;
+          opacity: 1;
+
+          span.enabled {
+            opacity: 1;
+          }
+          span.disabled {
+            opacity: 0;
+          }
+        }
+    }
 }
 
 .aside .nav-pills { margin: 25px 0; }
