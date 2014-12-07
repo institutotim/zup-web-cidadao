@@ -1101,6 +1101,12 @@ input.knob:after { content: "%" !important; }
             }
         }
 
+        .report-is-confidential {
+          background: #FFF5C5;
+          margin: 15px 40px;
+          padding: 10px;
+        }
+
         .checkboxes {
             margin: 35px 0 0 0;
             color: #333;
