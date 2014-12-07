@@ -17,6 +17,16 @@ angular.module('zupWebAngularApp', [
       templateUrl: 'views/main.html',
       controller: 'MainCtrl'
     })
+    .when('/report/:reportId', {
+      templateUrl: 'views/main.html',
+      controller: 'MainCtrl',
+      access: { logged: true }
+    })
+    .when('/item/:itemId', {
+      templateUrl: 'views/main.html',
+      controller: 'MainCtrl',
+      access: { logged: true }
+    })
     .when('/reports', {
       templateUrl: 'views/reports.html',
       controller: 'ReportsCtrl',
@@ -53,7 +63,7 @@ angular.module('zupWebAngularApp', [
       // change URL on external requests
       'request': function(config) {
         // temparary fix -- replace with http://staging.zup.sapience.io later
-        config.url = config.url.replace('{base_url}', 'http://staging.zup.sapience.io');
+        config.url = config.url.replace('{base_url}', 'http://zup-staging.cognita.ntxdev.com.br');
 
         // get token and pass to the server with header X-App-Token
         var token = null;
