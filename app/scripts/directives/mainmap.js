@@ -281,6 +281,12 @@ angular.module('zupWebAngularApp')
               if (type === 'report')
               {
                 category = $rootScope.getReportCategory(item.category_id);
+
+                if (!category)
+                {
+                  return;
+                }
+
                 iconSize = new google.maps.Size(54, 51);
                 viewAction = $rootScope.viewReport;
                 itemType = 'report';
@@ -300,6 +306,12 @@ angular.module('zupWebAngularApp')
               else
               {
                 category = $rootScope.getInventoryCategory(item.inventory_category_id);
+
+                if (!category)
+                {
+                  return;
+                }
+
                 iconSize = new google.maps.Size(54, 51);
                 viewAction = $rootScope.viewItem;
                 itemType = 'item';

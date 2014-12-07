@@ -190,10 +190,22 @@ angular.module('zupWebAngularApp', [
 
   // Helper
   $rootScope.getReportCategory = function(id) {
-    for (var i = $rootScope.reportCategories.length - 1; i >= 0; i--) {
-      if ($rootScope.reportCategories[i].id === id)
+    var categories = $rootScope.reportCategories;
+
+    for (var i = categories.length - 1; i >= 0; i--) {
+      if (categories[i].id === id)
       {
-        return $rootScope.reportCategories[i];
+        return categories[i];
+      }
+
+      if (categories[i].subcategories.length !== 0)
+      {
+        for (var j = categories[i].subcategories.length - 1; j >= 0; j--) {
+          if (categories[i].subcategories[j].id === id)
+          {
+            return categories[i].subcategories[j];
+          }
+        };
       }
     }
 
