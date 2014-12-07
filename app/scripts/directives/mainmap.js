@@ -276,7 +276,7 @@ angular.module('zupWebAngularApp')
 
               var infowindow = mapProvider.infoWindow;
 
-              var category, iconSize, viewAction, itemType, visibility = false;
+              var category, iconSize, iconImg, viewAction, itemType, visibility = false;
 
               if (type === 'report')
               {
@@ -288,6 +288,7 @@ angular.module('zupWebAngularApp')
                 }
 
                 iconSize = new google.maps.Size(54, 51);
+                iconImg = category.marker.retina.web;
                 viewAction = $rootScope.viewReport;
                 itemType = 'report';
 
@@ -312,7 +313,18 @@ angular.module('zupWebAngularApp')
                   return;
                 }
 
-                iconSize = new google.maps.Size(54, 51);
+                // check icon by category.plot_format
+                if (category.plot_format === "marker")
+                {
+                  iconSize = new google.maps.Size(54, 51);
+                  iconImg = category.marker.retina.web;
+                }
+                else
+                {
+                  iconSize = new google.maps.Size(15, 15);
+                  iconImg = category.pin.retina.web;
+                }
+
                 viewAction = $rootScope.viewItem;
                 itemType = 'item';
 
@@ -324,7 +336,7 @@ angular.module('zupWebAngularApp')
                 }
               }
 
-              var categoryIcon = new google.maps.MarkerImage(category.marker.retina.web, null, null, null, iconSize);
+              var categoryIcon = new google.maps.MarkerImage(iconImg, null, null, null, iconSize);
 
               var pinOptions = {
                 position: LatLng,

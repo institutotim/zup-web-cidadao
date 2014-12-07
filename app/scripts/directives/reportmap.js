@@ -280,13 +280,27 @@ angular.module('zupWebAngularApp')
               var infowindow = new google.maps.InfoWindow();
 
               var category = $rootScope.getInventoryCategory(item.inventory_category_id);
-              var iconSize = new google.maps.Size(15, 15);
+
+              // check icon by category.plot_format
+              var iconSize, iconImg;
+
+              if (category.plot_format === "marker")
+              {
+                iconSize = new google.maps.Size(54, 51);
+                iconImg = category.marker.retina.web;
+              }
+              else
+              {
+                iconSize = new google.maps.Size(15, 15);
+                iconImg = category.pin.retina.web;
+              }
+
               var viewAction = $rootScope.viewItem;
               var itemType = 'item';
 
               var pos = mapProvider.hiddenInventoryCategories.indexOf(item.inventory_category_id);
 
-              var categoryIcon = new google.maps.MarkerImage(category.pin.retina.web, null, null, null, iconSize);
+              var categoryIcon = new google.maps.MarkerImage(iconImg, null, null, null, iconSize);
 
               var pinOptions = {
                 position: LatLng,
