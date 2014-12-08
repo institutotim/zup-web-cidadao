@@ -450,15 +450,43 @@ angular.module('zupWebAngularApp')
 
             var pos = mapProvider.hiddenReportsCategories.indexOf(reportCategoryId);
 
+            var subcategories = $rootScope.getReportCategory(reportCategoryId).subcategories;
+
             if (~pos)
             {
               mapProvider.toggleReportCategoryVisibility(reportCategoryId, 'show');
               mapProvider.hiddenReportsCategories.splice(pos, 1);
+
+              if (reportCategoryId.length !== 0)
+              {
+                for (var i = subcategories.length - 1; i >= 0; i--) {
+                  var subcategoryId = subcategories[i].id;
+
+                  mapProvider.toggleReportCategoryVisibility(subcategoryId, 'show');
+
+                  var p = mapProvider.hiddenReportsCategories.indexOf(subcategoryId);
+
+                  if (~pos)
+                  {
+                    mapProvider.hiddenReportsCategories.splice(subcategoryId);
+                  }
+                };
+              }
             }
             else
             {
               mapProvider.toggleReportCategoryVisibility(reportCategoryId, 'hide');
               mapProvider.hiddenReportsCategories.push(reportCategoryId);
+
+              if (reportCategoryId.length !== 0)
+              {
+                for (var i = subcategories.length - 1; i >= 0; i--) {
+                  var subcategoryId = subcategories[i].id;
+
+                  mapProvider.toggleReportCategoryVisibility(subcategoryId, 'hide');
+                  mapProvider.hiddenReportsCategories.push(subcategoryId);
+                };
+              }
             };
           },
 
@@ -472,11 +500,27 @@ angular.module('zupWebAngularApp')
           },
 
           hideAllReports: function() {
+            var idsToHide = [];
+
             for (var i = $rootScope.reportCategories.length - 1; i >= 0; i--) {
               if (!~mapProvider.hiddenReportsCategories.indexOf($rootScope.reportCategories[i].id))
               {
-                mapProvider.filterReports($rootScope.reportCategories[i].id, true);
+                idsToHide.push($rootScope.reportCategories[i].id);
               }
+
+              if ($rootScope.reportCategories[i].subcategories.length !== 0)
+              {
+                for (var j = $rootScope.reportCategories[i].subcategories.length - 1; j >= 0; j--) {
+                  if (!~mapProvider.hiddenReportsCategories.indexOf($rootScope.reportCategories[i].subcategories[j].id))
+                  {
+                    idsToHide.push($rootScope.reportCategories[i].subcategories[j].id);
+                  }
+                };
+              }
+            };
+
+            for (var i = idsToHide.length - 1; i >= 0; i--) {
+              mapProvider.filterReports(idsToHide[i], true);
             };
           },
 

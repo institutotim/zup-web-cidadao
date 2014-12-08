@@ -42,10 +42,35 @@
             <div ng-hide="!enabledReports">
               <h6>Exibir solicitações de</h6>
 
-              <a href="" class="sidebar_filter active report_category_icon" ng-repeat="category in reportCategories" ng-click="filterByReportCategory(category.id)" filter-reports-category>
-                <span class="image" ng-style="{'background-image':'url(' + category.icon.retina.web.active + ')'}"></span>
-                <span class="text">{{ category.title }}</span>
-              </a>
+              <ul class="nav nav-pills nav-stacked">
+                <li class="dropdown">
+                  <a class="dropdown-toggle" href="">
+                      Categorias <img src="images/filtros_chevron_normal.png">
+                  </a>
+
+                  <ul class="dropdown-menu right">
+                    <li ng-repeat="category in reportCategories">
+                        <a href="" class="report_category_icon active" ng-click="filterByReportCategory(category.id)" filter-reports-category>
+
+                        <div class="icons-wrapper">
+                          <span class="enabled">
+                            <img ng-src="{{category.icon.retina.web.active}}" alt="" width="30" height="30"/>
+                          </span>
+
+                          <span class="disabled">
+                            <img ng-src="{{category.icon.retina.web.disabled}}" alt="" width="30" height="30"/>
+                          </span>
+                        </div>
+
+                        <span class="name">{{ category.title }}</span>
+                      </a>
+
+                      <ul class="submenu">
+                        <li ng-repeat="subcategory in category.subcategories"><a href="" ng-click="filterByReportCategory(subcategory.id)">{{ subcategory.title }}</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+              </ul>
 
               <hr />
 
@@ -65,14 +90,15 @@
               <div class="clearfix"></div>
 
               <ul class="nav nav-pills nav-stacked">
-                  <li class="dropdown">
-                    <a class="dropdown-toggle" href="">
-                        Todos os status <img src="images/filtros_chevron_normal.png">
-                    </a>
-                    <ul class="dropdown-menu right">
-                        <li ng-repeat="status in statuses"><a href="" ng-class="{selected: activeStatus === status.id }" ng-click="filterReportsByStatus(status.id)">{{ status.title }}</a></li>
-                        <li><a href="" ng-class="{selected: activeStatus === null }" ng-click="filterReportsByStatus(null)">Todos os relatos</a></li>
-                    </ul>
+                <li class="dropdown">
+                  <a class="dropdown-toggle" href="">
+                      Todos os status <img src="images/filtros_chevron_normal.png">
+                  </a>
+
+                  <ul class="dropdown-menu right">
+                      <li ng-repeat="status in statuses"><a href="" ng-class="{selected: activeStatus === status.id }" ng-click="filterReportsByStatus(status.id)">{{ status.title }}</a></li>
+                      <li><a href="" ng-class="{selected: activeStatus === null }" ng-click="filterReportsByStatus(null)">Todos os relatos</a></li>
+                  </ul>
               </ul>
             </div>
 
