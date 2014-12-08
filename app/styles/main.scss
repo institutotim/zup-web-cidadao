@@ -854,23 +854,27 @@ input.knob:after { content: "%" !important; }
             .facebook, .twitter, .gplus {
                 float: left;
                 width: 60px;
-                height: 60px; }
+                height: 60px;
+                background: url(../images/social_media.png);
+            }
 
             .facebook {
                 margin-right: 15px;
-                background: url("../images/cadastro_btn_facebook_normal.png");
-                &:hover, &:focus { background: url("../images/cadastro_btn_facebook_hover.png"); }
+
+                &:hover, &:focus { background-position: 0 -60px; }
             }
 
             .twitter {
                 margin-right: 15px;
-                background: url("../images/cadastro_btn_google_normal.png");
-                &:hover, &:focus { background: url("../images/cadastro_btn_google_hover.png"); }
+                background-position: 60px 0;
+
+                &:hover, &:focus { background-position: 60px -60px;}
             }
 
             .gplus {
-                background: url("../images/cadastro_btn_twitter_normal.png");
-                &:hover, &:focus { background: url("../images/cadastro_btn_twitter_hover.png"); }
+                background-position: 120px 0;
+
+                &:hover, &:focus { background-position: 120px -60px; }
             }
         }
     }
