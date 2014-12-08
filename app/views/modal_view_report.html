@@ -1,7 +1,8 @@
 <button type="button" class="close" ng-click="close()"></button>
 <div class="solicitacao" style="height: auto;">
     <div class="padding">
-        <h1>Protocolo {{ report.protocol }}</h1>
+        <h1 ng-show="report.protocol">Protocolo {{ report.protocol }}</h1>
+
         <hr />
         <span class="resolvido" ng-style="{'background-color': status.color }">{{ status.title }}</span>
         <h2>{{ category.title }}</h2>
