@@ -325,7 +325,7 @@ angular.module('zupWebAngularApp')
                   iconImg = category.pin.retina.web;
                 }
 
-                viewAction = $rootScope.viewItem;
+                viewAction = $rootScope.loadItem;
                 itemType = 'item';
 
                 var pos = mapProvider.hiddenInventoryCategories.indexOf(item.inventory_category_id);

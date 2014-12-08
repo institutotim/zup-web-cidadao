@@ -20,10 +20,11 @@ angular.module('zupWebAngularApp')
     var itemPromise = Inventory.getItems({id: itemId, 'display_type': 'full'});
 
     itemPromise.$promise.then(function(response) {
-      var categoryPromise = Inventory.getCategory({id: response.item.inventory_category_id, 'display_type': 'full'});
-
-      categoryPromise.$promise.then(function(categoryResponse) {
-        $rootScope.viewItem(response.item, categoryResponse.category);
+      $rootScope.$watch('isLoading', function() {
+        if ($rootScope.isLoading === false)
+        {
+          $rootScope.loadItem(response.item);
+        }
       });
     });
   }

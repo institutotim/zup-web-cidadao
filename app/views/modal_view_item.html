@@ -13,32 +13,70 @@
 
 <div class="informacoes" ng-show="currentTab == 0">
     <div class="left_column">
-        <div class="padding">
-            <div ng-repeat="section in category.sections">
-              <div ng-show="section.id !== 34" class="separator">{{ section.title }}</div>
+      <div class="padding">
+          <div ng-repeat="section in category.sections">
+            <div ng-show="section.id !== 34" class="separator">{{ section.title }}</div>
 
-              <div ng-repeat="field in section.fields">
-                <h5 ng-show="field.label !== null && field.kind != 'images'">{{ field.label }}</h5>
-                <h5 ng-show="field.label == null && field.kind != 'images'">{{ field.title }}</h5>
-                <p>{{ getDataByInventoryFieldId(field.id) }}</p>
-              </div>
+            <div class="field" ng-repeat="field in section.fields | orderBy:'position'">
+                <h5 ng-show="field.label !== null">{{ field.label }}</h5>
+                <h5 ng-show="field.label == null">{{ field.title }}</h5>
+
+                <!-- special field rendering: images -->
+                <div ng-if="field.kind == 'images'">
+                  Imagens exibidas na coluna ao lado.
+                </div>
+
+                <!-- special field rendering: checkbox -->
+                <div ng-if="field.kind === 'checkbox'">
+                  <ul>
+                    <li ng-repeat="value in getDataByInventoryFieldId(field.id)">{{ value }}</li>
+                  </ul>
+                </div>
+
+                <!-- all other fields -->
+                <div ng-if="field.kind !== 'checkbox' && field.kind !== 'images' && getDataByInventoryFieldId(field.id) && getDataByInventoryFieldId(field.id).length != 0">
+                  <p>{{ getDataByInventoryFieldId(field.id) }}
+
+                  <span ng-if="field.kind == 'meters'">metros</span>
+                  <span ng-if="field.kind == 'centimeters'">cm</span>
+                  <span ng-if="field.kind == 'kilometers'">km</span>
+                  <span ng-if="field.kind == 'years'">anos</span>
+                  <span ng-if="field.kind == 'months'">meses</span>
+                  <span ng-if="field.kind == 'days'">dias</span>
+                  <span ng-if="field.kind == 'hours'">horas</span>
+                  <span ng-if="field.kind == 'seconds'">segundos</span>
+                  <span ng-if="field.kind == 'angle'">ângulo</span></p>
+                </div>
+
+                <p ng-show="field.kind !== 'images' && (!getDataByInventoryFieldId(field.id) || getDataByInventoryFieldId(field.id).length == 0)">
+                  Não preenchido.
+                </p>
+
+                <p ng-show="field.kind == 'images' && (!getDataByInventoryFieldId(field.id) || getDataByInventoryFieldId(field.id).length == 0)">
+                  Sem imagens.
+                </p>
+
+                <div class="cleafix"></div>
             </div>
-        </div>
+          </div>
+      </div>
   </div>
-  <div ng-show="galerias" class="right_column">
+
+  <div ng-show="images" class="right_column">
     <div class="galeria-wrapper">
       <ul class="galeria" ng-style="position">
-       <li class="imagem" ng-repeat="image in galerias">
+        <li class="imagem" ng-repeat="image in images">
           <img ng-src="{{ image.versions.high }}" width="400" spinner-on-load>
-       </li>
+        </li>
       </ul>
+
       <div class="loader"></div>
     </div>
-    <div class="thumbnails" ng-repeat="image in galerias">
+
+    <div class="thumbnails" ng-repeat="image in images">
       <h5 ng-show="$index % 3 == 0">{{ image.titulo }}</h5>
-      <a class="thumb" ng-style="{'background': 'url({{ image.versions.thumb }}) no-repeat center center'}" ng-click="scrollTo($index)" ng-class="{'active': isActive($index)}">
-        <span></span>
-      </a>
+
+      <a class="thumb" ng-style="{'background': 'url({{ image.versions.thumb }}) no-repeat center center'}" ng-click="scrollTo($index)" ng-class="{'active': isActive($index)}"><span></span></a>
     </div>
   </div>
 </div>

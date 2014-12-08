@@ -20,13 +20,11 @@ angular.module('zupWebAngularApp', [
     })
     .when('/report/:reportId', {
       templateUrl: 'views/main.html',
-      controller: 'MainCtrl',
-      access: { logged: true }
+      controller: 'MainCtrl'
     })
     .when('/item/:itemId', {
       templateUrl: 'views/main.html',
-      controller: 'MainCtrl',
-      access: { logged: true }
+      controller: 'MainCtrl'
     })
     .when('/reports', {
       templateUrl: 'views/reports.html',
@@ -516,11 +514,19 @@ angular.module('zupWebAngularApp', [
     });
   };
 
-  $rootScope.viewItemWithReports = function(item, category) {
-    var id = item.inventory_item_id, categoryId = item.inventory_item_category_id;
+  $rootScope.viewItemWithReports = function(item) {
+    var id = item.inventory_item_id;
 
-    Inventory.getItem({ id: id, categoryId: categoryId }, function(data) {
+    Inventory.getItems({ id: id, display_type: 'full' }, function(data) {
       $rootScope.viewItem(data.item, $rootScope.getInventoryCategory(categoryId), true);
+    });
+  },
+
+  $rootScope.loadItem = function(item) {
+    var id = item.id, categoryId = item.inventory_category_id;
+
+    Inventory.getItems({ id: id, display_type: 'full' }, function(data) {
+      $rootScope.viewItem(data.item, $rootScope.getInventoryCategory(categoryId), false);
     });
   },
 
@@ -560,22 +566,35 @@ angular.module('zupWebAngularApp', [
         $scope.thumbs = [];
 
         $scope.getDataByInventoryFieldId = function(id) {
-          for (var i = 0; i < item.data.length; i++) {
-            if (item.data[i].field.id === id) {
-              if (item.data[i].field.kind === 'images') {
-                for (var j = item.data[i].content.length - 1; j >= 0; j--) {
-                  var titulo = item.data[i].field.label;
-                  item.data[i].content[j]['titulo'] = titulo;
-                  $scope.galerias = item.data[i].content;
-                }
-              } else {
-                return item.data[i].content;
-              }
+          for (var i = $scope.item.data.length - 1; i >= 0; i--) {
+            if (typeof $scope.item.data[i].field !== 'undefined' && $scope.item.data[i].field !== null && $scope.item.data[i].field.id === parseInt(id)) // jshint ignore:line
+            {
+              return $scope.item.data[i].content;
             }
-          };
+          }
 
           return null;
         };
+
+        // we get all the item's images
+        var images = [];
+
+        for (var i = $scope.item.data.length - 1; i >= 0; i--) {
+          var data  = $scope.item.data[i];
+
+          if (data.field.kind === 'images')
+          {
+            for (var j = data.content.length - 1; j >= 0; j--) {
+              images.push(data.content[j]);
+            };
+          }
+        };
+
+        if (images.length !== 0)
+        {
+          $scope.images = images;
+        }
+
         $scope.loadingReports = true;
 
         Reports.getReportsByItem({itemId: item.id}, function(data) {
