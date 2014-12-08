@@ -2,6 +2,7 @@
 'use strict';
 
 angular.module('zupWebAngularApp', [
+  'config',
   'ngCookies',
   'ngResource',
   'ngSanitize',
@@ -11,7 +12,7 @@ angular.module('zupWebAngularApp', [
   'angularFileUpload'
 ])
 
-.config(function ($routeProvider, $httpProvider) {
+.config(function ($routeProvider, $httpProvider, ENV) {
   $routeProvider
     .when('/', {
       templateUrl: 'views/main.html',
@@ -63,7 +64,7 @@ angular.module('zupWebAngularApp', [
       // change URL on external requests
       'request': function(config) {
         // temparary fix -- replace with http://staging.zup.sapience.io later
-        config.url = config.url.replace('{base_url}', 'http://zup-staging.cognita.ntxdev.com.br');
+        config.url = config.url.replace('{base_url}', ENV.apiEndpoint);
 
         // get token and pass to the server with header X-App-Token
         var token = null;

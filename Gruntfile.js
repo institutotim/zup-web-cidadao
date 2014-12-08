@@ -18,6 +18,8 @@ module.exports = function (grunt) {
   // Define the configuration for all the tasks
   grunt.initConfig({
 
+    API_URL: process.env.API_URL,
+
     // Project settings
     yeoman: {
       // configurable paths
@@ -187,7 +189,8 @@ module.exports = function (grunt) {
             '<%= yeoman.dist %>/scripts/{,*/}*.js',
             '<%= yeoman.dist %>/styles/{,*/}*.css',
             '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-            '<%= yeoman.dist %>/styles/fonts/*'
+            '<%= yeoman.dist %>/styles/fonts/*',
+            '!<%= yeoman.dist %>/scripts/constants.js',
           ]
         }
       }
@@ -324,6 +327,42 @@ module.exports = function (grunt) {
       ]
     },
 
+    ngconstant: {
+      options: {
+        name: 'config'
+      },
+
+      angularLocal: {
+        options: {
+          dest: '<%= yeoman.app %>/scripts/constants.js',
+          space: '  ',
+          wrap: '"use strict";\n\n {%= __ngModule %}',
+          name: 'config'
+        },
+        constants: {
+          ENV: {
+            name: 'development',
+            apiEndpoint: '<%= API_URL %>'
+          }
+        }
+      },
+
+      angularBuild: {
+        options: {
+          dest: '<%= yeoman.dist %>/scripts/constants.js',
+          space: '  ',
+          wrap: '"use strict";\n\n {%= __ngModule %}',
+          name: 'config'
+        },
+        constants: {
+          ENV: {
+            name: 'production',
+            apiEndpoint: '<%= API_URL %>'
+          }
+        }
+      }
+    },
+
     // By default, your `index.html`'s <!-- Usemin block --> will take care of
     // minification. These next options are pre-configured if you do not wish
     // to use the Usemin blocks.
@@ -368,6 +407,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'bower-install',
+      'ngconstant:angularLocal',
       'concurrent:server',
       'autoprefixer',
       'connect:livereload',
@@ -390,6 +430,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'ngconstant:angularBuild',
     'bower-install',
     'useminPrepare',
     'concurrent:dist',
