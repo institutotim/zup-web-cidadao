@@ -515,7 +515,7 @@ angular.module('zupWebAngularApp', [
   };
 
   $rootScope.viewItemWithReports = function(item) {
-    var id = item.inventory_item_id;
+    var id = item.inventory_item_id, categoryId = item.inventory_category_id;
 
     Inventory.getItems({ id: id, display_type: 'full' }, function(data) {
       $rootScope.viewItem(data.item, $rootScope.getInventoryCategory(categoryId), true);

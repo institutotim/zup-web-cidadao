@@ -499,6 +499,8 @@ header {
   border-radius: 0;
   box-shadow: none;
   text-align: left;
+  overflow: auto;
+  max-height: 280px;
 
   ul.submenu {
     list-style: none;
