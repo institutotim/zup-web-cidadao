@@ -19,6 +19,9 @@ module.exports = function (grunt) {
   grunt.initConfig({
 
     API_URL: process.env.API_URL,
+    MAP_LAT: process.env.MAP_LAT,
+    MAP_LNG: process.env.MAP_LNG,
+    MAP_ZOOM: process.env.MAP_ZOOM,
 
     // Project settings
     yeoman: {
@@ -342,8 +345,11 @@ module.exports = function (grunt) {
         constants: {
           ENV: {
             name: 'development',
-            apiEndpoint: '<%= API_URL %>'
-          }
+            apiEndpoint: '<%= API_URL %>',
+            mapLat: '<%= MAP_LAT %>',
+            mapLng: '<%= MAP_LNG %>',
+            mapZoom: '<%= MAP_ZOOM %>'
+          },
         }
       },
 
@@ -357,8 +363,11 @@ module.exports = function (grunt) {
         constants: {
           ENV: {
             name: 'production',
-            apiEndpoint: '<%= API_URL %>'
-          }
+            apiEndpoint: '<%= API_URL %>',
+            mapLat: '<%= MAP_LAT %>',
+            mapLng: '<%= MAP_LNG %>',
+            mapZoom: '<%= MAP_ZOOM %>'
+          },
         }
       }
     },
