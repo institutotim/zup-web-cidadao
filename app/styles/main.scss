@@ -502,6 +502,10 @@ header {
   overflow: auto;
   max-height: 280px;
 
+  &.bigger-menu {
+    max-height: 500px;
+  }
+
   ul.submenu {
     list-style: none;
     padding: 0px;
