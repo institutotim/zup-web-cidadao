@@ -397,12 +397,27 @@ angular.module('zupWebAngularApp', [
         $scope.formattedAddress = null;
         $scope.policy = false;
 
+        $scope.confirmedCategory = false;
+
+        $scope.selectedCategory = null;
+        $scope.selectedSubcategory = null;
+
         $scope.close = function () {
           $modalInstance.close();
         };
 
         $scope.selectCategory = function(categoryData) {
-          $scope.categoryData = categoryData;
+          $scope.selectedCategory = categoryData;
+          $scope.selectedSubcategory = null;
+        };
+
+        $scope.selectSubcategory = function(categoryData) {
+          $scope.selectedSubcategory = categoryData;
+        };
+
+        $scope.confirmCategory = function() {
+          $scope.confirmedCategory = true;
+          $scope.categoryData = ($scope.selectedSubcategory !== null) ? $scope.selectedSubcategory : $scope.selectedCategory;
         };
 
         var uploader = $scope.uploader = $fileUploader.create({

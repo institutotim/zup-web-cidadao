@@ -3,16 +3,37 @@
     <div class="loadingRequest" ng-show="processingForm"><span><img src="images/loading.gif" /></span></div>
 
     <h1>Nova solicitação</h1>
-    <h3>1. Selecione a categoria</h3>
 
-    <hr />
+    <div ng-hide="confirmedCategory">
+      <h3>1. Selecione a categoria</h3>
 
-    <a href="" class="filtro report_filter" ng-repeat="category in reportCategories" ng-click="selectCategory(category)" report-category-icon>
-        <span class="icon" ng-style="{'background-image':'url(' + category.icon.retina.web.active + ')'}"></span>
-        <span class="text">{{ category.title }}</span>
-    </a>
+      <hr />
 
-    <div ng-hide="categoryData == null">
+      <div class="select-category">
+        <div ng-repeat="category in reportCategories" class="category">
+          <a href="" ng-click="confirmCategory()" class="confirm" ng-show="category.subcategories.length == 0 && category == selectedCategory">Confirmar</a>
+
+          <div class="clearfix"></div>
+
+          <a href="" class="filtro report_filter" ng-click="selectCategory(category)" ng-class="{'active': category == selectedCategory}">
+            <span class="icon" ng-style="{'background-image':'url(' + category.icon.retina.web.active + ')'}"></span>
+            <span class="text">{{ category.title }}</span>
+          </a>
+
+          <div class="subcategories" ng-show="category.subcategories.length !== 0 && category == selectedCategory">
+            <ul>
+              <li ng-repeat="subcategory in category.subcategories" ng-class="{'active': selectedSubcategory == subcategory}"><a href="" ng-click="selectSubcategory(subcategory)">{{ subcategory.title }}</a></li>
+            </ul>
+
+            <a href="" ng-click="confirmCategory()" class="confirm-subcategory">Confirmar</a>
+
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div ng-show="confirmedCategory">
         <h3 ng-hide="categoryData.inventory_categories.length == 0">2. Clique no ponto exato que deseja fazer a solicitação.</h3>
         <h3 ng-show="categoryData.inventory_categories.length == 0">2. Digite o endereço ou arraste o marcador até a posição exata.</h3>
 

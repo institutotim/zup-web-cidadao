@@ -56,7 +56,7 @@ angular.module('zupWebAngularApp')
 
           setListeners: function() {
             // refresh map when shown
-            scope.$watch('categoryData', function () {
+            scope.$watch('confirmedCategory', function () {
               mapProvider.createMap();
 
               setTimeout(function() {
