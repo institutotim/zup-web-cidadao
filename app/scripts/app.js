@@ -530,7 +530,7 @@ angular.module('zupWebAngularApp', [
   };
 
   $rootScope.viewItemWithReports = function(item) {
-    var id = item.inventory_item_id, categoryId = item.inventory_category_id;
+    var id = item.inventory_item_id, categoryId = item.inventory_item_category_id;
 
     Inventory.getItems({ id: id, display_type: 'full' }, function(data) {
       $rootScope.viewItem(data.item, $rootScope.getInventoryCategory(categoryId), true);
@@ -546,6 +546,8 @@ angular.module('zupWebAngularApp', [
   },
 
   $rootScope.viewItem = function(item, category, viewReports) {
+    console.log(item, category, viewReports);
+
     $modal.open({
       templateUrl: 'views/modal_view_item.html',
       windowClass: 'modal_view_item',
