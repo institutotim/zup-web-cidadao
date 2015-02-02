@@ -126,7 +126,7 @@ angular.module('zupWebAngularApp')
               'position[latitude]': options.center.lat(),
               'position[longitude]': options.center.lng(),
               'position[distance]': options.distance,
-              'limit': 100,
+              'limit': 30,
               'zoom': mapProvider.map.getZoom()
             };
 
