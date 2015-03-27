@@ -2,6 +2,6 @@
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://zup-api-boa-vista.cognita.ntxdev.com.br',mapLat:'2.823487',mapLng:'-60.674589',mapZoom:'15'})
+.constant('ENV', {name:'development',apiEndpoint:'http://zup-staging.cognita.ntxdev.com.br',mapLat:'-23.689701',mapLng:'-46.564874',mapZoom:'11'})
 
 ;

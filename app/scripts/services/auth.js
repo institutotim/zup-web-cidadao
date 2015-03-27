@@ -14,7 +14,7 @@ angular.module('zupWebAngularApp')
       if (token !== null && user === null)
       {
         // has token, check it by getting user data
-        var req = $http({method: 'GET', url: '{base_url}/me.json', headers: {'X-App-Token': token }}), that = this;
+        var req = $http({method: 'GET', url: '{base_url}/me', headers: {'X-App-Token': token }}), that = this;
 
         req.success(function(data) {
           // save user data returned by API
