@@ -484,6 +484,7 @@ angular.module('zupWebAngularApp', [
               inventory_item_id: $scope.itemId,
               description: $scope.inputs.description,
               address: $scope.formattedAddress,
+              reference: $scope.reference,
               images: images
             });
 

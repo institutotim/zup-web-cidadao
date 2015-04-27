@@ -1253,12 +1253,29 @@ input.knob:after { content: "%" !important; }
             position: relative;
 
             .search_map {
-                left: 50%;
-                margin-left: -195px;
+              left: 13%;
             }
 
             .reset_map {
-                left: 73%;
+                left: 64%;
+            }
+
+            .reference_map {
+              position: absolute;
+              top: 10px;
+              right: 40px;
+              padding: 13px;
+              width: 150px;
+              height: 50px;
+              border: 2px solid #fff;
+              border-radius: 5px;
+              background-color: #fff;
+              background-clip: padding-box;
+              box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.2);
+              font-weight: 300;
+              font-size: 16px;
+              line-height: 1;
+              transition: all 0.2s ease;
             }
 
             .marker-out-of-bounds {

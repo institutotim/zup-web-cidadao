@@ -73,6 +73,7 @@
                   <span class="aberto" ng-style="{'background-color': currentReport.status.color }">{{ currentReport.status.title }}</span>
                   <h2>{{ currentReport.category.title }}</h2>
                   <p class="muted">{{ currentReport.address }}</p>
+                  <p class="muted" ng-if="currentReport.reference">{{ currentReport.reference }}</p>
                   <b>Enviada {{ currentReport.created_at | date: 'dd/MM/yy HH:mm'}}</b>
               </div><!--/.padding -->
 
@@ -85,7 +86,7 @@
                 <div class="loader"></div>
               </carousel><!--/.carousel -->
               <div ng-if="currentReport.images.length == 0">
-                  <div id="current-report-map" map-latitude="{{ currentReport.position.latitude }}" map-longitude="{{ currentReport.position.longitude }}" map-marker="{{ currentReport.category.marker.retina.web }}" current-report-map></div>
+                <img ng-src="http://maps.googleapis.com/maps/api/staticmap?size=420x340&maptype=roadmap\&markers=icon:{{ currentReport.category.marker.default.web.replace('https', 'http') }}|{{ currentReport.position.latitude }},{{ currentReport.position.longitude }}&sensor=false&key=AIzaSyCsgDC7RbPvhfSCDQgC1R4NXWaT9Rw2VHE">
               </div>
               <div class="padding">
                   <p class="desc">{{ currentReport.description }}</p>
