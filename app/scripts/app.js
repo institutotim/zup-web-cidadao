@@ -562,9 +562,16 @@ angular.module('zupWebAngularApp', [
           }
         }
 
-        if (report.comments_count > 0)
+        //if (report.comments_count > 0)
+        if (true)
         {
-          alert('tem comentarios');
+          $scope.loadingComments = true;
+
+          Reports.getItems({ id: report.id, return_fields: 'comments.id,comments.message,comments.created_at' }, function(data) {
+            $scope.loadingComments = false;
+
+            $scope.comments = data.report.comments;
+          });
         }
       }]
     });

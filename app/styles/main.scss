@@ -1579,6 +1579,35 @@ input.knob:after { content: "%" !important; }
             font-size: 14px;
             line-height: 1.4;
         }
+
+        .report-comments {
+          background: #F3F3F3;
+          padding-top: 10px;
+
+          .comment {
+            margin-bottom: 10px;
+            padding: 15px 0 0 0;
+
+            p {
+              font-size: 16px;
+              color: #676767;
+              font-style: italic;
+              margin: 0 10%;
+            }
+
+            span {
+              color: #676767;
+              margin: 9px 10%;
+              display: block;
+            }
+
+            hr {
+              width: 90%;
+              border-top: 1px solid #CDCDCD;
+              margin: 30px 0 0 10%;
+            }
+          }
+        }
     }
 
     .informacoes {
@@ -2137,6 +2166,35 @@ input.knob:after { content: "%" !important; }
 
       a.right.carousel-control span.icon-next {
           margin-right: -17px;
+      }
+
+      .report-comments {
+        background: #F3F3F3;
+        padding-top: 10px;
+
+        .comment {
+          margin-bottom: 10px;
+          padding: 15px 0 0 0;
+
+          p {
+            font-size: 16px;
+            color: #676767;
+            font-style: italic;
+            margin: 0 10%;
+          }
+
+          span {
+            color: #676767;
+            margin: 9px 10%;
+            display: block;
+          }
+
+          hr {
+            width: 90%;
+            border-top: 1px solid #CDCDCD;
+            margin: 30px 0 0 10%;
+          }
+        }
       }
   }
 

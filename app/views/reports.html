@@ -92,6 +92,16 @@
                   <p class="desc">{{ currentReport.description }}</p>
                   <!--<a href="#" class="desc">Ver detalhes da boca de lobo 28728472</a>-->
               </div><!--/.padding -->
+
+              <div class="report-comments" ng-show="comments">
+                <div class="comment" ng-repeat="comment in comments">
+                  <p>{{ comment.message }}</p>
+
+                  <span>Resposta da prefeitura enviada: {{ comment.created_at | date: 'dd/MM/yy HH:mm'}}</span>
+
+                  <hr />
+                </div>
+              </div>
           </div><!--/.solicitacao -->
 
       </div><!--/.container -->
