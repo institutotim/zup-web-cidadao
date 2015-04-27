@@ -561,6 +561,11 @@ angular.module('zupWebAngularApp', [
             $scope.status = category.statuses[i];
           }
         }
+
+        if (report.comments_count > 0)
+        {
+          alert('tem comentarios');
+        }
       }]
     });
   };
