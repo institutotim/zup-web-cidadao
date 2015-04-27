@@ -490,7 +490,38 @@ angular.module('zupWebAngularApp', [
 
             newReport.$save(function(data) {
               $modalInstance.close();
-              Alert.show('Relato criado com sucesso', 'Solicitação enviada com sucesso. Agora você pode visualizar o andamento da sua solicitação no menu superior.', function() {
+
+              var msg = 'Você será avisado quando sua solicitação for atualizada. Anote seu protocolo: ' + data.report.protocol + '.';
+
+              if ($rootScope.isFeatureEnabled('show_resolution_time_to_clients') && data.report.category.resolution_time_enabled)
+              {
+                var DAY = 60 * 60 * 24, HOUR = 60 * 60, MINUTE = 60;
+
+                var checkTimeFormat = function(timeInSeconds) {
+                  if (timeInSeconds % DAY == 0)
+                  {
+                    return DAY;
+                  }
+                  else if (timeInSeconds % HOUR == 0)
+                  {
+                    return HOUR;
+                  }
+                  else
+                  {
+                    return MINUTE;
+                  }
+                };
+
+                var timeFormat = checkTimeFormat(data.report.category.resolution_time);
+
+                msg += ' Prazo estimado para a solução: ' + (data.report.category.resolution_time / timeFormat);
+
+                if (timeFormat == DAY) msg +=  ' dias.';
+                else if (timeFormat == HOUR) msg +=  ' horas.';
+                else if (timeFormat == MINUTE) msg +=  ' minutos.';
+              }
+
+              Alert.show('Solicitação enviada com sucesso.', msg, function() {
                 $location.path('/reports/view/' + data.report.id);
               });
             }, function(response) {
