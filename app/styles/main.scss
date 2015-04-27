@@ -1260,6 +1260,17 @@ input.knob:after { content: "%" !important; }
             .reset_map {
                 left: 73%;
             }
+
+            .marker-out-of-bounds {
+              position: absolute;
+              bottom: 0px;
+              width: 100%;
+              padding: 10px 0 10px 0;
+              text-align: center;
+              background: #FD5A48;
+              z-index: 800;
+              color: #FFF;
+            }
         }
 
         .report-is-confidential {

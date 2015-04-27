@@ -3,7 +3,7 @@
 'use strict';
 
 angular.module('zupWebAngularApp')
-  .directive('reportMap', function ($timeout, $q, $rootScope, Inventory, $compile, ENV) {
+  .directive('reportMap', function ($timeout, $q, $rootScope, Inventory, Reports, $compile, ENV) {
     return {
       restrict: 'A',
       link: function postLink(scope, element) {
@@ -139,6 +139,14 @@ angular.module('zupWebAngularApp')
 
                 scope.$apply();
               }
+            });
+
+            // we verify if the marker is inside bounds
+            var verifyMarkerInsideBoundsPromise = Reports.validateMarker({ longitude: lng, latitude: lat });
+
+            verifyMarkerInsideBoundsPromise.$promise.then(function(response) {
+              if (!response.inside_boundaries) scope.markerOutOfBounds = true;
+              else scope.markerOutOfBounds = false;
             });
           },
 

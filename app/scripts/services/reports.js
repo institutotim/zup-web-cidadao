@@ -10,6 +10,7 @@ angular.module('zupWebAngularApp')
       'save': { url: '{base_url}/reports/:categoryId/items', method: 'POST', params: { categoryId:'@categoryId' } },
       'getMyItems': {url: '{base_url}/reports/users/me/items', method: 'GET'},
       'getReportsByItem': { url: '{base_url}/reports/inventory/:itemId/items', method: 'GET', params: { itemId: '@itemId' } },
-      'getStats': {url: '{base_url}/reports/stats', method: 'GET'}
+      'getStats': {url: '{base_url}/reports/stats', method: 'GET'},
+      'validateMarker': {url: '{base_url}/utils/city-boundary/validate', method: 'GET'}
     });
 });

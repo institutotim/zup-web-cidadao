@@ -39,10 +39,13 @@
 
         <div class="report_map">
           <div id="map-canvas" report-map></div>
+
           <form role="form">
               <input type="name" class="search_map" placeholder="Pesquisar" ng-model="$parent.formattedAddress" search-report-map>
               <input type="reset" class="reset_map" value="x">
           </form>
+
+          <div class="marker-out-of-bounds" ng-show="markerOutOfBounds">O endereço não pertence ao município.</div>
         </div>
 
         <!--<span class="formattedAddress">{{ formattedAddress }}</span>-->
