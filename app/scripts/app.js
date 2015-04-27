@@ -99,7 +99,7 @@ angular.module('zupWebAngularApp', [
   delete $httpProvider.defaults.headers.common['X-Requested-With'];
 })
 
-.run(['$rootScope', '$q', '$location', 'Auth', '$modal', 'Reports', 'Inventory', function($rootScope, $q, $location, Auth, $modal, Reports, Inventory) {
+.run(['$rootScope', '$q', '$location', 'Auth', '$modal', 'Reports', 'Inventory', 'Flags', function($rootScope, $q, $location, Auth, $modal, Reports, Inventory, Flags) {
     $rootScope.$on('$routeChangeStart', function(e, curr, prev) {
 
     if (typeof prev === 'undefined')
@@ -159,8 +159,24 @@ angular.module('zupWebAngularApp', [
         $rootScope.inventoryCategories = data.categories;
       });
 
+      var flags = Flags.getAll();
+
+      flags.$promise.then(function(response) {
+        $rootScope.featureFlags = response.flags;
+      });
+
+      $rootScope.isFeatureEnabled = function(feature) {
+        if (typeof $rootScope.featureFlags === 'undefined') return false;
+
+        for (var i = $rootScope.featureFlags.length - 1; i >= 0; i--) {
+          if ($rootScope.featureFlags[i].name == feature && $rootScope.featureFlags[i].status === 'enabled') return true;
+        };
+
+        return false;
+      };
+
       // Wait for all categories to load
-      $q.all([reportsCategories.$promise, inventoryCategories.$promise, check.$promise]).then(function() {
+      $q.all([reportsCategories.$promise, inventoryCategories.$promise, check.$promise, flags.$promise]).then(function() {
         $rootScope.isLoading = false;
       });
     }
