@@ -107,6 +107,11 @@
                   <input type="text" class="form-control" id="input_district" name="district" ng-model="me.district" generic-input required ng-class="{'has-error' : userAccount.district.$invalid}">
               </div>
 
+              <div class="form-group">
+                <label for="input_district">Cidade</label>
+                <input type="text" class="form-control" id="input_city" name="city" ng-model="me.city" generic-input required ng-class="{'has-error' : userAccount.city.$invalid}">
+              </div>
+
               <div class="text-center">
                   <button type="submit" class="btn btn-default btn-azul btn-signup" ng-disabled="userAccount.$invalid">Salvar</button>
               </div>
