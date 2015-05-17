@@ -22,11 +22,6 @@ body {
 
 body:after {
   display: none;
-
-}
-
-* {
-  outline: none;
 }
 
 body.statistics { background-color: #f3f3f3; }
@@ -1920,7 +1915,10 @@ input.knob:after { content: "%" !important; }
     font-size: 12px
   }
 
-  .container { width: 960px !important;}
+  .container {
+    width: 960px !important;
+    display: flex;
+  }
 
   header {
       margin-bottom: 40px;
@@ -1955,7 +1953,6 @@ input.knob:after { content: "%" !important; }
       padding-right: 0;
       padding-left: 0;
       width: 200px;
-      height: 820px;
       background-color: #333;
 
       .padding { padding: 40px 15px 0 15px; }
@@ -2021,7 +2018,6 @@ input.knob:after { content: "%" !important; }
       padding-right: 0;
       padding-left: 0;
       width: 330px;
-      height: 820px;
       border-right: 1px solid #ccc;
       background-color: #fff;
 
@@ -2074,7 +2070,6 @@ input.knob:after { content: "%" !important; }
       padding-right: 0;
       padding-left: 0;
       width: 400px;
-      height: 820px;
       background-color: #fafafa;
 
       img { max-width: 100%; }
@@ -2204,7 +2199,6 @@ input.knob:after { content: "%" !important; }
       padding-top: 70px;
       padding-bottom: 70px;
       width: 730px;
-      height: 820px;
       background-color: #fff;
 
       form {
