@@ -148,13 +148,19 @@ header {
     .logo {
         display: inline-block;
         float: left;
-        padding: 20px 0 0 15px;
+        padding: 5px 0 5px 15px;
+
+        a {
+          display: block;
+          float: left;
+        }
 
         span {
           display: block;
-          width: 136px;
-          height: 33px;
-          background: url(../images/logo_vcsbc-blue.png);
+          width: 238px;
+          height: 60px;
+          background: url(../images/logo_vcsbc-blue.png) no-repeat;
+          background-size: cover;
         }
     }
 
@@ -1928,8 +1934,13 @@ input.knob:after { content: "%" !important; }
 
       .logo {
         float: left;
-        padding: 20px 0 0 0;
+        padding: 5px 0 5px 0;
         width: auto;
+
+        span {
+          width: 231px;
+          height: 58px;
+        }
       }
 
       .navigation {
