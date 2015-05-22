@@ -16,12 +16,12 @@
     </div><!--/.navigation -->
 
     <div class="account" ng-hide="!enabledReports">
-      <a href="" class="btn btn-azul" ng-click="newReport()" ng-show="logged && isFeatureEnabled('create_report_clients')"><span class="solic-icon"></span> Faça uma solicitação</a>
-      <a href="" class="btn btn-azul" ng-click="login(true)" ng-hide="logged || !isFeatureEnabled('create_report_clients')"><span class="solic-icon"></span> Faça uma solicitação</a>
+      <a href="" class="btn btn-azul" ng-click="newReport()" ng-show="logged && isFeatureEnabled('create_report_clients')"><span class="solic-icon"></span> Nova solicitação</a>
+      <a href="" class="btn btn-azul" ng-click="login(true)" ng-hide="logged || !isFeatureEnabled('create_report_clients')"><span class="solic-icon"></span> Nova solicitação</a>
       <a href="" class="btn btn-auth" ng-click="login()" ng-hide="logged">Entrar ou criar conta</a>
 
       <div class="dropdown" ng-show="logged">
-        <a data-toggle="dropdown" href="" class="btn-logged-in">{{ me.name }} <span class="arrow"></span>&nbsp;</a>
+        <a data-toggle="dropdown" href="" class="btn-logged-in"><span class="name">{{ me.name }}</span> <span class="arrow"></span>&nbsp;</a>
 
         <ul class="dropdown-menu">
           <li><a href="#/reports">Minhas solicitações</a></li>

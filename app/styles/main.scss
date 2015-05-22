@@ -61,6 +61,8 @@ $blueButton: #29b3db;
       height: 25px;
       margin-right: 10px;
       background: url(../images/solicitacao.png);
+      position: relative;
+      top: 2px;
     }
 
     &:hover {
@@ -228,6 +230,16 @@ header {
 
    .dropdown {
         display: inline-block;
+    }
+
+    span.name {
+      max-width: 133px;
+      display: inline-block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      position: relative;
+      top: 4px;
     }
 
     .dropdown.open > a { color: $blueNavigation; }
@@ -1245,6 +1257,7 @@ input.knob:after { content: "%" !important; }
             box-shadow: none;
             color: #000;
             font-size: 16px;
+            resize: none;
 
             &:hover, &:focus {
                 border-color: #2ab4dc;
@@ -1922,7 +1935,7 @@ input.knob:after { content: "%" !important; }
   }
 
   .container {
-    width: 960px !important;
+    width: 930px !important;
     display: flex;
   }
 
@@ -1952,7 +1965,7 @@ input.knob:after { content: "%" !important; }
       .account {
         float: right;
         padding: 13px 0 0 0;
-        width: auto;
+        width: 438px;
       }
   }
 
@@ -1971,7 +1984,8 @@ input.knob:after { content: "%" !important; }
       h3 {
           margin-top: 0;
           color: #ccc;
-          font-weight: 300; }
+          font-weight: 300;
+          overflow: hidden; }
 
       b {
           color: #fff;
@@ -2661,4 +2675,8 @@ body.modal-open {
   left: 50%;
   margin-top: -15px;
   margin-left: -15px;
+}
+
+#content .container {
+  width: 930px;
 }
