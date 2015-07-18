@@ -61,7 +61,7 @@ angular.module('zupWebAngularApp', [
     return {
       // change URL on external requests
       'request': function(config) {
-        // temparary fix -- replace with http://staging.zup.sapience.io later
+        // temporary fix -- replace with http://staging.zup.sapience.io later
         config.url = config.url.replace('{base_url}', ENV.apiEndpoint);
 
         // get token and pass to the server with header X-App-Token
