@@ -157,6 +157,10 @@ angular.module('zupWebAngularApp', [
       // Get inventory categories
       var inventoryCategories = Inventory.get({'display_type': 'full'}, function(data) {
         $rootScope.inventoryCategories = data.categories;
+
+        if(data.categories && data.categories.length > 0) {
+          $rootScope.enabledInventory = true;
+        }
       });
 
       var flags = Flags.getAll();

@@ -22,11 +22,6 @@ body {
 
 body:after {
   display: none;
-
-}
-
-* {
-  outline: none;
 }
 
 body.statistics { background-color: #f3f3f3; }
@@ -66,6 +61,8 @@ $blueButton: #29b3db;
       height: 25px;
       margin-right: 10px;
       background: url(../images/solicitacao.png);
+      position: relative;
+      top: 2px;
     }
 
     &:hover {
@@ -153,13 +150,19 @@ header {
     .logo {
         display: inline-block;
         float: left;
-        padding: 20px 0 0 15px;
+        padding: 5px 0 5px 15px;
+
+        a {
+          display: block;
+          float: left;
+        }
 
         span {
           display: block;
-          width: 136px;
-          height: 33px;
-          background: url(../images/logo_vcsbc-blue.png);
+          width: 238px;
+          height: 60px;
+          background: url(../images/logo_vcsbc-blue.png) no-repeat;
+          background-size: cover;
         }
     }
 
@@ -227,6 +230,16 @@ header {
 
    .dropdown {
         display: inline-block;
+    }
+
+    span.name {
+      max-width: 116px;
+      display: inline-block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      position: relative;
+      top: 4px;
     }
 
     .dropdown.open > a { color: $blueNavigation; }
@@ -1232,7 +1245,7 @@ input.knob:after { content: "%" !important; }
         input#upload { margin: 15px auto; }
 
         textarea {
-            margin: 0 auto;
+            margin-left: 40px;
             width: 620px;
             border-color: #dcdcdc;
             -webkit-border-radius: 5px;
@@ -1244,6 +1257,7 @@ input.knob:after { content: "%" !important; }
             box-shadow: none;
             color: #000;
             font-size: 16px;
+            resize: none;
 
             &:hover, &:focus {
                 border-color: #2ab4dc;
@@ -1920,7 +1934,10 @@ input.knob:after { content: "%" !important; }
     font-size: 12px
   }
 
-  .container { width: 960px !important;}
+  .container {
+    width: 930px !important;
+    display: flex;
+  }
 
   header {
       margin-bottom: 40px;
@@ -1930,8 +1947,13 @@ input.knob:after { content: "%" !important; }
 
       .logo {
         float: left;
-        padding: 20px 0 0 0;
+        padding: 5px 0 5px 0;
         width: auto;
+
+        span {
+          width: 231px;
+          height: 58px;
+        }
       }
 
       .navigation {
@@ -1943,7 +1965,6 @@ input.knob:after { content: "%" !important; }
       .account {
         float: right;
         padding: 13px 0 0 0;
-        width: auto;
       }
   }
 
@@ -1955,7 +1976,6 @@ input.knob:after { content: "%" !important; }
       padding-right: 0;
       padding-left: 0;
       width: 200px;
-      height: 820px;
       background-color: #333;
 
       .padding { padding: 40px 15px 0 15px; }
@@ -1963,7 +1983,8 @@ input.knob:after { content: "%" !important; }
       h3 {
           margin-top: 0;
           color: #ccc;
-          font-weight: 300; }
+          font-weight: 300;
+          overflow: hidden; }
 
       b {
           color: #fff;
@@ -2021,7 +2042,6 @@ input.knob:after { content: "%" !important; }
       padding-right: 0;
       padding-left: 0;
       width: 330px;
-      height: 820px;
       border-right: 1px solid #ccc;
       background-color: #fff;
 
@@ -2074,7 +2094,6 @@ input.knob:after { content: "%" !important; }
       padding-right: 0;
       padding-left: 0;
       width: 400px;
-      height: 820px;
       background-color: #fafafa;
 
       img { max-width: 100%; }
@@ -2204,7 +2223,6 @@ input.knob:after { content: "%" !important; }
       padding-top: 70px;
       padding-bottom: 70px;
       width: 730px;
-      height: 820px;
       background-color: #fff;
 
       form {
@@ -2656,4 +2674,8 @@ body.modal-open {
   left: 50%;
   margin-top: -15px;
   margin-left: -15px;
+}
+
+#content .container {
+  width: 930px;
 }
