@@ -38,6 +38,7 @@ a:active { outline: none; }
 /* Vars */
 $blueNavigation: #2ab4dc;
 $blueButton: #29b3db;
+$grayButton: #A9A9A9;
 
 /* Buttons */
 .btn-azul {
@@ -63,6 +64,17 @@ $blueButton: #29b3db;
       background: url(../images/solicitacao.png);
       position: relative;
       top: 2px;
+    }
+
+    &[disabled] {
+      color: #fff;
+      background: {
+        color: $grayButton;
+        image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDIzNSA1MCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PGxpbmVhckdyYWRpZW50IGlkPSJoYXQwIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjUwJSIgeTE9IjEwMCUiIHgyPSI1MCUiIHkyPSItMS40MjEwODU0NzE1MjAyZS0xNCUiPgo8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMDAwIiBzdG9wLW9wYWNpdHk9IjAuMSIvPgo8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMDAiIHN0b3Atb3BhY2l0eT0iMCIvPgogICA8L2xpbmVhckdyYWRpZW50PgoKPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjIzNSIgaGVpZ2h0PSI1MCIgZmlsbD0idXJsKCNoYXQwKSIgLz4KPC9zdmc+);
+        image: -moz-linear-gradient(bottom, rgba(0,0,0,.1) 0%, rgba(0,0,0,0) 100%);
+        image: -o-linear-gradient(bottom, rgba(0,0,0,.1) 0%, rgba(0,0,0,0) 100%);
+        image: -webkit-linear-gradient(bottom, rgba(0,0,0,.1) 0%, rgba(0,0,0,0) 100%);
+        image: linear-gradient(bottom, rgba(0,0,0,.1) 0%, rgba(0,0,0,0) 100%); }
     }
 
     &:hover {
