@@ -23,7 +23,7 @@ angular.module('zupWebAngularApp')
         var rTime = feedback.report.category.user_response_time;
 
         for (var i = 0; i < feedback.report.status_history.length; i++) {
-          if (feedback.report.status_history[i].new_status.id == 7 ) {
+          if (feedback.report.status_history[i].new_status.final ) {
            inTime = feedback.report.status_history[i].updated_at;
           }
         }
