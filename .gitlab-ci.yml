@@ -4,7 +4,11 @@ stages:
 build:
     stage: build
     script:
+        - "[[ -d /cache/zup-web-angular ]] || (mkdir -p /cache/zup-web-angular/node_modules && mkdir /cache/zup-web-angular/bower_components)"
+        - ln -s /cache/zup-web-angular/node_modules ./node_modules
+        - ln -s /cache/zup-web-angular/bower_components ./app/bower_components
         - npm install && bower install --allow-root
+        - touch .env
         - NODE_ENV=production grunt build
         - git config --global user.name 'Gitlab CI'
         - git config --global user.email 'tecnologia@ntdev.com.br'
