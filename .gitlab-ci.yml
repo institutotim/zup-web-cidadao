@@ -1,3 +1,4 @@
+image: ntxcode/docker-gitlab-dind-frontend:node-0.10
 stages:
     - build
 
