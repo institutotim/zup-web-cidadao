@@ -230,10 +230,11 @@ module.exports = function (grunt) {
     // The following *-min tasks produce minified files in the dist folder
     imagemin: {
       dist: {
+        options: { cache: false },
         files: [{
           expand: true,
           cwd: '<%= yeoman.app %>/images',
-          src: '{,*/}*.{png,jpg,jpeg,gif}',
+          src: '{,*/}*.{png,jpg,jpeg}',
           dest: '<%= yeoman.dist %>/images'
         }]
       }
@@ -325,11 +326,12 @@ module.exports = function (grunt) {
       test: [
         'compass'
       ],
-      dist: [
-        'compass:dist',
-        'imagemin',
-        'svgmin'
-      ]
+      dist: {
+        options: { limit: 4 },
+        tasks: ['compass:dist',
+                'imagemin',
+                'svgmin']
+      }
     },
 
     ngconstant: {
@@ -351,7 +353,7 @@ module.exports = function (grunt) {
             mapLat: '<%= MAP_LAT %>',
             mapLng: '<%= MAP_LNG %>',
             mapZoom: '<%= MAP_ZOOM %>'
-          },
+          }
         }
       },
 
@@ -369,42 +371,8 @@ module.exports = function (grunt) {
             mapLat: '<%= MAP_LAT %>',
             mapLng: '<%= MAP_LNG %>',
             mapZoom: '<%= MAP_ZOOM %>'
-          },
+          }
         }
-      }
-    },
-
-    // By default, your `index.html`'s <!-- Usemin block --> will take care of
-    // minification. These next options are pre-configured if you do not wish
-    // to use the Usemin blocks.
-    // cssmin: {
-    //   dist: {
-    //     files: {
-    //       '<%= yeoman.dist %>/styles/main.css': [
-    //         '.tmp/styles/{,*/}*.css',
-    //         '<%= yeoman.app %>/styles/{,*/}*.css'
-    //       ]
-    //     }
-    //   }
-    // },
-    // uglify: {
-    //   dist: {
-    //     files: {
-    //       '<%= yeoman.dist %>/scripts/scripts.js': [
-    //         '<%= yeoman.dist %>/scripts/scripts.js'
-    //       ]
-    //     }
-    //   }
-    // },
-    // concat: {
-    //   dist: {}
-    // },
-
-    // Test settings
-    karma: {
-      unit: {
-        configFile: 'karma.conf.js',
-        singleRun: true
       }
     }
   });
@@ -431,14 +399,6 @@ module.exports = function (grunt) {
     grunt.task.run(['serve']);
   });
 
-  grunt.registerTask('test', [
-    'clean:server',
-    'concurrent:test',
-    'autoprefixer',
-    'connect:test',
-    'karma'
-  ]);
-
   grunt.registerTask('build', [
     'clean:dist',
     'ngconstant:angularBuild',
@@ -459,7 +419,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', [
     'newer:jshint',
-    'test',
     'build'
   ]);
 };
