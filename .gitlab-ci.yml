@@ -14,11 +14,11 @@ build:
         - git config --global user.name 'Gitlab CI'
         - git config --global user.email 'tecnologia@ntdev.com.br'
         - rm -rf zup-web || true
-        - git clone --depth 1 --branch $CI_BUILD_REF_NAME https://$DOCKER_USERNAME:$DOCKER_PASSWORD@gitlab.com/ntxcode/zup-web.git || git clone --depth 1 --branch master https://$DOCKER_USERNAME:$DOCKER_PASSWORD@gitlab.com/ntxcode/zup-web.git
+        - git clone --depth 1 --branch $CI_BUILD_REF_NAME $ZUP_WEB_REPO_ACCESS || git clone --depth 1 --branch master $ZUP_WEB_REPO_ACCESS
         - cd zup-web
         - "[[ $(git symbolic-ref --short -q HEAD) = $CI_BUILD_REF_NAME ]] || git checkout -b $CI_BUILD_REF_NAME"
         - rm -rf zup-web-angular
         - cp -R ../dist ./zup-web-angular
         - git add --all zup-web-angular
-        - git commit -m "Build $CI_BUILD_ID"
-        - git push origin $CI_BUILD_REF_NAME
+        - git commit -m "Build $CI_BUILD_ID" || true
+        - git push origin $CI_BUILD_REF_NAME || true
