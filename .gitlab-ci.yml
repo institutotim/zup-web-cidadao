@@ -5,6 +5,7 @@ stages:
 build:
     stage: build
     script:
+	- "[ \"$CI_BUILD_REF_NAME\" = \"master\" ] && CI_BUILD_REF_NAME=\"latest\""
         - "[[ -d /cache/zup-web-angular ]] || (mkdir -p /cache/zup-web-angular/node_modules && mkdir /cache/zup-web-angular/bower_components)"
         - ln -s /cache/zup-web-angular/node_modules ./node_modules
         - ln -s /cache/zup-web-angular/bower_components ./app/bower_components
@@ -14,7 +15,7 @@ build:
         - git config --global user.name 'Gitlab CI'
         - git config --global user.email 'tecnologia@ntdev.com.br'
         - rm -rf zup-web || true
-        - git clone --depth 1 --branch $CI_BUILD_REF_NAME $ZUP_WEB_REPO_ACCESS || git clone --depth 1 --branch master $ZUP_WEB_REPO_ACCESS
+        - git clone --depth 1 --branch $CI_BUILD_REF_NAME $ZUP_WEB_REPO_ACCESS || git clone --depth 1 --branch latest $ZUP_WEB_REPO_ACCESS
         - cd zup-web
         - "[[ $(git symbolic-ref --short -q HEAD) = $CI_BUILD_REF_NAME ]] || git checkout -b $CI_BUILD_REF_NAME"
         - rm -rf zup-web-angular
