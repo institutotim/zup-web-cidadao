@@ -175,7 +175,8 @@ header {
           display: block;
           width: 238px;
           height: 60px;
-          background: url(../images/logo.png) no-repeat;
+          background-image: url(../images/logo.png);
+          background-size: cover;
         }
     }
 
