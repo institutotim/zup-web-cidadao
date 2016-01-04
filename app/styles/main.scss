@@ -1328,7 +1328,9 @@ input.knob:after { content: "%" !important; }
         .terms-of-use-alert {
           font-weight: 400;
           font-size: 14px;
+          text-align: left;
           color: #333;
+          margin: 35px 0 0 40px;
         }
 
         .checkboxes {
