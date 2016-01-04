@@ -246,7 +246,7 @@ header {
     }
 
     span.name {
-      max-width: 116px;
+      max-width: 110px;
       display: inline-block;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -1973,7 +1973,6 @@ input.knob:after { content: "%" !important; }
       .navigation {
         float: left;
         padding-top: 20px;
-        width: auto;
       }
 
       .account {
