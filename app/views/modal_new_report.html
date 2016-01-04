@@ -86,20 +86,8 @@
 
             <div class="report-is-confidential" ng-show="categoryData.confidential">As suas informações pessoais serão mantidas em absoluto sigilo e não serão divulgadas.</div>
 
-            <div class="col-xs-6 checkboxes">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" class="show-if-has-terms-and-conditions" value="" ng-model="policy"> Li e concordo com os <a ng-click="termsOfUse()">Termos de Uso</a>
-                    </label>
-                </div>
-            </div>
-
-            <div class="col-xs-6 checkboxes" style="display: none;">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value=""> Compartilhar no Facebook
-                    </label>
-                </div>
+            <div class="col-xs-8 terms-of-use-alert show-if-has-terms-and-conditions">
+              <p>Ao publicar uma solicitação, você concorda com os nossos <a ng-click="termsOfUse()">Termos de Uso</a></p>
             </div>
 
             <button type="submit" class="btn btn-default btn-azul btn-signup btn-forgot btn-publish" ng-disabled="!(policy && (itemId !== null || lat !== null)) || markerOutOfBounds">Publicar</button>
