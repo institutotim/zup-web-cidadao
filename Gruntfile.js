@@ -10,6 +10,7 @@
 require('dotenv').load();
 
 module.exports = function (grunt) {
+  grunt.loadNpmTasks('grunt-text-replace');
 
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
@@ -57,6 +58,20 @@ module.exports = function (grunt) {
           '.tmp/styles/{,*/}*.css',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
+      }
+    },
+
+    replace: {
+      index: {
+        src: ['<%= yeoman.dist %>/index.html'],
+        dest: '<%= yeoman.dist %>/index.html',
+        replacements: [{
+          from: 'PAGE_TITLE',
+          to: process.env.PAGE_TITLE
+        }, {
+          from: 'GOOGLE_ANALYTICS_KEY',
+          to: process.env.GOOGLE_ANALYTICS_KEY
+        }]
       }
     },
 
@@ -149,9 +164,6 @@ module.exports = function (grunt) {
         ignorePath: '<%= yeoman.app %>/'
       }
     },
-
-
-
 
     // Compiles Sass to CSS and generates necessary files if requested
     compass: {
@@ -412,7 +424,8 @@ module.exports = function (grunt) {
     'uglify',
     'rev',
     'usemin',
-    'htmlmin'
+    'htmlmin',
+    'replace'
   ]);
 
   grunt.registerTask('default', [
