@@ -24,6 +24,7 @@ module.exports = function (grunt) {
     MAP_LAT: process.env.MAP_LAT,
     MAP_LNG: process.env.MAP_LNG,
     MAP_ZOOM: process.env.MAP_ZOOM,
+    SERVER_IP: process.env.SERVER_IP || 'localhost',
 
     // Project settings
     yeoman: {
@@ -69,7 +70,7 @@ module.exports = function (grunt) {
       options: {
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost',
+        hostname: '<%= SERVER_IP %>',
         livereload: 35729
       },
       livereload: {
