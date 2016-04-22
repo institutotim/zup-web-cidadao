@@ -246,10 +246,10 @@ angular.module('zupWebAngularApp', [
   // helper to get beginDate and endDate by the slider position
   // Current possible positions: [1, 2, 3, 4]
   $rootScope.getItemsPeriodBySliderPosition = function(pos) {
+    var beginDate = new Date();
     // From 6 months ago to today
     if (pos == 1)
     {
-      var beginDate = new Date();
       beginDate.setHours(0, 0, 0, 0);
       beginDate = new Date(beginDate.getFullYear(), beginDate.getMonth() - 6, 1);
       beginDate = beginDate.toISOString();
@@ -258,7 +258,6 @@ angular.module('zupWebAngularApp', [
     // From 3 months ago to today
     if (pos == 2)
     {
-      var beginDate = new Date();
       beginDate.setHours(0, 0, 0, 0);
       beginDate = new Date(beginDate.getFullYear(), beginDate.getMonth() - 3, 1);
       beginDate = beginDate.toISOString();
@@ -267,7 +266,6 @@ angular.module('zupWebAngularApp', [
     // From 1 month ago to today
     if (pos == 3)
     {
-      var beginDate = new Date();
       beginDate.setHours(0, 0, 0, 0);
       beginDate = new Date(beginDate.getFullYear(), beginDate.getMonth() - 1, 1);
       beginDate = beginDate.toISOString();
@@ -276,7 +274,6 @@ angular.module('zupWebAngularApp', [
     // From 1 week ago to today
     if (pos == 4)
     {
-      var beginDate = new Date();
       beginDate.setDate(beginDate.getDate() - 7);
       beginDate = beginDate.toISOString();
     }
@@ -401,11 +398,24 @@ angular.module('zupWebAngularApp', [
     });
   };
 
-  $rootScope.newReport = function() {
+  $rootScope.$on('$locationChangeSuccess', function () {
+    var result = /\/reports\/categories\/([1-9][0-9]*)\/add/.exec($location.path());
+    if (result) {
+      $rootScope.newReport(parseInt(result[1]));
+    }
+  });
+
+  $rootScope.newReport = function(categoryId) {
+    var category = categoryId ? $rootScope.getReportCategory(categoryId) : null;
     $modal.open({
       templateUrl: 'views/modal_new_report.html',
       windowClass: 'modal_new_report',
-      controller: ['$scope', '$modalInstance', 'Reports', 'Alert', '$location', '$fileUploader', function($scope, $modalInstance, Reports, Alert, $location, $fileUploader) {
+      resolve: {
+        category: function () {
+          return category;
+        }
+      },
+      controller: ['$scope', '$modalInstance', 'Reports', 'Alert', '$location', '$fileUploader', 'category', function($scope, $modalInstance, Reports, Alert, $location, $fileUploader, category) {
         $scope.inputs = {
           description: null
         };
@@ -421,6 +431,11 @@ angular.module('zupWebAngularApp', [
 
         $scope.selectedCategory = null;
         $scope.selectedSubcategory = null;
+
+        if (category !== null) {
+          $scope.confirmedCategory = true;
+          $scope.categoryData = category;
+        }
 
         $scope.close = function () {
           $modalInstance.close();

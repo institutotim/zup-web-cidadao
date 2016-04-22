@@ -4,6 +4,5 @@ node_modules
 .sass-cache
 app/bower_components
 dist/
-app/config/constants.js
+app/scripts/constants.js
 .env
-Procfile_dev
