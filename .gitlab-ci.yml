@@ -6,6 +6,7 @@ build:
     stage: build
     script:
         - "[ \"$CI_BUILD_REF_NAME\" = \"master\" ] && CI_BUILD_REF_NAME=\"latest\""
+        - git config --global http.sslVerify false
         - "[[ -d /cache/zup-web-angular ]] || (mkdir -p /cache/zup-web-angular/node_modules && mkdir /cache/zup-web-angular/bower_components)"
         - ln -s /cache/zup-web-angular/node_modules ./node_modules
         - ln -s /cache/zup-web-angular/bower_components ./app/bower_components
