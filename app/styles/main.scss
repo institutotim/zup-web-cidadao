@@ -2702,3 +2702,43 @@ body.modal-open {
 #content .container {
   width: 930px;
 }
+
+.container {
+  #map-footer {
+    width: 100%;
+    height: 70px;
+    background: #F0F0F0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    .logo-tim {
+      width: 200px;
+      height: 40px;
+      float: right;
+      margin: 18px 0px 0 0;
+      background: url(../images/Logo_Instituto_TIM_RGB.png) no-repeat 10px 15px;
+      background-size: 138px;
+
+      span {
+        font-size: 9px;
+      }
+    }
+  }
+
+  footer {
+    @extend #map-footer;
+
+    position: unset !important;
+    padding-top: 15px;
+    margin-top: 20px;
+
+    .logo-tim {
+      width: 160px;
+      margin-top: 0px;
+      margin-left: auto;
+      margin-right: auto;
+      float: unset;
+    }
+  }
+}
