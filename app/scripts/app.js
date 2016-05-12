@@ -425,7 +425,6 @@ angular.module('zupWebAngularApp', [
         $scope.lat = null;
         $scope.lng = null;
         $scope.formattedAddress = null;
-        $scope.policy = false;
 
         $scope.confirmedCategory = false;
 

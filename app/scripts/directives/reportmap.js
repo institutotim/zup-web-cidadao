@@ -145,8 +145,7 @@ angular.module('zupWebAngularApp')
             var verifyMarkerInsideBoundsPromise = Reports.validateMarker({ longitude: lng, latitude: lat });
 
             verifyMarkerInsideBoundsPromise.$promise.then(function(response) {
-              if (!response.inside_boundaries) scope.markerOutOfBounds = true;
-              else scope.markerOutOfBounds = false;
+              scope.markerOutOfBounds = response.inside_boundaries != undefined && !response.inside_boundaries
             });
           },
 
