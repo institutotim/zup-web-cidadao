@@ -1,0 +1,8 @@
+node_modules
+.idea
+.tmp
+.sass-cache
+app/bower_components
+dist/
+app/scripts/constants.js
+.env
