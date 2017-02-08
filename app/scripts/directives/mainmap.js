@@ -33,7 +33,7 @@ angular.module('zupWebAngularApp')
               }
             }
           },
-
+          namespace_id: 1,
           zoomLevels: {},
           currentZoom: parseInt(ENV.mapZoom),
           map: null,
@@ -108,7 +108,8 @@ angular.module('zupWebAngularApp')
               'limit': 80,
               'zoom': mapProvider.map.getZoom(),
               'begin_date': mapProvider.beginDate,
-              'end_date': mapProvider.endDate
+              'end_date': mapProvider.endDate,
+              'namespace_id': 1
             };
 
             if (mapProvider.currentReportFilterStatus !== null)
@@ -127,7 +128,9 @@ angular.module('zupWebAngularApp')
               'position[longitude]': options.center.lng(),
               'position[distance]': options.distance,
               'limit': 30,
-              'zoom': mapProvider.map.getZoom()
+              'zoom': mapProvider.map.getZoom(),
+              'namespace_id': 1
+
             };
 
             var itemsData = Inventory.getItems(params);

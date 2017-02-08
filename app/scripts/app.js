@@ -127,7 +127,7 @@ angular.module('zupWebAngularApp', [
       });
 
       // Get report categories
-      var reportsCategories = Reports.get({'display_type': 'full'}, function(data) {
+      var reportsCategories = Reports.get({'display_type': 'full', 'namespace_id': 1}, function(data) {
         $rootScope.reportCategories = data.categories;
 
         // merge all categories statuses in one array with no duplicates
@@ -155,7 +155,7 @@ angular.module('zupWebAngularApp', [
       });
 
       // Get inventory categories
-      var inventoryCategories = Inventory.get({'display_type': 'full'}, function(data) {
+      var inventoryCategories = Inventory.get({'display_type': 'full', 'namespace_id': 1}, function(data) {
         $rootScope.inventoryCategories = data.categories;
 
         if(data.categories && data.categories.length > 0) {
