@@ -72,6 +72,7 @@ angular.module('zupWebAngularApp', [
         }]);
 
         config.headers['X-App-Token'] = token;
+        config.headers['X-App-Namespace'] = 1;
 
         // apply all the changes! :)
         return config || $q.when(config);
